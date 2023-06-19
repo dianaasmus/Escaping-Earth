@@ -1,4 +1,5 @@
-class Enemies extends MovableObject {
+class Zombie extends MovableObject {
+    x = 100;
 
     constructor() {
         super().loadImage('img/enemies/zombie.png');
@@ -7,4 +8,5 @@ class Enemies extends MovableObject {
     zombie() {
         console.log('ZOmbie');
     }
+    
 } 
