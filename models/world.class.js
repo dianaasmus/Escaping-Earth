@@ -10,6 +10,8 @@ class World {
     ctx;
 
     constructor(canvas) {
+        canvas.width = 720;
+        canvas.height = 480;
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas; //hier wird auf die canvas-variable in zeile 9 zuruückgegriffen
         this.draw();
@@ -18,13 +20,9 @@ class World {
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-        for (let i = 0; i < this.enemies.length; i++) {
-            const zombie = this.enemies[i];
-
-            // console.log(zombie);
-
-            this.ctx.drawImage(zombie.img, zombie.x, zombie.y, zombie.width, zombie.height); // (x, y, breite, höhe)
-        }
+        this.enemies.forEach(enemy => { //anstatt for-Schleife -> ForEach 
+            this.ctx.drawImage(enemy.img, enemy.x, enemy.y, enemy.width, enemy.height); // (x, y, breite, höhe)
+        })
 
         this.ctx.drawImage(this.character.img, this.character.x, this.character.y, this.character.width, this.character.height); // (x, y, breite, höhe)
 

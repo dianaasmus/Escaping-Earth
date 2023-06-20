@@ -1,9 +1,9 @@
 class MovableObject {
-    x = 50;
-    y = 100;
+    x = 125;
+    y = 350;
     img;
-    height = 30;
-    width = 20;
+    height = 80;
+    width = 40;
 
     loadImage(path) {
         this.img = new Image(); //Fkt von JS - wie: this.img = doc.getEBID... <img id="image">

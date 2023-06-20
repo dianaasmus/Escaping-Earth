@@ -1,11 +1,28 @@
 body {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 400;
+    color: white;
     margin: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    background-image: url('img/bg.jpg');
+    background-size: cover;
+    background-position: bottom;
+    height: 100vh;
+}
+
+h1 {
+    position: absolute;
+    top: 50px;
+    font-size: 3rem;
+    color: white;
+    text-shadow: 0px 0px 14px rgba(126,173,255,0.74);
 }
 
 canvas {
-    background-color: black;
+    background-color: grey;
+    box-shadow: 0px 0px 50px 4px rgba(126,173,255,0.65);
+    border-radius: 20px;
 }
