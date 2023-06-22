@@ -7,16 +7,15 @@ class Character extends MovableObject {
         // 'img/alien/walk5.png',
         // 'img/alien/walk6.png'
     ];
-    currentImage = 0;
 
     //wird immer und als erstes von JS aufgerufen
     constructor() {
         super().loadImage('img/alien/walk1.png'); //Startbild
         this.loadImages(this.IMAGES_WALKING);
-        this.animateImages();
+        this.animate();
     }
 
-    animateImages() {
+    animate() {
         setInterval(() => { //jedes bild wird 1 sekunde angezeigt, dann currentImage++
             let i = this.currentImage % this.IMAGES_WALKING.length; //Modulo: let i = 0 % 6; => Stelle[0] 0, rest 0 ... Stelle [1] 0, rest 1 ... 
             // Stelle [7] = 1, rest 1 => nur 1 wird aufgerufen!! 

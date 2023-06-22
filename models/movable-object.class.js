@@ -5,6 +5,8 @@ class MovableObject {
     height = 80;
     width = 40;
     imageCache = {};
+    currentImage = 0;
+    speed = 0.15;
 
     loadImage(path) {
         this.img = new Image(); //Fkt von JS - wie: this.img = doc.getEBID... <img id="image">
@@ -28,6 +30,8 @@ class MovableObject {
     }
 
     moveLeft() {
-        console.log('Moving left');
+        setInterval(() => {
+            this.x -= this.speed;
+        }, 1000 / 60);
     }
 }
