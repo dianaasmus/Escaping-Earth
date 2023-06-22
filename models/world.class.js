@@ -1,29 +1,8 @@
 class World {
     character = new Character();
-    enemies = [
-        new Zombie(),
-        new Zombie(),
-        new CrawlingZombie(),
-        new Zombie(),
-        new CrawlingZombie()
-    ];
-    // backgroundObjects = [
-    //     new BackgroundObject('img/background/Sky.png', 0),
-    //     new BackgroundObject('img/background/Background.png', 0),
-    //     new BackgroundObject('img/background/Foreground.png', 0),
-    //     new BackgroundObject('img/background/Ground.png', 0),
-    //     new BackgroundObject('img/background/Sky.png', 720),
-    //     new BackgroundObject('img/background/Background.png', 720),
-    //     new BackgroundObject('img/background/Foreground.png', 720),
-    //     new BackgroundObject('img/background/Ground.png', 720)
-    // ];
-    backgrounds = [
-        'img/background/Sky.png',
-        'img/background/Background.png',
-        'img/background/Foreground.png',
-        'img/background/Ground.png'
-    ];
-    positions = [0, 720, 1440, 2160];
+    enemies = level1.enemies;
+    backgrounds = level1.backgrounds;
+    positions = level1.positions; // Hintergrund 4 mal einfügen
     backgroundObjects = [];
     canvas;
     ctx;
@@ -35,7 +14,7 @@ class World {
         canvas.width = 720;
         canvas.height = 480;
         this.ctx = canvas.getContext('2d');
-        this.createBackgroundObjects();
+        this.createBackgroundObjects(); //Hintergrund erstelllen -> Fkt
         this.canvas = canvas;
         this.keyboard = keyboard;
         this.draw();
