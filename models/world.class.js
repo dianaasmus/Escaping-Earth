@@ -3,12 +3,12 @@ class World {
     enemies = [
         new Zombie(),
         new Zombie(),
-        new CrawlingZombie(),
+        new CrawlingZombie(), 
         new Zombie(),
         new CrawlingZombie()
     ];
     backgroundObjects = [
-        new BackgroundObject('img/background/Sky.png'),
+        new BackgroundObject('img/background/Sky.png' ),
         new BackgroundObject('img/background/Background.png'),
         new BackgroundObject('img/background/Foreground.png'),
         new BackgroundObject('img/background/Ground.png')
