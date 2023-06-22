@@ -1,4 +1,6 @@
 class Character extends MovableObject {
+    world; // character hat eine Variable namens 'world', womit wir auf die variablen aus der world zugreifen können => keyboard
+
     IMAGES_WALKING = [ //Übersichtlicher
         'img/alien/walk1.png',
         'img/alien/walk2.png',
@@ -17,12 +19,14 @@ class Character extends MovableObject {
 
     animate() {
         setInterval(() => { //jedes bild wird 1 sekunde angezeigt, dann currentImage++
-            let i = this.currentImage % this.IMAGES_WALKING.length; //Modulo: let i = 0 % 6; => Stelle[0] 0, rest 0 ... Stelle [1] 0, rest 1 ... 
-            // Stelle [7] = 1, rest 1 => nur 1 wird aufgerufen!! 
-            let path = this.IMAGES_WALKING[i];
-            this.img = this.imageCache[path]; //wenn img mit dem image im imageCache übereinstimmt => currentImage++
-            this.currentImage++;
-        }, 200);
+            if (this.world.keyboard.RIGHT) {
+                let i = this.currentImage % this.IMAGES_WALKING.length; //Modulo: let i = 0 % 6; => Stelle[0] 0, rest 0 ... Stelle [1] 0, rest 1 ... 
+                // Stelle [7] = 1, rest 1 => nur 1 wird aufgerufen!! 
+                let path = this.IMAGES_WALKING[i];
+                this.img = this.imageCache[path]; //wenn img mit dem image im imageCache übereinstimmt => currentImage++
+                this.currentImage++;
+            }
+        }, 100);
     }
 
     jump() {

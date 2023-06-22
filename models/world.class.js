@@ -15,13 +15,20 @@ class World {
     ];
     canvas;
     ctx;
+    keyboard;
 
-    constructor(canvas) {
+    constructor(canvas, keyboard) { //von game.js aufnehmen
         canvas.width = 720;
         canvas.height = 480;
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
+        this.keyboard = keyboard;
         this.draw();
+        this.setWorld();
+    }
+
+    setWorld() { // character hat eine Variable namens 'world', womit wir auf die variablen aus der world zugreifen können => keyboard
+        this.character.world = this; //this.character.world = neue Variable. die auf das aktuelle Objekt (world) verweist.
     }
 
     draw() {
