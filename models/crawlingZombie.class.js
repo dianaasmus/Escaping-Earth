@@ -1,8 +1,8 @@
 class CrawlingZombie extends MovableObject {
     height = 60;
     width = 70;
-    y = 230;
-    speed = 0.50;
+    y = 415;
+    speed = 0.40;
     IMAGES_WALKING = [ //Übersichtlicher
         'img/enemies/crawling-zombie9.png',
         'img/enemies/crawling-zombie8.png',
@@ -31,7 +31,7 @@ class CrawlingZombie extends MovableObject {
             let path = this.IMAGES_WALKING[i];
             this.img = this.imageCache[path]; //wenn img mit dem image im imageCache übereinstimmt => currentImage++
             this.currentImage++;
-        }, 200);
+        }, 100);
     }
 
     zombie() {

@@ -1,6 +1,7 @@
 class Character extends MovableObject {
     world; // character hat eine Variable namens 'world', womit wir auf die variablen aus der world zugreifen können => keyboard
     speed = 7;
+    otherDirection = false; // Character bewegt sich byDefault nach Rechts
 
     IMAGES_WALKING = [ //Übersichtlicher
         'img/alien/walk1.png',
@@ -13,7 +14,7 @@ class Character extends MovableObject {
 
     //wird immer und als erstes von JS aufgerufen
     constructor() {
-        super().loadImage('img/alien/walk1.png'); //Startbild
+        super().loadImage('img/alien/standing.png'); //Startbild
         this.loadImages(this.IMAGES_WALKING);
         this.animate();
     }
@@ -23,10 +24,13 @@ class Character extends MovableObject {
         setInterval(() => {
             if (this.world.keyboard.RIGHT) {
                 this.x += this.speed;
+                this.otherDirection = false; //bilder nicht spiegeln
             }
             if (this.world.keyboard.LEFT) {
                 this.x -= this.speed;
+                this.otherDirection = true; // bilder spiegeln
             }
+            this.world.camera_x = 125 + -this.x;
         }, 1000 / 60);
 
         setInterval(() => { //jedes bild wird 1 sekunde angezeigt, dann currentImage++
