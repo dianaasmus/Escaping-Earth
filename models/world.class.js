@@ -1,19 +1,20 @@
 class World {
     character = new Character();
-    enemies = level1.enemies;
-    backgrounds = level1.backgrounds;
-    positions = level1.positions; // Hintergrund 4 mal einfügen
+    // enemies = level1.enemies;
+    // backgrounds = level1.backgrounds;
+    // positions = level1.positions; // Hintergrund 4 mal einfügen
+    level = level1; //auf alle variablen in level1 zugreifen + Z. 
     backgroundObjects = [];
     canvas;
     ctx;
     keyboard;
     camera_x = 0;
 
-
     constructor(canvas, keyboard) { //von game.js aufnehmen
         canvas.width = 720;
         canvas.height = 480;
         this.ctx = canvas.getContext('2d');
+
         this.createBackgroundObjects(); //Hintergrund erstelllen -> Fkt
         this.canvas = canvas;
         this.keyboard = keyboard;
@@ -22,10 +23,10 @@ class World {
     }
 
     createBackgroundObjects() {
-        for (let i = 0; i < this.backgrounds.length; i++) {
-            for (let j = 0; j < this.positions.length; j++) {
-                const background = this.backgrounds[i];
-                const position = this.positions[j];
+        for (let i = 0; i < this.level.backgrounds.length; i++) {
+            for (let j = 0; j < this.level.positions.length; j++) {
+                const background = this.level.backgrounds[i];
+                const position = this.level.positions[j];
                 this.backgroundObjects.push(new BackgroundObject(background, position));
             }
         }
@@ -40,7 +41,7 @@ class World {
         // this.addBackground();
         this.ctx.translate(this.camera_x, 0); //verschiebt die Kameraansicht 
         this.addObjectsToMap(this.backgroundObjects);
-        this.addObjectsToMap(this.enemies);
+        this.addObjectsToMap(this.level.enemies);
         this.addToMap(this.character);
 
         this.ctx.translate(-this.camera_x, 0); //Elemente werden bei -100 gezeichnet, dann wird camera wieder zurückgesetzt

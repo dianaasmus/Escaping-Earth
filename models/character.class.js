@@ -22,15 +22,15 @@ class Character extends MovableObject {
     animate() {
 
         setInterval(() => {
-            if (this.world.keyboard.RIGHT) {
+            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.x += this.speed;
                 this.otherDirection = false; //bilder nicht spiegeln
             }
-            if (this.world.keyboard.LEFT) {
+            if (this.world.keyboard.LEFT && this.x > 125 ) {
                 this.x -= this.speed;
                 this.otherDirection = true; // bilder spiegeln
-            }
-            this.world.camera_x = 125 + -this.x;
+            } 
+            this.world.camera_x = -this.x + 125; // x = 125, Alien um 125 verschieben
         }, 1000 / 60);
 
         setInterval(() => { //jedes bild wird 1 sekunde angezeigt, dann currentImage++
