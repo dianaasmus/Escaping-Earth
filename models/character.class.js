@@ -11,6 +11,7 @@ class Character extends MovableObject {
         // 'img/alien/walk5.png',
         // 'img/alien/walk6.png'
     ];
+    running_sound = new Audio('audio/running.mp3');
 
     //wird immer und als erstes von JS aufgerufen
     constructor() {
@@ -20,16 +21,33 @@ class Character extends MovableObject {
     }
 
     animate() {
+        let isSoundPlaying = false;
+        this.running_sound.loop = true; //Audio immer wieder abspielen
+        this.running_sound.playbackRate = 2; //Wiedergabegeschwindiigkeit auf 2 erhöhen
 
         setInterval(() => {
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.x += this.speed;
                 this.otherDirection = false; //bilder nicht spiegeln
+                if (!isSoundPlaying) {
+                    this.running_sound.play();
+                    isSoundPlaying = true;
+                }
             }
-            if (this.world.keyboard.LEFT && this.x > 125 ) {
+            if (this.world.keyboard.LEFT && this.x > 125) {
                 this.x -= this.speed;
                 this.otherDirection = true; // bilder spiegeln
-            } 
+                if (!isSoundPlaying) {
+                    this.running_sound.play();
+                    isSoundPlaying = true;
+                }
+            }
+            if (!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT) {
+                if (isSoundPlaying) {
+                    this.running_sound.pause();
+                    isSoundPlaying = false;
+                }
+            }
             this.world.camera_x = -this.x + 125; // x = 125, Alien um 125 verschieben
         }, 1000 / 60);
 
@@ -48,3 +66,4 @@ class Character extends MovableObject {
 
     }
 }
+
