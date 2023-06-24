@@ -4,7 +4,7 @@ class Keyboard {
     UP = false;
     TAB = false;
 
-    constructor() {
-        console.log('keyboard included');
-    }
+    // constructor() {
+    //     console.log('keyboard included');
+    // }
 }

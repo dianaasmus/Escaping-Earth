@@ -14,7 +14,7 @@ class Zombie extends MovableObject {
 
     constructor() {
         super().loadImage('img/enemies/zombie-walk.png');
-        this.x = 200 + Math.random() * 500;
+        this.x = 200 + Math.random() * 2060;
         this.speed = 0.15 + Math.random() * 0.5; //unterschiedliche Geschw. Zahl zw. 0.15 und 0.65
         this.loadImages(this.IMAGES_WALKING);
         this.animate();
@@ -23,15 +23,7 @@ class Zombie extends MovableObject {
     animate() {
         this.moveLeft();
         setInterval(() => { //jedes bild wird 1 sekunde angezeigt, dann currentImage++
-            let i = this.currentImage % this.IMAGES_WALKING.length; //Modulo: let i = 0 % 6; => Stelle[0] 0, rest 0 ... Stelle [1] 0, rest 1 ... 
-            // Stelle [7] = 1, rest 1 => nur 1 wird aufgerufen!! 
-            let path = this.IMAGES_WALKING[i];
-            this.img = this.imageCache[path]; //wenn img mit dem image im imageCache übereinstimmt => currentImage++
-            this.currentImage++;
+            this.playAnimation(this.IMAGES_WALKING);
         }, 200);
-    }
-
-    zombie() {
-        console.log('Zombie');
     }
 }

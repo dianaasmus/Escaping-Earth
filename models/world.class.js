@@ -9,11 +9,13 @@ class World {
     ctx;
     keyboard;
     camera_x = 0;
+    background_music = new Audio('audio/music.mp3');
 
     constructor(canvas, keyboard) { //von game.js aufnehmen
         canvas.width = 720;
         canvas.height = 480;
         this.ctx = canvas.getContext('2d');
+        // this.background_music.play(); //geht nur nach einer User-Aktion z. B. Button onclick
 
         this.createBackgroundObjects(); //Hintergrund erstelllen -> Fkt
         this.canvas = canvas;
@@ -34,6 +36,8 @@ class World {
 
     setWorld() { // character hat eine Variable namens 'world', womit wir auf die variablen aus der world zugreifen können => keyboard
         this.character.world = this; //this.character.world = neue Variable. die auf das aktuelle Objekt (world) verweist.
+        // this.level.enemies.world = this;
+        // console.log(this.level.enemies.world);
     }
 
     draw() {
