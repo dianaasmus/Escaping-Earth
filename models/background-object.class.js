@@ -12,17 +12,13 @@ class BackgroundObject extends MovableObject {
 
     }
 
-    createBackgroundObjects() {
-        for (let i = 0; i < this.backgrounds.length; i++) {
-            for (let j = 0; j < this.positions.length; j++) {
-                const background = this.backgrounds[i];
-                const position = this.positions[j];
-                this.backgroundObjects.push(new BackgroundObject(background, position));
-            }
-        }
-    }
-
-    setWorld() { // character hat eine Variable namens 'world', womit wir auf die variablen aus der world zugreifen können => keyboard
-        this.character.world = this; //this.character.world = neue Variable. die auf das aktuelle Objekt (world) verweist.
-    }
+    // createBackgroundObjects() {
+    //     for (let i = 0; i < this.backgrounds.length; i++) {
+    //         for (let j = 0; j < this.positions.length; j++) {
+    //             const background = this.backgrounds[i];
+    //             const position = this.positions[j];
+    //             this.backgroundObjects.push(new BackgroundObject(background, position));
+    //         }
+    //     }
+    // }
 }
