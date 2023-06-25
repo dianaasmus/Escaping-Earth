@@ -11,30 +11,30 @@ function init() {
 
 window.addEventListener("keydown", (e) => {
     if (e.keyCode == 39) {
-        keyboard.RIGHT = true;
+        keyboard.KEY_RIGHT = true;
     }
     if (e.keyCode == 37) {
-        keyboard.LEFT = true;
+        keyboard.KEY_LEFT = true;
     }
     if (e.keyCode == 38) {
-        keyboard.UP = true;
+        keyboard.KEY_UP = true;
     }
     if (e.keyCode == 32) {
-        keyboard.TAB = true;
+        keyboard.KEY_TAB = true;
     } 
 });
 
 window.addEventListener("keyup", (e) => {
     if (e.keyCode == 39) {
-        keyboard.RIGHT = false;
+        keyboard.KEY_RIGHT = false;
     }
     if (e.keyCode == 37) {
-        keyboard.LEFT = false;
+        keyboard.KEY_LEFT = false;
     }
     if (e.keyCode == 38) {
-        keyboard.UP = false;
+        keyboard.KEY_UP = false;
     }
     if (e.keyCode == 32) {
-        keyboard.TAB = false;
+        keyboard.KEY_TAB = false;
     } 
 });

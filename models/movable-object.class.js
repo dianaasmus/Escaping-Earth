@@ -37,10 +37,11 @@ class MovableObject {
         let maxY = 400; // Obere Grenze des Bewegungsbereichs
 
         setInterval(() => {
-            this.y += shift; // Verschiebung hinzufügen
+            this.y += shift; // Verschiebung hinzufügen 
+            // += : y wird um shift(-1) erhöht und gleichzeitig das Ergebnis als Wert erhalten
 
             if (this.y <= minY || this.y >= maxY) {
-                shift *= -1; // Ändere die Richtung der Verschiebung
+                shift *= -1; // Ändere die Richtung der Verschiebung (-1 * (-1)) => shift ≠ -1 => shift = 1;
             }
         }, 1000 / 15);
     }

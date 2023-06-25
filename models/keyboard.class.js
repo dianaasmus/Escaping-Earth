@@ -1,8 +1,8 @@
 class Keyboard {
-    LEFT = false;
-    RIGHT = false;
-    UP = false;
-    TAB = false;
+    KEY_LEFT = false;
+    KEY_RIGHT = false;
+    KEY_UP = false;
+    KEY_TAB = false;
 
     // constructor() {
     //     console.log('keyboard included');

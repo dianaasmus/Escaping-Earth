@@ -26,7 +26,7 @@ class Character extends MovableObject {
         this.running_sound.playbackRate = 2; //Wiedergabegeschwindiigkeit auf 2 erhöhen
 
         setInterval(() => {
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+            if (this.world.keyboard.KEY_RIGHT && this.x < this.world.level.level_end_x) {
                 this.x += this.speed;
                 this.otherDirection = false; //bilder nicht spiegeln
                 if (!isSoundPlaying) {
@@ -34,7 +34,7 @@ class Character extends MovableObject {
                     isSoundPlaying = true;
                 }
             }
-            if (this.world.keyboard.LEFT && this.x > 125) {
+            if (this.world.keyboard.KEY_LEFT && this.x > 125) {
                 this.x -= this.speed;
                 this.otherDirection = true; // bilder spiegeln
                 if (!isSoundPlaying) {
@@ -42,7 +42,7 @@ class Character extends MovableObject {
                     isSoundPlaying = true;
                 }
             }
-            if (!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT) {
+            if (!this.world.keyboard.KEY_RIGHT && !this.world.keyboard.KEY_LEFT) {
                 if (isSoundPlaying) {
                     this.running_sound.pause();
                     isSoundPlaying = false;
@@ -52,7 +52,7 @@ class Character extends MovableObject {
         }, 1000 / 60);
 
         setInterval(() => { //jedes bild wird 1 sekunde angezeigt, dann currentImage++
-            if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) { //Animation wird abgespielt, wenn keyboard gedrückt
+            if (this.world.keyboard.KEY_RIGHT || this.world.keyboard.KEY_LEFT) { //Animation wird abgespielt, wenn keyboard gedrückt
                 this.playAnimation(this.IMAGES_WALKING);
             }
         }, 100);

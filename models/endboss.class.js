@@ -21,7 +21,7 @@ class Endboss extends MovableObject {
         this.x = 2860 - 300 * Math.random();
         this.speed = 0.15 + Math.random() * 0.5; //unterschiedliche Geschw. Zahl zw. 0.15 und 0.65
         this.loadImages(this.IMAGES_WALKING);
-        this.animate();
+        // this.animate();
     }
 
     animate() {
