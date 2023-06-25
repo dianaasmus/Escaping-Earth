@@ -1,12 +1,14 @@
 class MovableObject {
     x = 125;
-    y = 390;
+    y = 390; //390
     img;
     height = 80;
     width = 40;
     imageCache = {};
     currentImage = 0;
     speed = 0.15;
+    speedY = 0;
+    acceleration = 5;
 
     loadImage(path) {
         this.img = new Image(); //Fkt von JS - wie: this.img = doc.getEBID... <img id="image">
@@ -52,5 +54,19 @@ class MovableObject {
         let path = this.IMAGES_WALKING[i];
         this.img = this.imageCache[path]; //wenn img mit dem image im imageCache übereinstimmt => currentImage++
         this.currentImage++;
+    }
+
+    applyGravitiy() {
+        this.y = 290;
+        setInterval(() => { //390 // 390 // 391 
+            if (this.isAboveGround()) {
+                this.y -= this.speedY; //390 - 0 = 390 // 390 - (-1) = 391 // 391 - 0 = 391
+                this.speedY -= this.acceleration; // 0 - 1 = -1 // -1 - (-1)  = 0
+            }
+        }, 1000 / 25); //25 mal pro Sekunde
+    }
+
+    isAboveGround() {
+        return this.y < 390;
     }
 }

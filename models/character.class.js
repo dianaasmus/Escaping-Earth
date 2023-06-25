@@ -17,6 +17,7 @@ class Character extends MovableObject {
     constructor() {
         super().loadImage('img/alien/standing.png'); //Startbild
         this.loadImages(this.IMAGES_WALKING);
+        this.applyGravitiy();
         this.animate();
     }
 
