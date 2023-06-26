@@ -11,12 +11,19 @@ class Character extends MovableObject {
         // 'img/alien/walk5.png',
         // 'img/alien/walk6.png'
     ];
+    IMAGES_JUMPING = [ //Übersichtlicher
+        'img/alien/jump1.png',
+        'img/alien/jump2.png',
+        'img/alien/jump3.png',
+        'img/alien/jump4.png'
+    ];
     running_sound = new Audio('audio/running.mp3');
 
     //wird immer und als erstes von JS aufgerufen
     constructor() {
         super().loadImage('img/alien/standing.png'); //Startbild
         this.loadImages(this.IMAGES_WALKING);
+        this.loadImages(this.IMAGES_JUMPING);
         this.applyGravitiy();
         this.animate();
     }
@@ -53,9 +60,16 @@ class Character extends MovableObject {
         }, 1000 / 60);
 
         setInterval(() => { //jedes bild wird 1 sekunde angezeigt, dann currentImage++
-            if (this.world.keyboard.KEY_RIGHT || this.world.keyboard.KEY_LEFT) { //Animation wird abgespielt, wenn keyboard gedrückt
-                this.playAnimation(this.IMAGES_WALKING);
+            if (this.isAboveGround()) {
+                this.playAnimation(this.IMAGES_JUMPING);
+            } else {
+                if (this.world.keyboard.KEY_RIGHT || this.world.keyboard.KEY_LEFT) { //Animation wird abgespielt, wenn keyboard gedrückt
+                    this.playAnimation(this.IMAGES_WALKING);
+                }
             }
+            // if (this.world.keyboard.KEY_UP) { //Animation wird abgespielt, wenn keyboard gedrückt
+            //     // this.playAnimation(this.IMAGES_JUMPING);
+            // }
         }, 100);
     }
 }
