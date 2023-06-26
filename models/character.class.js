@@ -2,7 +2,10 @@ class Character extends MovableObject {
     world; // character hat eine Variable namens 'world', womit wir auf die variablen aus der world zugreifen können => keyboard
     speed = 7;
     otherDirection = false; // Character bewegt sich byDefault nach Rechts
-
+    height = 80;
+    width = 40;
+    // height = 90;
+    // width = 50;
     IMAGES_WALKING = [ //Übersichtlicher
         'img/alien/walk1.png',
         'img/alien/walk2.png',
@@ -15,9 +18,11 @@ class Character extends MovableObject {
         'img/alien/jump1.png',
         'img/alien/jump2.png',
         'img/alien/jump3.png',
-        'img/alien/jump4.png'
+        'img/alien/jump4.png',
+        'img/alien/standing.png'
     ];
     running_sound = new Audio('audio/running.mp3');
+    // isSoundPlaying = false;
 
     //wird immer und als erstes von JS aufgerufen
     constructor() {
@@ -29,36 +34,63 @@ class Character extends MovableObject {
     }
 
     animate() {
-        let isSoundPlaying = false;
+        this.addAudios();
+        this.addAnimations();
+    }
+
+    addAudios() {
+        this.isSoundPlaying = false;
         this.running_sound.loop = true; //Audio immer wieder abspielen
         this.running_sound.playbackRate = 2; //Wiedergabegeschwindiigkeit auf 2 erhöhen
 
         setInterval(() => {
-            if (this.world.keyboard.KEY_RIGHT && this.x < this.world.level.level_end_x) {
-                this.x += this.speed;
-                this.otherDirection = false; //bilder nicht spiegeln
-                if (!isSoundPlaying) {
-                    this.running_sound.play();
-                    isSoundPlaying = true;
+            if (!this.world.keyboard.KEY_RIGHT && !this.world.keyboard.KEY_LEFT) {
+                if (this.isSoundPlaying) {
+                    this.running_sound.pause();
+                    this.isSoundPlaying = false;
                 }
+                // this.pauseAudio(this.isSoundPlaying);
+            }
+            if (this.world.keyboard.KEY_RIGHT && this.x < this.world.level.level_end_x) {
+                this.moveRight();
+                this.otherDirection = false; //bilder nicht spiegeln
+
+                if (!this.isSoundPlaying) {
+                    this.running_sound.play();
+                    this.isSoundPlaying = true;
+                }
+                // this.playAudio(this.isSoundPlaying);
             }
             if (this.world.keyboard.KEY_LEFT && this.x > 125) {
-                this.x -= this.speed;
+                // this.x -= this.speed;
                 this.otherDirection = true; // bilder spiegeln
-                if (!isSoundPlaying) {
+                this.moveLeft();
+                if (!this.isSoundPlaying) {
                     this.running_sound.play();
-                    isSoundPlaying = true;
-                }
-            }
-            if (!this.world.keyboard.KEY_RIGHT && !this.world.keyboard.KEY_LEFT) {
-                if (isSoundPlaying) {
-                    this.running_sound.pause();
-                    isSoundPlaying = false;
+                    this.isSoundPlaying = true;
                 }
             }
             this.world.camera_x = -this.x + 125; // x = 125, Alien um 125 verschieben
         }, 1000 / 60);
+    }
 
+    pauseAudio(isSoundPlaying) {
+        if (isSoundPlaying) {
+            this.running_sound.pause();
+            isSoundPlaying = false;
+        }
+    }
+
+    playAudio(isSoundPlaying) {
+        this.x += this.speed;
+        this.otherDirection = false; //bilder nicht spiegeln
+        if (!isSoundPlaying) {
+            this.running_sound.play();
+            isSoundPlaying = true;
+        }
+    }
+
+    addAnimations() {
         setInterval(() => { //jedes bild wird 1 sekunde angezeigt, dann currentImage++
             if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
@@ -67,9 +99,9 @@ class Character extends MovableObject {
                     this.playAnimation(this.IMAGES_WALKING);
                 }
             }
-            // if (this.world.keyboard.KEY_UP) { //Animation wird abgespielt, wenn keyboard gedrückt
-            //     // this.playAnimation(this.IMAGES_JUMPING);
-            // }
+            if (this.world.keyboard.KEY_UP && !this.isAboveGround()) { //Animation wird abgespielt, wenn keyboard gedrückt
+                this.speedY = 35;
+            }
         }, 100);
     }
 }

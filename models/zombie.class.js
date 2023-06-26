@@ -21,7 +21,10 @@ class Zombie extends MovableObject {
     }
     
     animate() {
-        this.moveLeft();
+        this.otherDirection = false; //bilder nicht spiegeln
+        setInterval(() => {
+            this.moveLeft();
+        }, 1000 / 60);
         setInterval(() => { //jedes bild wird 1 sekunde angezeigt, dann currentImage++
             this.playAnimation(this.IMAGES_WALKING);
         }, 200);

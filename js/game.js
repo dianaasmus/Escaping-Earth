@@ -21,7 +21,7 @@ window.addEventListener("keydown", (e) => {
     }
     if (e.keyCode == 32) {
         keyboard.KEY_TAB = true;
-    } 
+    }
 });
 
 window.addEventListener("keyup", (e) => {
@@ -36,5 +36,5 @@ window.addEventListener("keyup", (e) => {
     }
     if (e.keyCode == 32) {
         keyboard.KEY_TAB = false;
-    } 
+    }
 });

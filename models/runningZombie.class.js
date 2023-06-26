@@ -21,7 +21,9 @@ class RunningZombie extends MovableObject {
     }
 
     animate() {
-        this.moveLeft();
+        setInterval(() => {
+            this.moveLeft();
+        }, 1000 / 60);
         setInterval(() => { //jedes bild wird 1 sekunde angezeigt, dann currentImage++
             this.playAnimation(this.IMAGES_WALKING);
         }, 100);

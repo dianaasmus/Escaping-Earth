@@ -2,13 +2,16 @@ class MovableObject {
     x = 125;
     y = 390; //390
     img;
-    height = 80;
-    width = 40;
+    // height = 80;
+    // width = 40;
     imageCache = {};
     currentImage = 0;
     speed = 0.15;
     speedY = 0;
     acceleration = 5;
+     shift = -1; // Startverschiebung
+     minY = 385; // Untere Grenze des Bewegungsbereichs
+     maxY = 400; // Obere Grenze des Bewegungsbereichs
 
     loadImage(path) {
         this.img = new Image(); //Fkt von JS - wie: this.img = doc.getEBID... <img id="image">
@@ -27,31 +30,29 @@ class MovableObject {
         console.log('My moving Character is' + character);
     }
 
+    moveRight() {
+        this.x += this.speed;
+    }
+
     moveLeft() {
-        setInterval(() => {
-            this.x -= this.speed;
-        }, 1000 / 60);
+        this.x -= this.speed;
     }
 
     float() {
-        let shift = -1; // Startverschiebung
-        let minY = 385; // Untere Grenze des Bewegungsbereichs
-        let maxY = 400; // Obere Grenze des Bewegungsbereichs
-
         setInterval(() => {
-            this.y += shift; // Verschiebung hinzufügen 
+            this.y += this.shift; // Verschiebung hinzufügen 
             // += : y wird um shift(-1) erhöht und gleichzeitig das Ergebnis als Wert erhalten
 
-            if (this.y <= minY || this.y >= maxY) {
-                shift *= -1; // Ändere die Richtung der Verschiebung (-1 * (-1)) => shift ≠ -1 => shift = 1;
+            if (this.y <= this.minY || this.y >= this.maxY) {
+                this.shift *= -1; // Ändere die Richtung der Verschiebung (-1 * (-1)) => shift ≠ -1 => shift = 1;
             }
         }, 1000 / 15);
     }
 
-    playAnimation() {
-        let i = this.currentImage % this.IMAGES_WALKING.length; //Modulo: let i = 0 % 6; => Stelle[0] 0, rest 0 ... Stelle [1] 0, rest 1 ... 
+    playAnimation(x) {
+        let i = this.currentImage % x.length; //Modulo: let i = 0 % 6; => Stelle[0] 0, rest 0 ... Stelle [1] 0, rest 1 ... 
         // Stelle [7] = 1, rest 1 => nur 1 wird aufgerufen!! 
-        let path = this.IMAGES_WALKING[i];
+        let path = x[i];
         this.img = this.imageCache[path]; //wenn img mit dem image im imageCache übereinstimmt => currentImage++
         this.currentImage++;
     }
@@ -59,7 +60,7 @@ class MovableObject {
     applyGravitiy() {
         this.y = 290;
         setInterval(() => { //390 // 390 // 391 
-            if (this.isAboveGround()) {
+            if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY; //390 - 0 = 390 // 390 - (-1) = 391 // 391 - 0 = 391
                 this.speedY -= this.acceleration; // 0 - 1 = -1 // -1 - (-1)  = 0
             }
