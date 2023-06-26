@@ -100,7 +100,7 @@ class Character extends MovableObject {
                 }
             }
             if (this.world.keyboard.KEY_UP && !this.isAboveGround()) { //Animation wird abgespielt, wenn keyboard gedrückt
-                this.speedY = 35;
+                this.speedY = 40; //jump
             }
         }, 100);
     }

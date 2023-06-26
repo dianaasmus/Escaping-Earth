@@ -66,7 +66,9 @@ class World {
         if (movableObject.otherDirection) { //character.otherDirection exists -> true/false
             this.flipImage(movableObject);
         }
-        this.ctx.drawImage(movableObject.img, movableObject.x, movableObject.y, movableObject.width, movableObject.height); // 
+        movableObject.draw(this.ctx);
+        movableObject.drawFrame(this.ctx);
+
         if (movableObject.otherDirection) {
             this.flipImageBack(movableObject);
         }
@@ -78,10 +80,6 @@ class World {
         this.ctx.scale(-1, 1); //-1 = horizontaler Skalierungsfaktor (spiegeln), 1 = vertikaler Skalierungsfaktor bleibt gleich (keine Spiegelung)
         movableObject.x = movableObject.x * -1; // X Koordinate spiegeln (ingesamt 2 mal spiegeln, zum Urgsprungswert)
     }
-
-    // draw(ctx) {
-    //     ctx.drawImage(movableObject.img, movableObject.x, movableObject.y, movableObject.width, movableObject.height); // 
-    // }
 
     flipImageBack(movableObject) {
         movableObject.x = movableObject.x * -1; // X Koordinate spiegeln
