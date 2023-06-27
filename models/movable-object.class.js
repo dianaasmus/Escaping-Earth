@@ -9,9 +9,11 @@ class MovableObject {
     speed = 0.15;
     speedY = 0;
     acceleration = 5;
-     shift = -1; // Startverschiebung
-     minY = 385; // Untere Grenze des Bewegungsbereichs
-     maxY = 400; // Obere Grenze des Bewegungsbereichs
+    shift = -1; // Startverschiebung
+    minY = 385; // Untere Grenze des Bewegungsbereichs
+    maxY = 400; // Obere Grenze des Bewegungsbereichs
+    offsety = 10;
+    onCollisionCourse = true;
 
     loadImage(path) {
         this.img = new Image(); //Fkt von JS - wie: this.img = doc.getEBID... <img id="image">
@@ -35,6 +37,19 @@ class MovableObject {
     }
 
     drawFrame(ctx) {
+        const shouldDrawFrame = this.shouldDrawFrame();
+
+        if (shouldDrawFrame) {
+            this.drawRectangle(ctx);
+        }
+    }
+
+    shouldDrawFrame() {
+        const allowedClasses = [Character, Zombie, RunningZombie, Endboss, Lives, Ammunition];
+        return allowedClasses.some(cls => this instanceof cls);
+    }
+
+    drawRectangle(ctx) {
         ctx.beginPath();
         ctx.lineWidth = '5';
         ctx.strokeStyle = 'blue';
@@ -48,6 +63,17 @@ class MovableObject {
 
     moveLeft() {
         this.x -= this.speed;
+    }
+
+    isColliding(movableObject) {
+        return (this.x + this.width) >= movableObject.x && this.x <= (movableObject.x + movableObject.width) &&
+            (this.y + this.offsety + this.height) >= movableObject.y &&
+            (this.y + this.offsety) <= (movableObject.y + movableObject.height) &&
+            movableObject.onCollisionCourse; // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
+        // return this.x + this.width > movableObject.x &&
+        //     this.y + this.height > movableObject.y &&
+        //     this.x < movableObject.x &&
+        //     this.y < movableObject.y + movableObject.height
     }
 
     float() {

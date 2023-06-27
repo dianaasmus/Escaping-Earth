@@ -22,6 +22,7 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
+        this.checkCollisions();
     }
 
     createBackgroundObjects() {
@@ -84,5 +85,15 @@ class World {
     flipImageBack(movableObject) {
         movableObject.x = movableObject.x * -1; // X Koordinate spiegeln
         this.ctx.restore(); //den Kontext auf den zuvor gespeicherten Zustand zurücksetzen, einschließlich aller Einstellungen, die zuvor mit save() gesichert wurden
+    }
+
+    checkCollisions() {
+        setInterval(() => {
+            this.level.enemies.forEach((enemy) => {
+                if ( this.character.isColliding(enemy)) {
+                    console.log('collision with character: ', enemy);
+                }
+            });
+        }, 500);
     }
 }
