@@ -7,26 +7,32 @@ class Character extends MovableObject {
     // height = 90;
     // width = 50;
     IMAGES_WALKING = [ //Übersichtlicher
-        'img/alien/walk1.png',
-        'img/alien/walk2.png',
-        'img/alien/walk3.png'
-        // 'img/alien/walk4.png',
-        // 'img/alien/walk5.png',
-        // 'img/alien/walk6.png'
+        'img/alien/walk/walk1.png',
+        'img/alien/walk/walk2.png',
+        'img/alien/walk/walk3.png'
+        // 'img/alien/walk/walk4.png',
+        // 'img/alien/walk/walk5.png',
+        // 'img/alien/walk/walk6.png'
     ];
     IMAGES_JUMPING = [ //Übersichtlicher
-        'img/alien/jump1.png',
-        'img/alien/jump2.png',
-        'img/alien/jump3.png',
-        'img/alien/jump4.png',
+        'img/alien/jump/jump1.png',
+        'img/alien/jump/jump2.png',
+        'img/alien/jump/jump3.png',
+        'img/alien/jump/jump4.png',
         'img/alien/standing.png'
     ];
     IMAGES_DYING = [
-        'img/alien/dead1.png',
-        'img/alien/dead2.png',
-        'img/alien/dead3.png',
-        'img/alien/dead4.png',
-        'img/alien/dead5.png'
+        'img/alien/dead/dead1.png',
+        'img/alien/dead/dead2.png',
+        'img/alien/dead/dead3.png',
+        'img/alien/dead/dead4.png',
+        'img/alien/dead/dead5.png'
+    ];
+    IMAGES_HURT = [
+        'img/alien/hurt/hurt1.png',
+        'img/alien/hurt/hurt2.png',
+        'img/alien/hurt/hurt3.png',
+        'img/alien/hurt/hurt4.png'
     ];
     running_sound = new Audio('audio/running.mp3');
     // isSoundPlaying = false;
@@ -37,6 +43,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_DYING);
+        this.loadImages(this.IMAGES_HURT);
         this.applyGravitiy();
         this.animate();
     }
@@ -86,6 +93,8 @@ class Character extends MovableObject {
         setInterval(() => { //jedes bild wird 1 sekunde angezeigt, dann currentImage++
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DYING);
+            } else if (this.isHurt()) {
+                this.playAnimation(this.IMAGES_HURT);
             } else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
             } else {

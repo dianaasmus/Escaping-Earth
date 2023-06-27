@@ -16,6 +16,7 @@ class MovableObject {
     onCollisionCourse = true;
     energy = 10;
     lives = 10;
+    lastHit = 0;
 
     loadImage(path) {
         this.img = new Image(); //Fkt von JS - wie: this.img = doc.getEBID... <img id="image">
@@ -89,10 +90,10 @@ class MovableObject {
         }, 1000 / 15);
     }
 
-    playAnimation(x) {
-        let i = this.currentImage % x.length; //Modulo: let i = 0 % 6; => Stelle[0] 0, rest 0 ... Stelle [1] 0, rest 1 ... 
+    playAnimation(images) {
+        let i = this.currentImage % images.length; //Modulo: let i = 0 % 6; => Stelle[0] 0, rest 0 ... Stelle [1] 0, rest 1 ... 
         // Stelle [7] = 1, rest 1 => nur 1 wird aufgerufen!! 
-        let path = x[i];
+        let path = images[i];
         this.img = this.imageCache[path]; //wenn img mit dem image im imageCache übereinstimmt => currentImage++
         this.currentImage++;
     }
@@ -114,14 +115,19 @@ class MovableObject {
     hit() {
         this.energy -= 1;
         if(this.energy < 0) {
-            this.energy = 0;
-            
+            this.energy = 0; 
+        } else {
+            this.lastHit = new Date().getTime(); //wenn Energie abnimmt geht, aber nicht 0 -> Zeit festhalten -> isHurt()
         }
-        console.log('energy ', this.energy);
-
     }
 
     isDead() {
         return this.energy == 0;
+    }
+
+    isHurt() { // Falls Zeit unter 1 sekunde -> true -> Graphik anzeigen
+        let timepassed = new Date().getTime() - this.lastHit; // differenz in ms 
+        timepassed = timepassed / 1000; // differenz in s
+        return timepassed < 1; //animation für 1 sek anzeigen
     }
 }
