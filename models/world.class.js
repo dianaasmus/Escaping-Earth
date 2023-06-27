@@ -47,10 +47,9 @@ class World {
         this.ctx.translate(this.camera_x, 0); //verschiebt die Kameraansicht 
         this.addObjectsToMap(this.backgroundObjects);
         this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.level.collection);
         this.addToMap(this.character);
-
         this.ctx.translate(-this.camera_x, 0); //Elemente werden bei -100 gezeichnet, dann wird camera wieder zurückgesetzt
-
         let self = this;
         requestAnimationFrame(function () {
             self.draw();
@@ -91,7 +90,20 @@ class World {
         setInterval(() => {
             this.level.enemies.forEach((enemy) => {
                 if ( this.character.isColliding(enemy)) {
-                    console.log('collision with character: ', enemy);
+                    // console.log('collision with character: ', enemy);
+                    // this.character.energy -= 1;
+                    this.character.hit();
+                    console.log('collision with character energy ', this.character.energy);
+                }
+            });
+        }, 500);
+        setInterval(() => {
+            this.level.collection.forEach((collect) => {
+                
+                if ( this.character.isColliding(collect)) {
+                    // console.log('collision with character: ', enemy);
+                    // this.character.hit();
+                    console.log('collision with character lives ', this.character.lives);
                 }
             });
         }, 500);

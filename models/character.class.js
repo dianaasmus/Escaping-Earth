@@ -21,6 +21,13 @@ class Character extends MovableObject {
         'img/alien/jump4.png',
         'img/alien/standing.png'
     ];
+    IMAGES_DYING = [
+        'img/alien/dead1.png',
+        'img/alien/dead2.png',
+        'img/alien/dead3.png',
+        'img/alien/dead4.png',
+        'img/alien/dead5.png'
+    ];
     running_sound = new Audio('audio/running.mp3');
     // isSoundPlaying = false;
 
@@ -29,6 +36,7 @@ class Character extends MovableObject {
         super().loadImage('img/alien/standing.png'); //Startbild
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
+        this.loadImages(this.IMAGES_DYING);
         this.applyGravitiy();
         this.animate();
     }
@@ -40,8 +48,8 @@ class Character extends MovableObject {
 
     addAudios() {
         this.isSoundPlaying = false;
-        this.running_sound.loop = true; //Audio immer wieder abspielen
-        this.running_sound.playbackRate = 2; //Wiedergabegeschwindiigkeit auf 2 erhöhen
+        this.running_sound.loop = true; // Audio immer wieder abspielen
+        this.running_sound.playbackRate = 2; // Wiedergabegeschwindiigkeit auf 2 erhöhen
 
         setInterval(() => {
             if (!this.world.keyboard.KEY_RIGHT && !this.world.keyboard.KEY_LEFT) {
@@ -74,25 +82,11 @@ class Character extends MovableObject {
         }, 1000 / 60);
     }
 
-    pauseAudio(isSoundPlaying) {
-        if (isSoundPlaying) {
-            this.running_sound.pause();
-            isSoundPlaying = false;
-        }
-    }
-
-    playAudio(isSoundPlaying) {
-        this.x += this.speed;
-        this.otherDirection = false; //bilder nicht spiegeln
-        if (!isSoundPlaying) {
-            this.running_sound.play();
-            isSoundPlaying = true;
-        }
-    }
-
     addAnimations() {
         setInterval(() => { //jedes bild wird 1 sekunde angezeigt, dann currentImage++
-            if (this.isAboveGround()) {
+            if (this.isDead()) {
+                this.playAnimation(this.IMAGES_DYING);
+            } else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
             } else {
                 if (this.world.keyboard.KEY_RIGHT || this.world.keyboard.KEY_LEFT) { //Animation wird abgespielt, wenn keyboard gedrückt

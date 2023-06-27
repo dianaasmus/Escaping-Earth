@@ -14,6 +14,8 @@ class MovableObject {
     maxY = 400; // Obere Grenze des Bewegungsbereichs
     offsety = 10;
     onCollisionCourse = true;
+    energy = 10;
+    lives = 10;
 
     loadImage(path) {
         this.img = new Image(); //Fkt von JS - wie: this.img = doc.getEBID... <img id="image">
@@ -107,5 +109,19 @@ class MovableObject {
 
     isAboveGround() {
         return this.y < 390;
+    }
+
+    hit() {
+        this.energy -= 1;
+        if(this.energy < 0) {
+            this.energy = 0;
+            
+        }
+        console.log('energy ', this.energy);
+
+    }
+
+    isDead() {
+        return this.energy == 0;
     }
 }
