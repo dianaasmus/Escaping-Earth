@@ -1,11 +1,4 @@
-class MovableObject {
-    x = 125;
-    y = 390; //390
-    img;
-    // height = 80;
-    // width = 40;
-    imageCache = {};
-    currentImage = 0;
+class MovableObject extends DrawableObject {
     speed = 0.15;
     speedY = 0;
     acceleration = 5;
@@ -18,25 +11,8 @@ class MovableObject {
     lives = 10;
     lastHit = 0;
 
-    loadImage(path) {
-        this.img = new Image(); //Fkt von JS - wie: this.img = doc.getEBID... <img id="image">
-        this.img.src = path;
-    }
-
-    loadImages(imgArray) {
-        imgArray.forEach((path) => {
-            let img = new Image();
-            img.src = path;
-            this.imageCache[path] = img;
-        });
-    }
-
     moveObject() {
         console.log('My moving Character is' + character);
-    }
-
-    draw(ctx) {
-        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
 
     drawFrame(ctx) {
@@ -73,10 +49,6 @@ class MovableObject {
             (this.y + this.offsety + this.height) >= movableObject.y &&
             (this.y + this.offsety) <= (movableObject.y + movableObject.height) &&
             movableObject.onCollisionCourse; // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
-        // return this.x + this.width > movableObject.x &&
-        //     this.y + this.height > movableObject.y &&
-        //     this.x < movableObject.x &&
-        //     this.y < movableObject.y + movableObject.height
     }
 
     float() {

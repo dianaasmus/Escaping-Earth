@@ -1,0 +1,3 @@
+class Progressbar extends DrawableObject {
+    
+}
