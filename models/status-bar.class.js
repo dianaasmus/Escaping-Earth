@@ -1,8 +1,5 @@
 class StatusBar extends DrawableObject {
-    percentage = 100;
-    // camera_x = this.world.camera_x;
-    // x = 100;
-    // y = 100;
+    percentage = 10;
 
     IMAGES_LIVES = [
         'img/lives/progress-bar/lives-0.png',
@@ -16,15 +13,11 @@ class StatusBar extends DrawableObject {
     constructor() {
         super();
         this.loadImages(this.IMAGES_LIVES);
-        // console.log(this.IMAGES_LIVES[5]);
         this.x = 30;
         this.y = 30;
         this.width = 180;
         this.height = 55;
-        console.log(this.IMAGES_LIVES[5], this.x, this.y);
-        // this.loadImage(this.IMAGES_LIVES[this.resolveImageIndex()]);
-        this.setPercentage(100);
-        // this.camera_x = -this.x + 30;
+        this.setPercentage(10);
     }
 
     setPercentage(percentage) {
@@ -34,15 +27,15 @@ class StatusBar extends DrawableObject {
     }
 
     resolveImageIndex() {
-        if (this.percentage == 100) {
+        if (this.percentage == 10) {
             return 5;
-        } else if (this.percentage > 80) {
+        } else if (this.percentage > 8) {
             return 4;
-        } else if (this.percentage > 60) {
+        } else if (this.percentage > 6) {
             return 3;
-        } else if (this.percentage > 40) {
+        } else if (this.percentage > 4) {
             return 2;
-        } else if (this.percentage > 20) {
+        } else if (this.percentage > 2) {
             return 1;
         } else {
             return 0;

@@ -38,7 +38,6 @@ class World {
 
     setWorld() { // character hat eine Variable namens 'world', womit wir auf die variablen aus der world zugreifen können => keyboard
         this.character.world = this; //this.character.world = neue Variable. die auf das aktuelle Objekt (world) verweist.
-        this.statusBar.world = this; //this.character.world = neue Variable. die auf das aktuelle Objekt (world) verweist.
         // this.level.enemies.world = this;
         // console.log(this.level.enemies.world);
     }
@@ -48,10 +47,15 @@ class World {
         // this.addBackground();
         this.ctx.translate(this.camera_x, 0); //verschiebt die Kameraansicht 
         this.addObjectsToMap(this.backgroundObjects);
+
+        this.ctx.translate(-this.camera_x, 0); // Back //Elemente werden bei -100 gezeichnet, dann wird camera wieder zurückgesetzt
+        // ...space for fixed objects...
+        this.addToMap(this.statusBar);
+        this.ctx.translate(this.camera_x, 0); //forward //verschiebt die Kameraansicht 
+
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.collection);
         this.addToMap(this.character);
-        this.addToMap(this.statusBar);
         this.ctx.translate(-this.camera_x, 0); //Elemente werden bei -100 gezeichnet, dann wird camera wieder zurückgesetzt
         let self = this;
         requestAnimationFrame(function () {
@@ -93,20 +97,18 @@ class World {
         setInterval(() => {
             this.level.enemies.forEach((enemy) => {
                 if ( this.character.isColliding(enemy)) {
-                    // console.log('collision with character: ', enemy);
-                    // this.character.energy -= 1;
                     this.character.hit();
                     console.log('collision with character energy ', this.character.energy);
+                    this.statusBar.setPercentage(this.character.energy);
+
                 }
             });
         }, 500);
         setInterval(() => {
             this.level.collection.forEach((collect) => {
-                
                 if ( this.character.isColliding(collect)) {
-                    // console.log('collision with character: ', enemy);
-                    // this.character.hit();
                     console.log('collision with character lives ', this.character.lives);
+                    // this.statusBar.setPercentage(this.character.energy);
                 }
             });
         }, 500);
