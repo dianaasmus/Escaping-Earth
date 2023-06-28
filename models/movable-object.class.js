@@ -11,31 +11,6 @@ class MovableObject extends DrawableObject {
     lives = 10;
     lastHit = 0;
 
-    moveObject() {
-        console.log('My moving Character is' + character);
-    }
-
-    drawFrame(ctx) {
-        const shouldDrawFrame = this.shouldDrawFrame();
-
-        if (shouldDrawFrame) {
-            this.drawRectangle(ctx);
-        }
-    }
-
-    shouldDrawFrame() {
-        const allowedClasses = [Character, Zombie, RunningZombie, Endboss, Lives, Ammunition];
-        return allowedClasses.some(cls => this instanceof cls);
-    }
-
-    drawRectangle(ctx) {
-        ctx.beginPath();
-        ctx.lineWidth = '5';
-        ctx.strokeStyle = 'blue';
-        ctx.rect(this.x, this.y, this.width, this.height);
-        ctx.stroke();
-    }
-
     moveRight() {
         this.x += this.speed;
     }

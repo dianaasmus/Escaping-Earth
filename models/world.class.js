@@ -9,6 +9,7 @@ class World {
     ctx;
     keyboard;
     camera_x = 0;
+    statusBar = new StatusBar();
     background_music = new Audio('audio/music.mp3');
 
     constructor(canvas, keyboard) { //von game.js aufnehmen
@@ -37,6 +38,7 @@ class World {
 
     setWorld() { // character hat eine Variable namens 'world', womit wir auf die variablen aus der world zugreifen können => keyboard
         this.character.world = this; //this.character.world = neue Variable. die auf das aktuelle Objekt (world) verweist.
+        this.statusBar.world = this; //this.character.world = neue Variable. die auf das aktuelle Objekt (world) verweist.
         // this.level.enemies.world = this;
         // console.log(this.level.enemies.world);
     }
@@ -49,6 +51,7 @@ class World {
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.collection);
         this.addToMap(this.character);
+        this.addToMap(this.statusBar);
         this.ctx.translate(-this.camera_x, 0); //Elemente werden bei -100 gezeichnet, dann wird camera wieder zurückgesetzt
         let self = this;
         requestAnimationFrame(function () {
