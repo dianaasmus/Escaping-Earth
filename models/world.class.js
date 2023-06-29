@@ -103,7 +103,7 @@ class World {
             this.isCollidingLives();
             this.isCollidingAmmunition();
             this.checkThrowObjects();
-        }, 100);
+        }, 1000);
     }
 
     isCollidingEnemies() {
@@ -129,8 +129,39 @@ class World {
             if (this.character.isColliding(ammunition)) {
                 this.character.collectAmmunition();
                 this.ammunitionStatusBar.setPercentage(this.character.ammunition);
+
+                // this.removeObject(ammunition);
+                const collidedObjectIndex = this.level.ammunition.findIndex((ammunition) => {
+                    return this.character.isColliding(ammunition);
+                });
+                console.log(collidedObjectIndex);
+                if (collidedObjectIndex !== -1) {
+                    // Remove the ammunition from the array
+                    this.level.ammunition.splice(collidedObjectIndex, 1);
+                }
+                if (collidedObjectIndex !== -1) {
+                    const collidedAmmunition = this.level.ammunition[collidedObjectIndex];
+                    // const ammunitionContext = collidedAmmunition.canvas.getContext('2d');
+                    this.ctx.clearRect(
+                        collidedAmmunition.x,
+                        collidedAmmunition.y,
+                        collidedAmmunition.width,
+                        collidedAmmunition.height
+                    );
+                }
+
+                console.log(collidedObjectIndex);
+
             }
         });
+    }
+
+    removeObject(object) {
+        // return ammunition;
+        const collidedObjectIndex = this.level.object.findIndex((ammunition) => {
+            return this.character.isColliding(ammunition);
+        });
+        console.log(collidedObjectIndex);
     }
 
     isCollidingShootingObject() {
@@ -143,13 +174,18 @@ class World {
     }
 
     checkThrowObjects() {
-        if (this.keyboard.KEY_TAB) {
-            let laser = new ShootingObject(this.character.x, this.character.y);
-            this.shootingObject.push(laser);
-            this.character.hitEnemy();
-            this.ammunitionStatusBar.setPercentage(this.character.ammunition);
+        if (this.availableAmmunition()) {
+            if (this.keyboard.KEY_TAB) {
+                let laser = new ShootingObject(this.character.x, this.character.y);
+                this.shootingObject.push(laser);
+                this.character.hitEnemy();
+                this.ammunitionStatusBar.setPercentage(this.character.ammunition);
 
-            console.log(this.character.ammunition);
+            }
         }
+    }
+
+    availableAmmunition() {
+        return this.character.ammunition > 0
     }
 }

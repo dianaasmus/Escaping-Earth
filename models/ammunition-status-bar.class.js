@@ -21,7 +21,7 @@ class AmmunitionStatusBar extends DrawableObject {
     }
 
     setPercentage(percentage) {
-        console.log(percentage);
+        // console.log(percentage);
         this.percentage = percentage;
         let path = this.IMAGES_AMMUNITION[this.resolveImageIndex()];
         this.img = this.imageCache[path];
