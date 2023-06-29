@@ -8,7 +8,9 @@ class World {
     camera_x = 0;
     livesStatusBar = new LivesStatusBar();
     ammunitionStatusBar = new AmmunitionStatusBar();
+    shootingObject = [];
     background_music = new Audio('audio/music.mp3');
+
 
     constructor(canvas, keyboard) { //von game.js aufnehmen
         canvas.width = 720;
@@ -21,7 +23,7 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
-        this.checkCollisions();
+        this.run();
     }
 
     createBackgroundObjects() {
@@ -50,11 +52,14 @@ class World {
         // ...space for fixed objects...
         this.addToMap(this.livesStatusBar);
         this.addToMap(this.ammunitionStatusBar);
+
         this.ctx.translate(this.camera_x, 0); //forward //verschiebt die Kameraansicht 
 
+        this.addObjectsToMap(this.shootingObject);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.lives);
         this.addObjectsToMap(this.level.ammunition);
+        // this.addObjectsToMap(this.shootingObject);
         this.addToMap(this.character);
         this.ctx.translate(-this.camera_x, 0); //Elemente werden bei -100 gezeichnet, dann wird camera wieder zurückgesetzt
         let self = this;
@@ -75,7 +80,6 @@ class World {
         }
         movableObject.draw(this.ctx);
         movableObject.drawFrame(this.ctx);
-
         if (movableObject.otherDirection) {
             this.flipImageBack(movableObject);
         }
@@ -93,22 +97,37 @@ class World {
         this.ctx.restore(); //den Kontext auf den zuvor gespeicherten Zustand zurücksetzen, einschließlich aller Einstellungen, die zuvor mit save() gesichert wurden
     }
 
-    checkCollisions() {
+    run() {
         setInterval(() => {
-            this.level.enemies.forEach((enemy) => {
-                if ( this.character.isColliding(enemy)) {
-                    this.character.hit();
-                    this.livesStatusBar.setPercentage(this.character.lives);
-                }
-            });
+            this.isCollidingEnemies();
+            this.isCollidingLives();
+            this.checkThrowObjects();
         }, 100);
-        setInterval(() => {
-            this.level.lives.forEach((lives) => {
-                if ( this.character.isColliding(lives)) {
-                    this.character.collectLives();
-                    this.livesStatusBar.setPercentage(this.character.lives);
-                }
-            });
-        }, 100);
+    }
+
+    isCollidingEnemies() {
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isColliding(enemy)) {
+                this.character.hit();
+                this.livesStatusBar.setPercentage(this.character.lives);
+            }
+        });
+    }
+
+    isCollidingLives() {
+        this.level.lives.forEach((lives) => {
+            if (this.character.isColliding(lives)) {
+                this.character.collectLives();
+                this.livesStatusBar.setPercentage(this.character.lives);
+            }
+        });
+    }
+
+    checkThrowObjects() {
+        if (this.keyboard.KEY_TAB) {
+            let laser = new ShootingObject(this.character.x, this.character.y);
+            this.shootingObject.push(laser);
+            console.log(laser);
+        }
     }
 }

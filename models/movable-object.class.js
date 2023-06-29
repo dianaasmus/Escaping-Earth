@@ -10,6 +10,8 @@ class MovableObject extends DrawableObject {
     lives = 10;
     // lives = 10;
     lastHit = 0;
+    speedX = 1;
+
 
     moveRight() {
         this.x += this.speed;
@@ -84,4 +86,6 @@ class MovableObject extends DrawableObject {
         timepassed = timepassed / 1000; // differenz in s
         return timepassed < 1; //animation für 1 sek anzeigen
     }
+
+    
 }

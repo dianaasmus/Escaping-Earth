@@ -34,7 +34,19 @@ class Character extends MovableObject {
         'img/alien/hurt/hurt3.png',
         'img/alien/hurt/hurt4.png'
     ];
+    IMAGES_SHOOTING = [
+        'img/alien/shooting/attack1.png',
+        'img/alien/shooting/attack2.png',
+        'img/alien/shooting/attack3.png',
+        'img/alien/shooting/attack4.png',
+        'img/alien/shooting/attack5.png',
+        'img/alien/shooting/attack6.png',
+        'img/alien/shooting/attack7.png',
+        'img/alien/shooting/attack8.png',
+        'img/alien/shooting/attack9.png'
+    ];
     running_sound = new Audio('audio/running.mp3');
+    shooting_sound = new Audio('audio/shooting.mp3');
     // isSoundPlaying = false;
 
     //wird immer und als erstes von JS aufgerufen
@@ -44,6 +56,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_DYING);
         this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_SHOOTING);
         this.applyGravitiy();
         this.animate();
     }
@@ -57,6 +70,7 @@ class Character extends MovableObject {
         this.isSoundPlaying = false;
         this.running_sound.loop = true; // Audio immer wieder abspielen
         this.running_sound.playbackRate = 2; // Wiedergabegeschwindiigkeit auf 2 erhöhen
+        this.shooting_sound.playbackRate = 2; // Wiedergabegeschwindiigkeit auf 2 erhöhen
 
         setInterval(() => {
             if (!this.world.keyboard.KEY_RIGHT && !this.world.keyboard.KEY_LEFT) {
@@ -64,7 +78,6 @@ class Character extends MovableObject {
                     this.running_sound.pause();
                     this.isSoundPlaying = false;
                 }
-                // this.pauseAudio(this.isSoundPlaying);
             }
             if (this.world.keyboard.KEY_RIGHT && this.x < this.world.level.level_end_x) {
                 this.moveRight();
@@ -74,10 +87,8 @@ class Character extends MovableObject {
                     this.running_sound.play();
                     this.isSoundPlaying = true;
                 }
-                // this.playAudio(this.isSoundPlaying);
             }
             if (this.world.keyboard.KEY_LEFT && this.x > 125) {
-                // this.x -= this.speed;
                 this.otherDirection = true; // bilder spiegeln
                 this.moveLeft();
                 if (!this.isSoundPlaying) {
@@ -85,6 +96,17 @@ class Character extends MovableObject {
                     this.isSoundPlaying = true;
                 }
             }
+            // if (this.world.keyboard.KEY_TAB) {
+            //     // this.otherDirection = true; // bilder spiegeln
+            //     this.throw();
+            //     // this.playAnimation(this.IMAGES_SHOOTING);
+            //     console.log('shoot');
+            //     if (!this.isSoundPlaying) {
+            //         this.shooting_sound.play();
+            //         // this.running_sound.pause();
+            //         this.isSoundPlaying = false;
+            //     }
+            // }
             this.world.camera_x = -this.x + 125; // x = 125, Alien um 125 verschieben
         }, 1000 / 60);
     }
@@ -92,16 +114,19 @@ class Character extends MovableObject {
     addAnimations() {
         setInterval(() => { //jedes bild wird 1 sekunde angezeigt, dann currentImage++
             if (this.isDead()) {
+                this.height = 90;
+                this.width = 40;
                 this.playAnimation(this.IMAGES_DYING);
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             } else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
-            } else {
-                if (this.world.keyboard.KEY_RIGHT || this.world.keyboard.KEY_LEFT) { //Animation wird abgespielt, wenn keyboard gedrückt
-                    this.playAnimation(this.IMAGES_WALKING);
-                }
+            } else if (this.world.keyboard.KEY_RIGHT || this.world.keyboard.KEY_LEFT) { //Animation wird abgespielt, wenn keyboard gedrückt
+                this.playAnimation(this.IMAGES_WALKING);
             }
+            // if ( this.world.keyboard.KEY_TAB && this.throw()) {
+            //     // this.playAnimation(this.IMAGES_SHOOTING); 
+            // }
             if (this.world.keyboard.KEY_UP && !this.isAboveGround()) { //Animation wird abgespielt, wenn keyboard gedrückt
                 this.speedY = 40; //jump
             }
