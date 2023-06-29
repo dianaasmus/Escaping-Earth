@@ -8,7 +8,7 @@ class MovableObject extends DrawableObject {
     offsety = 10;
     onCollisionCourse = true;
     lives = 10;
-    // lives = 10;
+    ammunition = 10;
     lastHit = 0;
     speedX = 1;
 
@@ -77,6 +77,20 @@ class MovableObject extends DrawableObject {
         }
     }
 
+    collectAmmunition() {
+        this.ammunition += 1;
+        if(this.ammunition > 10) {
+            this.ammunition = 10; 
+        }
+    }
+
+    hitEnemy() {
+        this.ammunition -= 1;
+        if(this.ammunition < 0) {
+            this.ammunition = 0; 
+        } 
+    }
+
     isDead() {
         return this.lives == 0;
     }
@@ -86,6 +100,4 @@ class MovableObject extends DrawableObject {
         timepassed = timepassed / 1000; // differenz in s
         return timepassed < 1; //animation für 1 sek anzeigen
     }
-
-    
 }

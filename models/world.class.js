@@ -101,6 +101,7 @@ class World {
         setInterval(() => {
             this.isCollidingEnemies();
             this.isCollidingLives();
+            this.isCollidingAmmunition();
             this.checkThrowObjects();
         }, 100);
     }
@@ -123,11 +124,32 @@ class World {
         });
     }
 
+    isCollidingAmmunition() {
+        this.level.ammunition.forEach((ammunition) => {
+            if (this.character.isColliding(ammunition)) {
+                this.character.collectAmmunition();
+                this.ammunitionStatusBar.setPercentage(this.character.ammunition);
+            }
+        });
+    }
+
+    isCollidingShootingObject() {
+        this.shootingObject.forEach((shot) => {
+            if (this.enemies.forEach.isColliding(shot)) {
+                this.character.hitEnemy();
+                this.ammunitionStatusBar.setPercentage(this.character.ammunition);
+            }
+        });
+    }
+
     checkThrowObjects() {
         if (this.keyboard.KEY_TAB) {
             let laser = new ShootingObject(this.character.x, this.character.y);
             this.shootingObject.push(laser);
-            console.log(laser);
+            this.character.hitEnemy();
+            this.ammunitionStatusBar.setPercentage(this.character.ammunition);
+
+            console.log(this.character.ammunition);
         }
     }
 }
