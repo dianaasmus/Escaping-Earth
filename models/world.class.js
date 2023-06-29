@@ -1,15 +1,13 @@
 class World {
     character = new Character();
-    // enemies = level1.enemies;
-    // backgrounds = level1.backgrounds;
-    // positions = level1.positions; // Hintergrund 4 mal einfügen
     level = level1; //auf alle variablen in level1 zugreifen + Z. 
     backgroundObjects = [];
     canvas;
     ctx;
     keyboard;
     camera_x = 0;
-    statusBar = new StatusBar();
+    livesStatusBar = new LivesStatusBar();
+    ammunitionStatusBar = new AmmunitionStatusBar();
     background_music = new Audio('audio/music.mp3');
 
     constructor(canvas, keyboard) { //von game.js aufnehmen
@@ -50,11 +48,13 @@ class World {
 
         this.ctx.translate(-this.camera_x, 0); // Back //Elemente werden bei -100 gezeichnet, dann wird camera wieder zurückgesetzt
         // ...space for fixed objects...
-        this.addToMap(this.statusBar);
+        this.addToMap(this.livesStatusBar);
+        this.addToMap(this.ammunitionStatusBar);
         this.ctx.translate(this.camera_x, 0); //forward //verschiebt die Kameraansicht 
 
         this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.level.collection);
+        this.addObjectsToMap(this.level.lives);
+        this.addObjectsToMap(this.level.ammunition);
         this.addToMap(this.character);
         this.ctx.translate(-this.camera_x, 0); //Elemente werden bei -100 gezeichnet, dann wird camera wieder zurückgesetzt
         let self = this;
@@ -98,19 +98,17 @@ class World {
             this.level.enemies.forEach((enemy) => {
                 if ( this.character.isColliding(enemy)) {
                     this.character.hit();
-                    console.log('collision with character energy ', this.character.energy);
-                    this.statusBar.setPercentage(this.character.energy);
-
+                    this.livesStatusBar.setPercentage(this.character.lives);
                 }
             });
-        }, 500);
+        }, 100);
         setInterval(() => {
-            this.level.collection.forEach((collect) => {
-                if ( this.character.isColliding(collect)) {
-                    console.log('collision with character lives ', this.character.lives);
-                    // this.statusBar.setPercentage(this.character.energy);
+            this.level.lives.forEach((lives) => {
+                if ( this.character.isColliding(lives)) {
+                    this.character.collectLives();
+                    this.livesStatusBar.setPercentage(this.character.lives);
                 }
             });
-        }, 500);
+        }, 100);
     }
 }

@@ -6,7 +6,8 @@ const zombieArray = Array(5).fill().map(() => new Zombie());
 
 const level1 = new Level(
     [...runningZombieArray, ...endbossArray, ...zombieArray],
-    [...livesArray, ...ammunitionArray],
+    [...livesArray],
+    [...ammunitionArray],
     [
        'img/background/Sky.png',
        'img/background/Background.png',

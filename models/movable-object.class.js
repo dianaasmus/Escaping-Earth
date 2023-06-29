@@ -7,8 +7,8 @@ class MovableObject extends DrawableObject {
     maxY = 400; // Obere Grenze des Bewegungsbereichs
     offsety = 10;
     onCollisionCourse = true;
-    energy = 10;
     lives = 10;
+    // lives = 10;
     lastHit = 0;
 
     moveRight() {
@@ -60,16 +60,23 @@ class MovableObject extends DrawableObject {
     }
 
     hit() {
-        this.energy -= 1;
-        if(this.energy < 0) {
-            this.energy = 0; 
+        this.lives -= 1;
+        if(this.lives < 0) {
+            this.lives = 0; 
         } else {
             this.lastHit = new Date().getTime(); //wenn Energie abnimmt geht, aber nicht 0 -> Zeit festhalten -> isHurt()
         }
     }
 
+    collectLives() {
+        this.lives += 1;
+        if(this.lives > 10) {
+            this.lives = 10; 
+        }
+    }
+
     isDead() {
-        return this.energy == 0;
+        return this.lives == 0;
     }
 
     isHurt() { // Falls Zeit unter 1 sekunde -> true -> Graphik anzeigen
