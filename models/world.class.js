@@ -129,36 +129,24 @@ class World {
             if (this.character.isColliding(ammunition)) {
                 this.character.collectAmmunition();
                 this.ammunitionStatusBar.setPercentage(this.character.ammunition);
-
-                // Index von jeweiliger Ammunition bei isColliding
-                const collidedObjectIndex = this.level.ammunition.findIndex((ammunition) => {
-                    return this.character.isColliding(ammunition);
-                });
-                console.log('findIndex:', collidedObjectIndex);
-
-                // splice Ammunition an jeweiligen Stelle (index)
-                if (collidedObjectIndex !== -1) {
-                    this.level.ammunition.splice(collidedObjectIndex, 1);
-                }
-                console.log(collidedObjectIndex);
-
-
-                // entfernen von Ammunition[index] auf canvas
-                if (collidedObjectIndex) {
-                    console.log('funktion', collidedObjectIndex);
-
-                    let collidedAmmunition = this.level.ammunition[collidedObjectIndex];
-                    this.ctx.clearRect(
-                        collidedAmmunition.x, //error
-                        collidedAmmunition.y,
-                        collidedAmmunition.width,
-                        collidedAmmunition.height
-                    );
-                    console.log(collidedAmmunition.x, collidedAmmunition.y);
-                }
-
+                this.getAmmunitionIndex(ammunition);
             }
         });
+    }
+
+    getAmmunitionIndex() {
+        // Index von jeweiliger Ammunition bei isColliding
+        const collidedObjectIndex = this.level.ammunition.findIndex((ammunition) => {
+            return this.character.isColliding(ammunition);
+        });
+        this.removeAmmunition(collidedObjectIndex);
+    }
+
+    removeAmmunition(collidedObjectIndex) {
+        // splice Ammunition an jeweiligen Stelle (index)
+        if (collidedObjectIndex !== -1) {
+            this.level.ammunition.splice(collidedObjectIndex, 1);
+        }
     }
 
     removeObject(object) {
