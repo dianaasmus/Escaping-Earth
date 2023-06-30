@@ -103,7 +103,7 @@ class World {
             this.isCollidingLives();
             this.isCollidingAmmunition();
             this.checkThrowObjects();
-        }, 1000);
+        }, 100 );
     }
 
     isCollidingEnemies() {
@@ -130,27 +130,31 @@ class World {
                 this.character.collectAmmunition();
                 this.ammunitionStatusBar.setPercentage(this.character.ammunition);
 
-                // this.removeObject(ammunition);
+                // Index von jeweiliger Ammunition bei isColliding
                 const collidedObjectIndex = this.level.ammunition.findIndex((ammunition) => {
                     return this.character.isColliding(ammunition);
                 });
-                console.log(collidedObjectIndex);
+
+                // splice Ammunition an jeweiligen Stelle (index)
                 if (collidedObjectIndex !== -1) {
-                    // Remove the ammunition from the array
                     this.level.ammunition.splice(collidedObjectIndex, 1);
                 }
+                console.log(collidedObjectIndex);
+
+
+                // entfernen von Ammunition[index] auf canvas
                 if (collidedObjectIndex !== -1) {
                     const collidedAmmunition = this.level.ammunition[collidedObjectIndex];
-                    // const ammunitionContext = collidedAmmunition.canvas.getContext('2d');
                     this.ctx.clearRect(
-                        collidedAmmunition.x,
+                        collidedAmmunition.x, //error
                         collidedAmmunition.y,
                         collidedAmmunition.width,
                         collidedAmmunition.height
                     );
+                } else {
+                    console.log('else');
                 }
 
-                console.log(collidedObjectIndex);
 
             }
         });

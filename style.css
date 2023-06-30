@@ -13,7 +13,7 @@ body {
     height: 100vh;
 }
 
-a {
+a { /* hide in @media */
     position: absolute;
     top: 50px;
     font-size: 3rem;
@@ -26,4 +26,19 @@ a {
 canvas {
     box-shadow: 0px 0px 50px 4px rgba(126,173,255,0.65);
     border-radius: 20px;
+    display: block;
+}
+
+@media only screen and (max-width: 720px) {
+    
+    canvas {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-height: 480px) {
+    
+    canvas {
+        height: 100vh;
+    }
 }
