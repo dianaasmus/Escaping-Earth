@@ -21,6 +21,7 @@ class LivesStatusBar extends DrawableObject {
     }
 
     setPercentage(percentage) {
+        // console.log(percentage);
         this.percentage = percentage;
         let path = this.IMAGES_LIVES[this.resolveImageIndex()];
         this.img = this.imageCache[path];

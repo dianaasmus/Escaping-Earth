@@ -1,5 +1,4 @@
-class Ammunition extends MovableObject {
-    height = 60;
+class Ammunition extends CollectableObject {
     width = 60;
 
     constructor() {

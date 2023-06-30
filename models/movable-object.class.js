@@ -22,10 +22,11 @@ class MovableObject extends DrawableObject {
     }
 
     isColliding(movableObject) {
+        // this.onCollisionCourse = true;
         return (this.x + this.width) >= movableObject.x && this.x <= (movableObject.x + movableObject.width) &&
             (this.y + this.offsety + this.height) >= movableObject.y &&
-            (this.y + this.offsety) <= (movableObject.y + movableObject.height) &&
-            movableObject.onCollisionCourse; // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
+            (this.y + this.offsety) <= (movableObject.y + movableObject.height);
+            // movableObject.onCollisionCourse;// Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
     }
 
     float() {
@@ -63,8 +64,8 @@ class MovableObject extends DrawableObject {
 
     hit() {
         this.lives -= 1;
-        if(this.lives < 0) {
-            this.lives = 0; 
+        if (this.lives < 0) {
+            this.lives = 0;
         } else {
             this.lastHit = new Date().getTime(); //wenn Energie abnimmt geht, aber nicht 0 -> Zeit festhalten -> isHurt()
         }
@@ -72,23 +73,30 @@ class MovableObject extends DrawableObject {
 
     collectLives() {
         this.lives += 1;
-        if(this.lives > 10) {
-            this.lives = 10; 
+        if (this.lives > 10) {
+            this.lives = 10;
+        }
+    }
+
+    collectObject() {
+        this.collectableObject += 1;
+        if (this.collectableObject > 10) {
+            this.collectableObject = 10;
         }
     }
 
     collectAmmunition() {
         this.ammunition += 1;
-        if(this.ammunition > 10) {
-            this.ammunition = 10; 
+        if (this.ammunition > 10) {
+            this.ammunition = 10;
         }
     }
 
     hitEnemy() {
         this.ammunition -= 1;
-        if(this.ammunition < 0) {
-            this.ammunition = 0; 
-        } 
+        if (this.ammunition < 0) {
+            this.ammunition = 0;
+        }
     }
 
     isDead() {

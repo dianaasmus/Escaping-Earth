@@ -4,8 +4,8 @@ class Character extends MovableObject {
     otherDirection = false; // Character bewegt sich byDefault nach Rechts
     height = 80;
     width = 40;
-    // height = 90;
-    // width = 50;
+    y = 370;
+
     IMAGES_WALKING = [ //Übersichtlicher
         'img/alien/walk/walk1.png',
         'img/alien/walk/walk2.png',
@@ -47,6 +47,7 @@ class Character extends MovableObject {
     ];
     running_sound = new Audio('audio/running.mp3');
     shooting_sound = new Audio('audio/shooting.mp3');
+    jumping_sound = new Audio('audio/jump.mp3');
     // isSoundPlaying = false;
 
     //wird immer und als erstes von JS aufgerufen
@@ -59,6 +60,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_SHOOTING);
         this.applyGravitiy();
         this.animate();
+        
     }
 
     animate() {
@@ -67,10 +69,7 @@ class Character extends MovableObject {
     }
 
     addAudios() {
-        this.isSoundPlaying = false;
-        this.running_sound.loop = true; // Audio immer wieder abspielen
-        this.running_sound.playbackRate = 2; // Wiedergabegeschwindiigkeit auf 2 erhöhen
-        this.shooting_sound.playbackRate = 2; // Wiedergabegeschwindiigkeit auf 2 erhöhen
+        this.addAudioSettings();
 
         setInterval(() => {
             if (!this.world.keyboard.KEY_RIGHT && !this.world.keyboard.KEY_LEFT) {
@@ -96,19 +95,29 @@ class Character extends MovableObject {
                     this.isSoundPlaying = true;
                 }
             }
-            // if (this.world.keyboard.KEY_TAB) {
-            //     // this.otherDirection = true; // bilder spiegeln
-            //     this.throw();
-            //     // this.playAnimation(this.IMAGES_SHOOTING);
-            //     console.log('shoot');
-            //     if (!this.isSoundPlaying) {
-            //         this.shooting_sound.play();
-            //         // this.running_sound.pause();
-            //         this.isSoundPlaying = false;
-            //     }
-            // }
+            if (this.world.keyboard.KEY_TAB && this.otherDirection == false ) {
+                if (!this.isSoundPlaying) {
+                    this.shooting_sound.play();
+                    this.isSoundPlaying = false;
+                }
+            }
+            if (this.world.keyboard.KEY_UP ) {
+                if (!this.isSoundPlaying) {
+                    this.jumping_sound.play();
+                    this.isSoundPlaying = false;
+                }
+            }
             this.world.camera_x = -this.x + 125; // x = 125, Alien um 125 verschieben
         }, 1000 / 60);
+    }
+
+    addAudioSettings() {
+        this.isSoundPlaying = false;
+        this.running_sound.loop = true; // Audio immer wieder abspielen
+        this.running_sound.playbackRate = 2; // Wiedergabegeschwindiigkeit auf 2 erhöhen
+        this.shooting_sound.playbackRate = 2; // Wiedergabegeschwindiigkeit auf 2 erhöhen
+        this.jumping_sound.playbackRate = 3 ; // Wiedergabegeschwindiigkeit auf 2 erhöhen
+        this.jumping_sound.volume = 0.25;
     }
 
     addAnimations() {
@@ -124,13 +133,12 @@ class Character extends MovableObject {
             } else if (this.world.keyboard.KEY_RIGHT || this.world.keyboard.KEY_LEFT) { //Animation wird abgespielt, wenn keyboard gedrückt
                 this.playAnimation(this.IMAGES_WALKING);
             }
-            // if ( this.world.keyboard.KEY_TAB && this.throw()) {
-            //     // this.playAnimation(this.IMAGES_SHOOTING); 
-            // }
             if (this.world.keyboard.KEY_UP && !this.isAboveGround()) { //Animation wird abgespielt, wenn keyboard gedrückt
                 this.speedY = 40; //jump
             }
         }, 100);
     }
+
+    
 }
 

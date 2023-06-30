@@ -7,10 +7,10 @@ class ShootingObject extends MovableObject {
         this.y = y;
         this.width = 30;
         this.height = 30;
-        this.throw();
+        this.shoot();
     }
 
-    throw() {
+    shoot() {
         this.speedX = 50;
         setInterval(() => {
             this.x += 10;

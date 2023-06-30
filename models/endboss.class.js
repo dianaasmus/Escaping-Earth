@@ -19,15 +19,20 @@ class Endboss extends MovableObject {
         // console.log(this.world.level_end_x);
         // this.x = 2860 - 300; //level_end_x einsetzen
         this.x = 2860 - 300 * Math.random();
-        this.speed = 0.15 + Math.random() * 0.5; //unterschiedliche Geschw. Zahl zw. 0.15 und 0.65
+        this.speed = 0.5 + Math.random() * 5; //unterschiedliche Geschw. Zahl zw. 0.15 und 0.65
         this.loadImages(this.IMAGES_WALKING);
         // this.animate();
+        // this.checkCharacter();
     }
 
     animate() {
         this.moveLeft();
         setInterval(() => { //jedes bild wird 1 sekunde angezeigt, dann currentImage++
             this.playAnimation(this.IMAGES_WALKING);
-        }, 100);
+        }, 1000);
     }
+
+    // checkCharacter() {
+    //     if ()
+    // }
 }
