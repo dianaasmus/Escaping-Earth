@@ -109,7 +109,6 @@ class World {
             this.isCollidingEnemies();
             this.isCollidingLives();
             this.isCollidingAmmunition();
-
             // this.isCollidingCollectableObject(this.level.ammunition, this.character.ammunition);
             // this.isCollidingCollectableObject(this.level.lives);
             this.checkThrowObjects();
@@ -252,6 +251,7 @@ class World {
             if (this.keyboard.KEY_TAB && this.character.otherDirection == false) {
                 let laser = new ShootingObject(this.character.x, this.character.y);
                 // this.character.laser.otherDirection = true; // bilder spiegeln
+                this.character.playAnimation(this.character.IMAGES_SHOOTING);
                 this.shootingObject.push(laser);
                 this.character.hitEnemy();
                 this.ammunitionStatusBar.setPercentage(this.character.ammunition);
