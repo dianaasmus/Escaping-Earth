@@ -4,7 +4,6 @@ class Character extends MovableObject {
     otherDirection = false; // Character bewegt sich byDefault nach Rechts
     height = 80;
     width = 40;
-    y = 370;
 
     IMAGES_WALKING = [ //Übersichtlicher
         'img/alien/walk/walk1.png',
@@ -48,11 +47,15 @@ class Character extends MovableObject {
     running_sound = new Audio('audio/running.mp3');
     shooting_sound = new Audio('audio/shooting.mp3');
     jumping_sound = new Audio('audio/jump.mp3');
+    collecting_ammunition_sound = new Audio('audio/collect.mp3');
+    collecting_lives_sound = new Audio('audio/collect.mp3');
+    crushing_zombie_sound = new Audio('audio/crushing-zombie.mp3');
     // isSoundPlaying = false;
 
     //wird immer und als erstes von JS aufgerufen
     constructor() {
-        super().loadImage('img/alien/standing.png'); //Startbild
+        super();
+        this.loadImage('img/alien/standing.png'); //Startbild
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_DYING);
@@ -96,7 +99,7 @@ class Character extends MovableObject {
                 }
             }
             if (this.world.keyboard.KEY_TAB && this.otherDirection == false ) {
-                if (!this.isSoundPlaying) {
+                if (!this.isSoundPlaying && this.ammunition !== 0) {
                     this.shooting_sound.play();
                     this.isSoundPlaying = false;
                 }
@@ -116,6 +119,8 @@ class Character extends MovableObject {
         this.running_sound.loop = true; // Audio immer wieder abspielen
         this.running_sound.playbackRate = 2; // Wiedergabegeschwindiigkeit auf 2 erhöhen
         this.shooting_sound.playbackRate = 2; // Wiedergabegeschwindiigkeit auf 2 erhöhen
+        this.collecting_lives_sound.playbackRate = 2; // Wiedergabegeschwindiigkeit auf 2 erhöhen
+        this.collecting_ammunition_sound.playbackRate = 2; // Wiedergabegeschwindiigkeit auf 2 erhöhen
         this.jumping_sound.playbackRate = 3 ; // Wiedergabegeschwindiigkeit auf 2 erhöhen
         this.jumping_sound.volume = 0.25;
     }

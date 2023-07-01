@@ -18,14 +18,12 @@ class World {
         canvas.height = 480;
         this.ctx = canvas.getContext('2d');
         // this.background_music.play(); //geht nur nach einer User-Aktion z. B. Button onclick
-
         this.createBackgroundObjects(); //Hintergrund erstelllen -> Fkt
         this.canvas = canvas;
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
         this.run();
-
     }
 
     createBackgroundObjects() {
@@ -40,40 +38,46 @@ class World {
 
     setWorld() { // character hat eine Variable namens 'world', womit wir auf die variablen aus der world zugreifen können => keyboard
         this.character.world = this; //this.character.world = neue Variable. die auf das aktuelle Objekt (world) verweist.
-        this.collectableObject.world = this;
-        // console.log(this.level.enemies.world);
     }
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         // this.addBackground();
+        this.addFoundation();
+        this.createFrameLoop();
+    }
+
+    addFoundation() {
         this.ctx.translate(this.camera_x, 0); //verschiebt die Kameraansicht 
         this.addObjectsToMap(this.backgroundObjects);
-
         this.ctx.translate(-this.camera_x, 0); // Back //Elemente werden bei -100 gezeichnet, dann wird camera wieder zurückgesetzt
         // ...space for fixed objects...
         this.addToMap(this.livesStatusBar);
         this.addToMap(this.ammunitionStatusBar);
-
         this.ctx.translate(this.camera_x, 0); //forward //verschiebt die Kameraansicht 
-
-        this.addObjectsToMap(this.shootingObject);
-        this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.level.lives);
-        this.addObjectsToMap(this.level.ammunition);
-        // this.addObjectsToMap(this.shootingObject);
+        this.addMovableObjects();
         this.addToMap(this.character);
         this.ctx.translate(-this.camera_x, 0); //Elemente werden bei -100 gezeichnet, dann wird camera wieder zurückgesetzt
+    }
+
+    createFrameLoop() {
         let self = this;
         requestAnimationFrame(function () {
             self.draw();
         });
+    }
 
+    addMovableObjects() {
+        this.addObjectsToMap(this.shootingObject);
+        this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.level.endboss);
+        this.addObjectsToMap(this.level.lives);
+        this.addObjectsToMap(this.level.ammunition);
     }
 
     addObjectsToMap(objects) {
-        objects.forEach(o => {
-            this.addToMap(o);
+        objects.forEach(object => {
+            this.addToMap(object);
         });
     }
 
@@ -109,27 +113,38 @@ class World {
             // this.isCollidingCollectableObject(this.level.ammunition, this.character.ammunition);
             // this.isCollidingCollectableObject(this.level.lives);
             this.checkThrowObjects();
-            this.checkCharacter();
-
-
-
+            this.checkCharacter(); // error
         }, 100);
     }
 
     isCollidingEnemies() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
-                this.character.hit();
-                this.livesStatusBar.setPercentage(this.character.lives);
-
-                if (this.character.isAboveGround()) {
-                    console.log('kollisieren');
+                if (this.character.isAboveGround() && this.character.y > 300) {
+                    this.character.crushing_zombie_sound.play();
+                    this.getEnemyIndex(enemy);
+                } else {
+                    this.character.hit();
                 }
+                this.livesStatusBar.setPercentage(this.character.lives);
             }
         });
     }
 
+    getEnemyIndex() {
+        // Index von jeweiliger Ammunition bei isColliding
+        const collidedObjectIndex = this.level.enemies.findIndex((enemy) => {
+            return this.character.isColliding(enemy);
+        });
+        this.removeEnemy(collidedObjectIndex);
+    }
 
+    removeEnemy(collidedObjectIndex) {
+        // splice Ammunition an jeweiligen Stelle (index)
+        if (collidedObjectIndex !== -1) {
+            this.level.enemies.splice(collidedObjectIndex, 1);
+        }
+    }
 
     // //allg
     // isCollidingCollectableObject(collectableObject, collect) {
@@ -169,12 +184,11 @@ class World {
 
     // }
 
-
-
     //ammunition 
     isCollidingAmmunition() {
         this.level.ammunition.forEach((ammunition) => {
             if (this.character.isColliding(ammunition)) {
+                this.character.collecting_ammunition_sound.play();
                 this.character.collectAmmunition();
                 this.ammunitionStatusBar.setPercentage(this.character.ammunition);
                 this.getAmmunitionIndex(ammunition);
@@ -197,16 +211,13 @@ class World {
         }
     }
 
-
-
-
     //lives
     isCollidingLives() {
         this.level.lives.forEach((lives) => {
             if (this.character.isColliding(lives)) {
+                this.character.collecting_lives_sound.play();
                 this.character.collectLives();
                 this.getLivesIndex(lives);
-
                 this.livesStatusBar.setPercentage(this.character.lives);
             }
         });
@@ -227,20 +238,14 @@ class World {
         }
     }
 
-
-
-
-
-
-
-    isCollidingShootingObject() {
-        this.shootingObject.forEach((shot) => {
-            if (this.enemies.forEach.isColliding(shot)) {
-                this.character.hitEnemy();
-                this.ammunitionStatusBar.setPercentage(this.character.ammunition);
-            }
-        });
-    }
+    // isCollidingShootingObject() {
+    //     this.shootingObject.forEach((shot) => {
+    //         if (this.enemies.forEach.isColliding(shot)) {
+    //             this.character.hitEnemy();
+    //             this.ammunitionStatusBar.setPercentage(this.character.ammunition);
+    //         }
+    //     });
+    // }
 
     checkThrowObjects() {
         if (this.availableAmmunition()) {
@@ -259,11 +264,10 @@ class World {
     }
 
     checkCharacter() {
-        if (this.character.x >= 2000) { //ändern
-            // this.level.enemies.animate();
-            this.level.enemies[5].animate();
-            this.level.enemies[6].animate();
-            this.level.enemies[7].animate();
+        if (this.character.x >= 2000) { //wert ändern
+            this.level.enemies.forEach((enemy) => {
+                enemy.animate();
+            });
         }
     }
 }

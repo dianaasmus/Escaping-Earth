@@ -5,7 +5,8 @@ const endbossArray = Array(3).fill().map(() => new Endboss());
 const zombieArray = Array(5).fill().map(() => new Zombie());
 
 const level1 = new Level(
-    [...runningZombieArray, ...endbossArray, ...zombieArray],
+    [...runningZombieArray, ...zombieArray],
+    [...endbossArray],
     [...livesArray],
     [...ammunitionArray],
     [

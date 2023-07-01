@@ -14,7 +14,8 @@ class Endboss extends MovableObject {
     ];
 
     constructor() {
-        super().loadImage(this.IMAGES_WALKING[0]);
+        super();
+        this.loadImage(this.IMAGES_WALKING[0]);
         // console.log(this.world);
         // console.log(this.world.level_end_x);
         // this.x = 2860 - 300; //level_end_x einsetzen
@@ -23,6 +24,7 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_WALKING);
         // this.animate();
         // this.checkCharacter();
+        // console.log(this.keyboard);
     }
 
     animate() {

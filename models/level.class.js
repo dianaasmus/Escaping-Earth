@@ -1,13 +1,15 @@
 class Level {
     enemies;
+    endboss;
     lives;
     ammunition;
     backgrounds;
     positions;
     level_end_x;
 
-    constructor(enemies, lives, ammunition, backgrounds, positions) {
+    constructor(enemies, endboss, lives, ammunition, backgrounds, positions) {
         this.enemies = enemies;
+        this.endboss = endboss;
         this.lives = lives;
         this.ammunition = ammunition;
         this.backgrounds = backgrounds;

@@ -3,7 +3,7 @@ class MovableObject extends DrawableObject {
     speedY = 0;
     acceleration = 5;
     shift = -1; // Startverschiebung
-    minY = 385; // Untere Grenze des Bewegungsbereichs
+    minY = 375; // Untere Grenze des Bewegungsbereichs
     maxY = 400; // Obere Grenze des Bewegungsbereichs
     offsety = 10;
     onCollisionCourse = true;
@@ -11,7 +11,6 @@ class MovableObject extends DrawableObject {
     ammunition = 10;
     lastHit = 0;
     speedX = 1;
-
 
     moveRight() {
         this.x += this.speed;
@@ -22,11 +21,9 @@ class MovableObject extends DrawableObject {
     }
 
     isColliding(movableObject) {
-        // this.onCollisionCourse = true;
         return (this.x + this.width) >= movableObject.x && this.x <= (movableObject.x + movableObject.width) &&
             (this.y + this.offsety + this.height) >= movableObject.y &&
             (this.y + this.offsety) <= (movableObject.y + movableObject.height);
-            // movableObject.onCollisionCourse;// Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
     }
 
     float() {
