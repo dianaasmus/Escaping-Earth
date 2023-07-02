@@ -131,19 +131,6 @@ class World {
         });
     }
 
-    // isCollidingLaser() {
-    //     this.shootingObject.forEach((shot) => {
-    //         this.level.enemies.forEach((enemy) => {
-    //             if (shot.isColliding(enemy)) {
-    //                 console.log('colliding');
-
-    //                 this.getLaserIndex(shot);
-    //                 this.getEnemyIndex(enemy);
-    //             }
-    //         });
-    //     })
-    // }
-
     //Laser + Enemy Collision ========================================= START
     isCollidingLaser() {
         // überprüft, ob es Kollisionen zwischen laser und enemy gibt
@@ -151,51 +138,79 @@ class World {
         this.shootingObject.forEach((shot) => {
             this.level.enemies.forEach((enemy) => {
                 if (shot.isColliding(enemy)) {
-                    console.log('Kollision erkannt');
                     this.handleCollision(shot, enemy);
                 }
             });
         });
     }
-    
+
     handleCollision(shot, enemy) {
         // behandelt die Kollision zwischen shot und enemy
         // ermittelt den Index des betroffenen enemys und des shots
-        const collidedObjectIndex = this.level.enemies.findIndex((e) => e === enemy);
+        const enemyIndex = this.level.enemies.findIndex((e) => e === enemy);
+        // const endboxIndex = this.level.enemies.findIndex((e) => e === enemy);
         const shotIndex = this.shootingObject.findIndex((s) => s === shot);
-        this.removeEnemy(collidedObjectIndex);
+        this.removeEnemy(enemyIndex);
+        // this.removeEndboss(endboxIndex);
         this.removeLaser(shotIndex);
     }
-    
+
     removeEnemy(collidedObjectIndex) {
         // entfernt den enemy anhand des angegebenen Indexes aus der Liste der enemies
         if (collidedObjectIndex !== -1) {
             this.level.enemies.splice(collidedObjectIndex, 1);
         }
     }
-    
+
     removeLaser(collidedObjectIndex) {
         // entfernt den laser anhand des angegebenen Indexes aus der Liste der shootingObjects
         if (collidedObjectIndex !== -1) {
             this.shootingObject.splice(collidedObjectIndex, 1);
         }
     }
-    
+
     //Laser + Enemy Collision ========================================= END
+
+    removeEndboss(collidedObjectIndex) {
+        // entfernt den laser anhand des angegebenen Indexes aus der Liste der shootingObjects
+        if (collidedObjectIndex !== -1) {
+            this.level.endboss.splice(collidedObjectIndex, 1);
+        }
+    }
 
     // fast dasselbe wie enemies -> zusammenschreiben
     isCollidingEndboss() {
         this.level.endboss.forEach((endboss) => {
-            if (this.character.isColliding(endboss)) {
-                // if (this.character.y > 250 && this.character.isAboveGround()) {
-                // this.character.crushing_zombie_sound.play();
-                // this.getEnemyIndex(endboss);
-                // } else {
-                this.character.hit();
-                // }
-                this.livesStatusBar.setPercentage(this.character.lives);
+            this.handleCharacterEndbossCollision(endboss);
+            this.isCollidingWithLaser(endboss);
+        });
+    }
+
+    handleCharacterEndbossCollision(endboss) {
+        if (this.character.isColliding(endboss)) {
+            this.character.hit();
+            this.livesStatusBar.setPercentage(this.character.lives);
+        }
+    }
+
+    isCollidingWithLaser(endboss) {
+        this.shootingObject.forEach((shot) => {
+            if (shot.isColliding(endboss)) {
+                console.log('Kollision erkannt');
+                this.handleCollisionEndboss(shot, endboss);
             }
         });
+    }
+
+    handleCollisionEndboss(shot, endboss) {
+        // behandelt die Kollision zwischen shot und enemy
+        // ermittelt den Index des betroffenen enemys und des shots
+        
+        const endboxIndex = this.level.endboss.findIndex((e) => e === endboss);
+        const shotIndex = this.shootingObject.findIndex((s) => s === shot);
+        
+        this.removeEndboss(endboxIndex);
+        this.removeLaser(shotIndex);
     }
 
     getEnemyIndex() {
@@ -297,15 +312,6 @@ class World {
             this.level.lives.splice(collidedObjectIndex, 1);
         }
     }
-
-    // isCollidingShootingObject() {
-    //     this.shootingObject.forEach((shot) => {
-    //         if (this.enemies.forEach.isColliding(shot)) {
-    //             this.character.hitEnemy();
-    //             this.ammunitionStatusBar.setPercentage(this.character.ammunition);
-    //         }
-    //     });
-    // }
 
     checkThrowObjects() {
         if (this.availableAmmunition()) {
