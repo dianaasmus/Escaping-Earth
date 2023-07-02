@@ -34,6 +34,9 @@ class Endboss extends MovableObject {
         }, 1000);
     }
 
+    // stopAnimation() {
+    //     clearInterval(this.animationInterval);
+    // }
     // checkCharacter() {
     //     if ()
     // }

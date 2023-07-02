@@ -117,6 +117,7 @@ class Character extends MovableObject {
     addAudioSettings() {
         this.isSoundPlaying = false;
         this.running_sound.loop = true; // Audio immer wieder abspielen
+        // this.jumping_sound.loop = false; // Audio immer wieder abspielen
         this.running_sound.playbackRate = 2; // Wiedergabegeschwindiigkeit auf 2 erhöhen
         this.shooting_sound.playbackRate = 2; // Wiedergabegeschwindiigkeit auf 2 erhöhen
         this.collecting_lives_sound.playbackRate = 2; // Wiedergabegeschwindiigkeit auf 2 erhöhen
