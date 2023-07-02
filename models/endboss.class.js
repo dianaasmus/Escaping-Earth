@@ -4,12 +4,12 @@ class Endboss extends MovableObject {
     y = 310;
     
     IMAGES_WALKING = [
-        'img/endboss/walk-1.png',
-        'img/endboss/walk-2.png',
-        'img/endboss/walk-3.png',
-        'img/endboss/walk-4.png',
-        'img/endboss/walk-5.png',
-        'img/endboss/walk-6.png'
+        'img/endboss/walk/walk-1.png',
+        'img/endboss/walk/walk-2.png',
+        'img/endboss/walk/walk-3.png',
+        'img/endboss/walk/walk-4.png',
+        'img/endboss/walk/walk-5.png',
+        'img/endboss/walk/walk-6.png'
     ];
 
     constructor() {

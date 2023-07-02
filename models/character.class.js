@@ -119,18 +119,18 @@ class Character extends MovableObject {
         this.running_sound.loop = true; // Audio immer wieder abspielen
         // this.jumping_sound.loop = false; // Audio immer wieder abspielen
         this.running_sound.playbackRate = 2; // Wiedergabegeschwindiigkeit auf 2 erhöhen
-        this.shooting_sound.playbackRate = 2; // Wiedergabegeschwindiigkeit auf 2 erhöhen
-        this.collecting_lives_sound.playbackRate = 2; // Wiedergabegeschwindiigkeit auf 2 erhöhen
-        this.collecting_ammunition_sound.playbackRate = 2; // Wiedergabegeschwindiigkeit auf 2 erhöhen
-        this.jumping_sound.playbackRate = 3 ; // Wiedergabegeschwindiigkeit auf 2 erhöhen
+        this.shooting_sound.playbackRate = 2; 
+        this.collecting_lives_sound.playbackRate = 2; 
+        this.collecting_ammunition_sound.playbackRate = 2; 
+        this.jumping_sound.playbackRate = 3 ; 
         this.jumping_sound.volume = 0.25;
     }
 
     addAnimations() {
         setInterval(() => { //jedes bild wird 1 sekunde angezeigt, dann currentImage++
             if (this.isDead()) {
-                this.height = 90;
-                this.width = 40;
+                this.height = 70;
+                this.width = 60;
                 this.playAnimation(this.IMAGES_DYING);
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
@@ -142,7 +142,7 @@ class Character extends MovableObject {
             if (this.world.keyboard.KEY_UP && !this.isAboveGround()) { //Animation wird abgespielt, wenn keyboard gedrückt
                 this.speedY = 40; //jump
             }
-        }, 100);
+        }, 200);
     }
 
     

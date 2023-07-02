@@ -7,6 +7,7 @@ class World {
     keyboard;
     camera_x = 0;
     livesStatusBar = new LivesStatusBar();
+    batteryStatusBar = new BatteryStatusBar();
     ammunitionStatusBar = new AmmunitionStatusBar();
     shootingObject = [];
     collectableObject = new CollectableObject();
@@ -52,6 +53,7 @@ class World {
         this.ctx.translate(-this.camera_x, 0); // Back //Elemente werden bei -100 gezeichnet, dann wird camera wieder zurückgesetzt
         // ...space for fixed objects...
         this.addToMap(this.livesStatusBar);
+        this.addToMap(this.batteryStatusBar);
         this.addToMap(this.ammunitionStatusBar);
         this.ctx.translate(this.camera_x, 0); //forward //verschiebt die Kameraansicht 
         this.addMovableObjects();
@@ -168,7 +170,6 @@ class World {
             this.shootingObject.splice(collidedObjectIndex, 1);
         }
     }
-
     //Laser + Enemy Collision ========================================= END
 
     removeEndboss(collidedObjectIndex) {
@@ -205,10 +206,8 @@ class World {
     handleCollisionEndboss(shot, endboss) {
         // behandelt die Kollision zwischen shot und enemy
         // ermittelt den Index des betroffenen enemys und des shots
-        
         const endboxIndex = this.level.endboss.findIndex((e) => e === endboss);
         const shotIndex = this.shootingObject.findIndex((s) => s === shot);
-        
         this.removeEndboss(endboxIndex);
         this.removeLaser(shotIndex);
     }
