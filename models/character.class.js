@@ -129,8 +129,8 @@ class Character extends MovableObject {
     addAnimations() {
         setInterval(() => { //jedes bild wird 1 sekunde angezeigt, dann currentImage++
             if (this.isDead()) {
-                this.height = 70;
-                this.width = 60;
+                this.height = 80;
+                this.width = 40;
                 this.playAnimation(this.IMAGES_DYING);
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);

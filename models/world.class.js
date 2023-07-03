@@ -172,13 +172,6 @@ class World {
     }
     //Laser + Enemy Collision ========================================= END
 
-    removeEndboss(collidedObjectIndex) {
-        // entfernt den laser anhand des angegebenen Indexes aus der Liste der shootingObjects
-        if (collidedObjectIndex !== -1) {
-            this.level.endboss.splice(collidedObjectIndex, 1);
-        }
-    }
-
     // fast dasselbe wie enemies -> zusammenschreiben
     isCollidingEndboss() {
         this.level.endboss.forEach((endboss) => {
@@ -208,8 +201,15 @@ class World {
         // ermittelt den Index des betroffenen enemys und des shots
         const endboxIndex = this.level.endboss.findIndex((e) => e === endboss);
         const shotIndex = this.shootingObject.findIndex((s) => s === shot);
-        this.removeEndboss(endboxIndex);
+        // this.removeEndboss(endboxIndex);
         this.removeLaser(shotIndex);
+    }
+
+    removeEndboss(collidedObjectIndex) {
+        // entfernt den laser anhand des angegebenen Indexes aus der Liste der shootingObjects
+        if (collidedObjectIndex !== -1) {
+            this.level.endboss.splice(collidedObjectIndex, 1);
+        }
     }
 
     getEnemyIndex() {
@@ -263,7 +263,7 @@ class World {
         this.level.ammunition.forEach((ammunition) => {
             if (this.character.isColliding(ammunition)) {
                 this.character.collecting_ammunition_sound.play();
-                this.character.collectAmmunition();
+                this.character.hittedObject('collectAmmunition');
                 this.ammunitionStatusBar.setPercentage(this.character.ammunition);
                 this.getAmmunitionIndex(ammunition);
             }
@@ -290,7 +290,7 @@ class World {
         this.level.lives.forEach((lives) => {
             if (this.character.isColliding(lives)) {
                 this.character.collecting_lives_sound.play();
-                this.character.collectLives();
+                this.character.hittedObject('collectLives');
                 this.getLivesIndex(lives);
                 this.livesStatusBar.setPercentage(this.character.lives);
             }
@@ -319,7 +319,7 @@ class World {
                 // this.character.laser.otherDirection = true; // bilder spiegeln
                 this.character.playAnimation(this.character.IMAGES_SHOOTING);
                 this.shootingObject.push(laser);
-                this.character.hitEnemy();
+                this.character.hittedObject('hitEnemy');
                 this.ammunitionStatusBar.setPercentage(this.character.ammunition);
             }
         }

@@ -7,10 +7,14 @@ class MovableObject extends DrawableObject {
     maxY = 400; // Obere Grenze des Bewegungsbereichs
     offsety = 10;
     onCollisionCourse = true;
-    lives = 10;
-    ammunition = 10;
+    lives = 10; //alien
+    ammunition = 10; //alien
     lastHit = 0;
     speedX = 1;
+    energyOne = 2; //robot
+    energyTwo = 2; //robot
+    energyThree = 2; //robot
+    energyAll = 10; //robot
 
     moveRight() {
         this.x += this.speed;
@@ -68,32 +72,58 @@ class MovableObject extends DrawableObject {
         }
     }
 
-    collectLives() {
-        this.lives += 1;
-        if (this.lives > 10) {
-            this.lives = 10;
+    // hittedObject(action) {
+    //     if (action === 'collectAmmunition') {
+    //         this.ammunition += 1;
+    //         if (this.ammunition > 10) {
+    //             this.ammunition = 10;
+    //         }
+    //     } else if (action === 'hitEndboss') {
+    //         this.energy -= 1;
+    //         if (this.energy < 0) {
+    //             this.energy = 0;
+    //         }
+    //     } else if (action === 'collectLives') {
+    //         this.lives -= 1;
+    //         if (this.lives < 0) {
+    //             this.lives = 0;
+    //         }
+    //     } else if (action === 'hitEnemy') {
+    //         this.ammunition -= 1;
+    //         if (this.ammunition < 0) {
+    //             this.ammunition = 0;
+    //         }
+    //     }
+    // }
+
+    hittedObject(action) {
+        switch (action) {
+            case 'collectAmmunition':
+                this.incrementProperty('ammunition', 1, 0, 10);
+                break;
+            case 'hitEndboss':
+                this.decrementProperty('energy', 1, 0);
+                break;
+            case 'collectLives':
+                this.decrementProperty('lives', 1, 0);
+                break;
+            case 'hitEnemy':
+                this.decrementProperty('ammunition', 1, 0);
+                break;
+            default:
+                console.log('Unknown action');
+                break;
         }
     }
 
-    collectObject() {
-        this.collectableObject += 1;
-        if (this.collectableObject > 10) {
-            this.collectableObject = 10;
-        }
+    incrementProperty(property, increment, min, max) {
+        this[property] += increment;
+        this[property] = Math.min(Math.max(this[property], min), max);
     }
 
-    collectAmmunition() {
-        this.ammunition += 1;
-        if (this.ammunition > 10) {
-            this.ammunition = 10;
-        }
-    }
-
-    hitEnemy() {
-        this.ammunition -= 1;
-        if (this.ammunition < 0) {
-            this.ammunition = 0;
-        }
+    decrementProperty(property, decrement, min) {
+        this[property] -= decrement;
+        this[property] = Math.max(this[property], min);
     }
 
     isDead() {
