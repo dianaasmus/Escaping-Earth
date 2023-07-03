@@ -199,17 +199,112 @@ class World {
     handleCollisionEndboss(shot, endboss) {
         // behandelt die Kollision zwischen shot und enemy
         // ermittelt den Index des betroffenen enemys und des shots
-        const endboxIndex = this.level.endboss.findIndex((e) => e === endboss);
+        const endbossIndex = this.level.endboss.findIndex((e) => e === endboss);
         const shotIndex = this.shootingObject.findIndex((s) => s === shot);
-        // this.removeEndboss(endboxIndex);
+        // this.removeEndboss(endbossIndex);
+        this.hitEndboss(endbossIndex);
         this.removeLaser(shotIndex);
     }
 
-    removeEndboss(collidedObjectIndex) {
-        // entfernt den laser anhand des angegebenen Indexes aus der Liste der shootingObjects
-        if (collidedObjectIndex !== -1) {
-            this.level.endboss.splice(collidedObjectIndex, 1);
+    hitEndboss(endbossIndex) {
+        // endbossArray.forEach((endboss) => {
+            //     console.log(endboss.id);
+            // if (endboss.id === 1) { //werden alle aufeinmal entfernt
+            //     this.character.batteryOne -= 1;
+            //     if (this.character.batteryOne === 0) {
+            //         this.removeEndboss(endbossIndex);
+            //     }
+            // } else if (endboss.id === 2) {
+            //     this.character.batteryTwo -= 1;
+            //     if (this.character.batteryTwo === 0) {
+            //         this.removeEndboss(endbossIndex);
+            //     }
+            // } else if (endboss.id === 3) {
+            //     this.character.batteryThree -= 1;
+            //     if (this.character.batteryThree === 0) {
+            //         this.removeEndboss(endbossIndex);
+            //     }
+            // }
+
+            // let battery;
+            // if (endbossIndex === 1) {
+            //     this.character.batteryOne -= 1;
+            //     if (this.character.batteryOne === 0) {
+            //         // this.removeEndboss(endboss['id']);
+            //         this.removeEndboss(endbossIndex, 1);
+            //     }
+            // if (endboss.id === 1) {
+            //     this.character.batteryOne -= 1;
+            //     if (this.character.batteryOne === 0) {
+            //         this.removeEndboss(endbossIndex, endboss.id);
+            //     }
+            //     // this.checkEndbossDead();
+            //     // this.removeEndboss(endbossIndex);
+            // } else if (endbossIndex === 2) {
+            //     this.character.batteryTwo -= 1;
+            //     if (this.character.batteryTwo === 0) {
+            //         this.removeEndboss(2);
+            //     }
+            //     // this.removeEndboss(endbossIndex);
+            // } else if (endbossIndex === 3) {
+            //     this.character.batteryThree -= 1;
+            //     if (this.character.batteryThree === 0) {
+            //         this.removeEndboss(3);
+            //     }
+            // }
+
+            const endboss = this.level.endboss[endbossIndex];
+            if (endboss.id === 1) {
+                this.character.batteryOne -= 1;
+                if (this.character.batteryOne === 0) {
+                    this.removeEndboss(endbossIndex, endboss.id);
+                }
+            } else if (endboss.id === 2) {
+                this.character.batteryTwo -= 1;
+                if (this.character.batteryTwo === 0) {
+                    this.removeEndboss(endbossIndex, endboss.id);
+                }
+            } else if (endboss.id === 3) {
+                this.character.batteryThree -= 1;
+                if (this.character.batteryThree === 0) {
+                    this.removeEndboss(endbossIndex, endboss.id);
+                }
+            }
+
+            // battery -= 1;
+            // this.removeEndboss(endbossIndex);
+
+        // });
+
+        this.character.batteryAll -= 1;
+        this.batteryStatusBar.setPercentage(this.character.batteryAll);
+        if (this.character.batteryAll === 0) {
+            console.log('you won');
+            // this.batteryStatusBar.setPercentage(this.character.batteryAll);
         }
+        // console.log('hitEnemy');
+    }
+
+    removeEndboss(endbossIndex) { //id
+        // entfernt den laser anhand des angegebenen Indexes aus der Liste der shootingObjects
+        // this.batteryStatusBarStatusBar.setPercentage(this.character.batteryAll);
+        // if (collidedObjectIndex !== -1) {
+        // this.level.endboss.splice(collidedObjectIndex, 1);
+        // }
+
+        // if (this.character.endboss.id === 2) {
+        //     this.level.endbossArray.splice(id, 1);
+        // }
+
+        // const index = this.level.endbossArray.findIndex((endboss) => endboss.id === id);
+        if (endbossIndex !== -1) {
+            this.level.endboss.splice(endbossIndex, 1);
+        }
+
+        // const index = endbossArray.findIndex((endboss) => endboss.id === collidedObjectId);
+        // if (collidedObjectId !== -1) {
+        //     endbossArray.splice(collidedObjectId, 1);
+        // }
     }
 
     getEnemyIndex() {
@@ -291,8 +386,8 @@ class World {
             if (this.character.isColliding(lives)) {
                 this.character.collecting_lives_sound.play();
                 this.character.hittedObject('collectLives');
-                this.getLivesIndex(lives);
                 this.livesStatusBar.setPercentage(this.character.lives);
+                this.getLivesIndex(lives);
             }
         });
     }

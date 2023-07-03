@@ -11,10 +11,10 @@ class MovableObject extends DrawableObject {
     ammunition = 10; //alien
     lastHit = 0;
     speedX = 1;
-    energyOne = 2; //robot
-    energyTwo = 2; //robot
-    energyThree = 2; //robot
-    energyAll = 10; //robot
+    batteryOne = 2; //robot
+    batteryTwo = 2; //robot
+    batteryThree = 2; //robot
+    batteryAll = 10; //robot
 
     moveRight() {
         this.x += this.speed;
@@ -72,58 +72,40 @@ class MovableObject extends DrawableObject {
         }
     }
 
-    // hittedObject(action) {
-    //     if (action === 'collectAmmunition') {
-    //         this.ammunition += 1;
-    //         if (this.ammunition > 10) {
-    //             this.ammunition = 10;
-    //         }
-    //     } else if (action === 'hitEndboss') {
-    //         this.energy -= 1;
-    //         if (this.energy < 0) {
-    //             this.energy = 0;
-    //         }
-    //     } else if (action === 'collectLives') {
-    //         this.lives -= 1;
-    //         if (this.lives < 0) {
-    //             this.lives = 0;
-    //         }
-    //     } else if (action === 'hitEnemy') {
-    //         this.ammunition -= 1;
-    //         if (this.ammunition < 0) {
-    //             this.ammunition = 0;
-    //         }
-    //     }
-    // }
-
     hittedObject(action) {
         switch (action) {
             case 'collectAmmunition':
-                this.incrementProperty('ammunition', 1, 0, 10);
+                this.incrementProperty('ammunition', 1, 0, 10); // 1 = wert ehrhöhen/verringern,  0 = minimalwert, 10 = maximalwert
                 break;
             case 'hitEndboss':
                 this.decrementProperty('energy', 1, 0);
                 break;
             case 'collectLives':
-                this.decrementProperty('lives', 1, 0);
+                this.incrementProperty('lives', 1, 0, 10);
                 break;
             case 'hitEnemy':
                 this.decrementProperty('ammunition', 1, 0);
                 break;
-            default:
-                console.log('Unknown action');
-                break;
         }
     }
 
-    incrementProperty(property, increment, min, max) {
-        this[property] += increment;
-        this[property] = Math.min(Math.max(this[property], min), max);
+    incrementProperty(property, increment, min, max) { 
+        this[property] += increment; // this[property] ≠ this.property ( z. B this['ammunition']) -> dynamische Referenz 
+        // -> wird verwendet, wenn der Name der Eigenschaft zur Entwicklungszeit nicht bekannt ist oder zur Laufzeit variieren kann
+        this[property] = Math.min(Math.max(this[property], min), max); //Math.min(this.ammunition, 0),10)
+        //1. größere Wert ermitteln: Math.max(this[property], min)
+        //2. this['ammunition'], 0 -> Math.max(8, 0)
+        //3. Math.min((8, 0), 10) -> kleinere Wert ermittelt
+        //4. Ergebnis Math.max = 8 -> Ergebnis Math.min((8), 10) -> Ergebnis: 8 (8 ist der kleinere Wert der beiden Werte)
     }
 
     decrementProperty(property, decrement, min) {
         this[property] -= decrement;
         this[property] = Math.max(this[property], min);
+        //1. this[property] und min: größere wert zwischen den beiden werten ermittelt
+        //2. Math.max(this.enery, 0) 
+        //3. Math.max(8, 0) 
+        //-> this.energy = 8;
     }
 
     isDead() {

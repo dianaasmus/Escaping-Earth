@@ -12,8 +12,9 @@ class Endboss extends MovableObject {
         'img/endboss/walk/walk-6.png'
     ];
 
-    constructor() {
+    constructor(id) {
         super();
+        this.id = id;
         this.loadImage(this.IMAGES_WALKING[0]);
         this.x = 2860 - 300 * Math.random();
         this.speed = 0.5 + Math.random() * 5; //unterschiedliche Geschw. Zahl zw. 0.15 und 0.65
@@ -26,4 +27,11 @@ class Endboss extends MovableObject {
             this.playAnimation(this.IMAGES_WALKING);
         }, 1000);
     }
+
+    // removeEndboss(collidedObjectIndex) {
+    //     // entfernt den laser anhand des angegebenen Indexes aus der Liste der shootingObjects
+    //     if (collidedObjectIndex !== -1) {
+    //         this.level.endboss.splice(collidedObjectIndex, 1);
+    //     }
+    // }
 }
