@@ -27,11 +27,4 @@ class Endboss extends MovableObject {
             this.playAnimation(this.IMAGES_WALKING);
         }, 1000);
     }
-
-    // removeEndboss(collidedObjectIndex) {
-    //     // entfernt den laser anhand des angegebenen Indexes aus der Liste der shootingObjects
-    //     if (collidedObjectIndex !== -1) {
-    //         this.level.endboss.splice(collidedObjectIndex, 1);
-    //     }
-    // }
 }

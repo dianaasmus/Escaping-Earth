@@ -11,9 +11,9 @@ class MovableObject extends DrawableObject {
     ammunition = 10; //alien
     lastHit = 0;
     speedX = 1;
-    batteryOne = 2; //robot
-    batteryTwo = 2; //robot
-    batteryThree = 2; //robot
+    batteryOne = 3; //robot
+    batteryTwo = 4; //robot
+    batteryThree = 3; //robot
     batteryAll = 10; //robot
 
     moveRight() {
