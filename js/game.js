@@ -3,6 +3,11 @@ let world;
 let keyboard = new Keyboard(); // keyboard in game.js deklarieren
 let isNextSiteVisible = false; // Variable für den aktuellen Zustand
 
+window.addEventListener('load', function() {
+    var loadingScreen = document.getElementById('loadingScreen');
+    loadingScreen.style.display = 'none';
+});
+
 function startGame() {
     headline.classList.add('animation');
     startScreen.classList.add('d-none');
@@ -10,61 +15,69 @@ function startGame() {
 }
 
 function openInfo() {
+    // document.getElementById('info-icon').disabled = true;
     let infoContainer = document.getElementById("info-container");
     if (infoContainer) {
         infoContainer.remove(); //toggle
     } else {
-        document.body.innerHTML += `
-        <div id="info-container">
-            <div id="info-content">
-                <p>It is June 3245 when, suddenly, an extraterrestrial being crashes its UFO over Earth. Trapped in a world full of zombies and robots, 'June-3245' strives to fight for survival and escape from the planet. Help him defeat his enemies and reach his UFO.</p>
-            </div>
-            <img onclick="nextSite()" src="img/start-screen/arrow.png" id="arrow">
-        </div>
-    `;
+        document.body.innerHTML += gameInfo();
     }
 }
 
-function nextSite() {
-    if (isNextSiteVisible) {
-        // Wenn der neue Inhalt bereits sichtbar ist, setze den ursprünglichen Inhalt zurück
-        document.getElementById('info-content').remove();
-        document.getElementById('arrow').style.transform = "rotate(0deg)";
-    } else {
-        document.getElementById('info-content').innerHTML = `
-            <div class="column">                
-                <div class="align">
-                    <img src="img/start-screen/arrow.png" class="key-icons">
-                    <p>JUMP</p>
+function gameInfo() {
+    return `
+    <div id="info-container">
+        <div id="info-content">
+            <div id="gameSettings" class="d-none">
+                <div class="column">                
+                    <div class="align">
+                        <img src="img/start-screen/arrow.png" class="key-icons">
+                        <p>JUMP</p>
+                    </div>
+                    <div class="align">
+                        <img src="img/start-screen/arrow-left.png" class="key-icons">
+                        <p>LEFT</p>
+                    </div>
+                    <div class="align">
+                        <img src="img/start-screen/arrow-right.png" class="key-icons">
+                        <p>RIGHT</p>
+                    </div>
+                    <div class="align">
+                        <div class="key-icon"></div>
+                        <p>SHOOT</p>
+                    </div>
                 </div>
-                <div class="align">
-                    <img src="img/start-screen/arrow.png" class="key-icons">
-                    <p>LEFT</p>
-                </div>
-                <div class="align">
-                    <img src="img/start-screen/arrow.png" class="key-icons">
-                    <p>RIGHT</p>
-                </div>
-                <div class="align">
-                    <div class="key-icon"></div>
-                    <p>SHOOT</p>
+                <div class="column">
+                    <div class="align">
+                        <img src="img/lives/14.png" class="collect-icons">
+                        <p>LIVES</p>
+                    </div>
+                    <div class="align">
+                        <img src="img/ammunition/13.png" class="collect-icons">
+                        <p>AMMUNITION</p>
+                    </div>
                 </div>
             </div>
-            <div class="column">
-                <div class="align">
-                    <img src="img/lives/14.png" class="collect-icons">
-                    <p>LIVES</p>
-                </div>
-                <div class="align">
-                    <img src="img/ammunition/13.png" class="collect-icons">
-                    <p>AMMUNITION</p>
-                </div>
-            </div>
-        `;
+                <p id="gameDescription">It is June 3245 when, suddenly, an extraterrestrial being crashes its UFO over Earth. Trapped in a world full of zombies and robots, 'June-3245' strives to fight for survival and escape from the planet. Help him defeat his enemies and reach his UFO.</p>
+        </div>
+            <img onclick="nextSite()" src="img/start-screen/arrow.png" id="arrow">
+    </div>
+`;
+}
 
+function nextSite() {
+    let gameSettings = document.getElementById("gameSettings");
+    let gameDescription = document.getElementById('gameDescription');
+
+    if (gameSettings.classList.contains('d-none')) {
+        gameSettings.classList.remove('d-none');
+        gameDescription.classList.add('d-none');
         document.getElementById('arrow').style.transform = "rotate(180deg)";
+    } else {
+        gameSettings.classList.add('d-none');
+        gameDescription.classList.remove('d-none');
+        document.getElementById('arrow').style.transform = "rotate(0deg)";
     }
-    isNextSiteVisible = !isNextSiteVisible;
 }
 
 function init() {

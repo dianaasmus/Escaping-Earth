@@ -31,7 +31,12 @@
 </head>
 
 <body>
-    <img onclick="openInfo()" src="img/start-screen/info-icon.png" id="info-icon">
+
+    <div id="loadingScreen">
+        <h1>Loading...</h1>
+    </div>
+    
+    <button  onclick="openInfo()"  id="info-icon"></button>
 
     <a href="index.html" id="headline">Escaping Earth</a>
 
@@ -39,6 +44,7 @@
         <img src="img/start-screen/start-img.png" id="start-img">
         <button onclick="startGame()">START</button>
     </div>
+
     <canvas id="canvas" width="720" height="480"></canvas>
 
 </body>
