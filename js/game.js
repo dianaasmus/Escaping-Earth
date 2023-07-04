@@ -2,23 +2,26 @@ let canvas;
 let world;
 let keyboard = new Keyboard(); // keyboard in game.js deklarieren
 let isNextSiteVisible = false; // Variable für den aktuellen Zustand
+// let loadingArray = [''];
 
-window.addEventListener('load', function() {
+window.addEventListener('load', function () {
     var loadingScreen = document.getElementById('loadingScreen');
     loadingScreen.style.display = 'none';
 });
 
 function startGame() {
+    startBtn.disabled = true;
     headline.classList.add('animation');
     startScreen.classList.add('d-none');
     init();
 }
 
 function openInfo() {
-    // document.getElementById('info-icon').disabled = true;
+    document.getElementById('startBtn').classList.add('d-none'); //disable while loading
     let infoContainer = document.getElementById("info-container");
     if (infoContainer) {
         infoContainer.remove(); //toggle
+        document.getElementById('startBtn').classList.remove('d-none');
     } else {
         document.body.innerHTML += gameInfo();
     }
