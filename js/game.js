@@ -1,6 +1,71 @@
 let canvas;
 let world;
 let keyboard = new Keyboard(); // keyboard in game.js deklarieren
+let isNextSiteVisible = false; // Variable für den aktuellen Zustand
+
+function startGame() {
+    headline.classList.add('animation');
+    startScreen.classList.add('d-none');
+    init();
+}
+
+function openInfo() {
+    let infoContainer = document.getElementById("info-container");
+    if (infoContainer) {
+        infoContainer.remove(); //toggle
+    } else {
+        document.body.innerHTML += `
+        <div id="info-container">
+            <div id="info-content">
+                <p>It is June 3245 when, suddenly, an extraterrestrial being crashes its UFO over Earth. Trapped in a world full of zombies and robots, 'June-3245' strives to fight for survival and escape from the planet. Help him defeat his enemies and reach his UFO.</p>
+            </div>
+            <img onclick="nextSite()" src="img/start-screen/arrow.png" id="arrow">
+        </div>
+    `;
+    }
+}
+
+function nextSite() {
+    if (isNextSiteVisible) {
+        // Wenn der neue Inhalt bereits sichtbar ist, setze den ursprünglichen Inhalt zurück
+        document.getElementById('info-content').remove();
+        document.getElementById('arrow').style.transform = "rotate(0deg)";
+    } else {
+        document.getElementById('info-content').innerHTML = `
+            <div class="column">                
+                <div class="align">
+                    <img src="img/start-screen/arrow.png" class="key-icons">
+                    <p>JUMP</p>
+                </div>
+                <div class="align">
+                    <img src="img/start-screen/arrow.png" class="key-icons">
+                    <p>LEFT</p>
+                </div>
+                <div class="align">
+                    <img src="img/start-screen/arrow.png" class="key-icons">
+                    <p>RIGHT</p>
+                </div>
+                <div class="align">
+                    <div class="key-icon"></div>
+                    <p>SHOOT</p>
+                </div>
+            </div>
+            <div class="column">
+                <div class="align">
+                    <img src="img/lives/14.png" class="collect-icons">
+                    <p>LIVES</p>
+                </div>
+                <div class="align">
+                    <img src="img/ammunition/13.png" class="collect-icons">
+                    <p>AMMUNITION</p>
+                </div>
+            </div>
+        `;
+
+        document.getElementById('arrow').style.transform = "rotate(180deg)";
+    }
+    isNextSiteVisible = !isNextSiteVisible;
+}
 
 function init() {
     canvas = document.getElementById('canvas');

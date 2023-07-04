@@ -3,6 +3,7 @@
 }
 
 body {
+    position: relative;
     font-weight: 400;
     color: white;
     margin: 0;
@@ -10,16 +11,17 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-image: url('img/background/bg.jpg');
+    background-image: url('img/background/bg.png');
     background-size: cover;
     background-position: bottom;
     height: 100vh;
 }
 
-#start-screen {
-    background-image: url(img/background/bg.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
+.d-none {
+    display: none !important;
+}
+
+#startScreen {
     position: absolute;
     top: 0;
     right: 0;
@@ -30,22 +32,53 @@ body {
     align-items: center;
 }
 
-#start-screen h1 {
+#info-icon {
     position: absolute;
-    padding-bottom: 343px;
+    top: 50px;
+    left: 50px;
+    height: 40px;
+    cursor: pointer;
+    z-index: 11;
+}
+
+#headline { /*hide in @media*/
+    position: absolute;
+    margin-bottom: 326px;
     font-size: 8rem;
+    font-weight: 100;
     letter-spacing: 15px;
+    text-decoration: none;
+    color: white;
+    z-index: 10;
+}
+
+.animation {
+    animation: Headline 1s ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+@keyframes Headline {
+    0% {
+        font-size: 8rem;
+        letter-spacing: 15px;
+        transform: translateY(0);
+    }
+    100% {
+        font-size: 4rem;
+        letter-spacing: 0px;
+        transform: translateY(-200%);
+    }
 }
 
 #start-img {
-    box-shadow: 0px 0px 50px 4px rgba(126,173,255,0.65);
+    box-shadow: 0px 0px 50px 4px rgba(126, 173, 255, 0.65);
     border-radius: 20px;
     display: block;
 }
 
-#start-screen button {
+#startScreen button {
     position: absolute;
-    margin-top: 545px;
+    margin-top: 660px;
     background-color: black;
     color: white;
     font-size: 1.5rem;
@@ -53,40 +86,108 @@ body {
     width: 130px;
     height: 60px;
     border-radius: 20px;
+    transition: background-color 125ms ease-in-out, border 125ms ease-in-out, color 125ms ease-in-out;
     cursor: pointer;
 }
 
-#start-screen button:hover {
+#startScreen button:hover {
     background-color: white;
     border: 2px solid black;
     color: black;
 }
 
-a { /* hide in @media */
+#info-container {
     position: absolute;
-    top: 50px;
-    font-size: 3rem;
-    color: white;
-    text-shadow: 0px 0px 14px rgba(126,173,255,0.74);
-    text-decoration: none;
+    height: 480px;
+    width: 720px;
+    border-radius: 20px;
+    box-sizing: border-box;
+    padding: 170px 50px 0 50px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: black;
+}
+
+#info-container p {
+    font-family: sans-serif;
+    letter-spacing: 5px;
+    line-height: 30px;
+    text-align: justify;
+}
+
+#arrow {
+    position: absolute;
+    bottom: 25px;
+    rotate: 90deg;
+    height: 24px;
     cursor: pointer;
 }
 
+#info-content {
+    display: flex;
+    justify-content: center;
+}
+
+table {
+    width: 720px;
+}
+
+.lives-icon,
+.ammunition-icon {
+    height: 60px;
+}
+
+.arrow-left {
+    rotate: deg(45);
+}
+
+.key-icons {
+    background-color: grey;
+    padding: 8px 15px;
+    border-radius: 10px;
+    height: 20px;
+    margin-right: 20px;
+}
+
+.key-icon {
+    background-color: grey;
+    padding: 8px 15px;
+    border-radius: 10px;
+    height: 20px;
+    width: 100px;
+    margin-right: 20px;
+}
+
+.align {
+    display: flex;
+    align-items: center;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.collect-icons {
+    height: 70px;
+}
+
 canvas {
-    box-shadow: 0px 0px 50px 4px rgba(126,173,255,0.65);
+    box-shadow: 0px 0px 50px 4px rgba(126, 173, 255, 0.65);
     border-radius: 20px;
     display: block;
 }
 
 @media only screen and (max-width: 720px) {
-    
+
     canvas {
         width: 100%;
     }
 }
 
 @media only screen and (max-height: 480px) {
-    
+
     canvas {
         height: 100vh;
     }
