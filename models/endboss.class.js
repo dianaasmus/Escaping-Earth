@@ -2,7 +2,8 @@ class Endboss extends MovableObject {
     height = 160;
     width = 120;
     y = 310;
-    
+    // hasPassed2000 = false;
+
     IMAGES_WALKING = [
         'img/endboss/walk/walk-1.png',
         'img/endboss/walk/walk-2.png',
@@ -22,9 +23,18 @@ class Endboss extends MovableObject {
     }
 
     animate() {
-        this.moveLeft();
         setInterval(() => { //jedes bild wird 1 sekunde angezeigt, dann currentImage++
+            this.moveLeft();
             this.playAnimation(this.IMAGES_WALKING);
-        }, 1000);
+        }, 200);
     }
+
+    // checkCharacter() {
+    //     if (world.character.x >= 2000 && !this.hasPassed2000) {
+    //         this.hasPassed2000 = true;
+    //         this.level.endboss.forEach((endboss) => {
+    //             endboss.animate();
+    //         });
+    //     }
+    // }
 }

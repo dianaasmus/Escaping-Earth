@@ -8,7 +8,7 @@ class Zombie extends MovableObject {
         'img/enemies/zombie-walk3.png',
         'img/enemies/zombie-walk4.png',
         'img/enemies/zombie-walk5.png',
-        // 'img/enemies/zombie-walk6.png'
+        // 'img/enemies/zombie-walk6.png',
         'img/enemies/zombie-walk7.png'
     ];
 

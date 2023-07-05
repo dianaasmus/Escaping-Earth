@@ -12,6 +12,7 @@ class World {
     shootingObject = [];
     collectableObject = new CollectableObject();
     background_music = new Audio('audio/music.mp3');
+    hasPassed2000 = false;
 
     constructor(canvas, keyboard) { //von game.js aufnehmen
         canvas.width = 720;
@@ -122,7 +123,8 @@ class World {
     isCollidingEnemies() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
-                if (this.character.y > 250 && this.character.isAboveGround()) {
+                console.log(this.character.y);
+                if (this.character.isAboveGround()) { //jump von unten !!
                     this.character.crushing_zombie_sound.play();
                     this.getEnemyIndex(enemy);
                 } else {
@@ -201,12 +203,11 @@ class World {
         // ermittelt den Index des betroffenen enemys und des shots
         const endbossIndex = this.level.endboss.findIndex((e) => e === endboss);
         const shotIndex = this.shootingObject.findIndex((s) => s === shot);
-        // this.removeEndboss(endbossIndex);
         this.hitEndboss(endbossIndex);
         this.removeLaser(shotIndex);
     }
 
-    hitEndboss(endbossIndex) { 
+    hitEndboss(endbossIndex) {
         const endboss = this.level.endboss[endbossIndex];
         if (endboss.id === 1) {
             this.character.batteryOne -= 1;
@@ -233,7 +234,7 @@ class World {
 
     }
 
-    removeEndboss(endbossIndex) { 
+    removeEndboss(endbossIndex) {
         if (endbossIndex !== -1) {
             this.level.endboss.splice(endbossIndex, 1);
         }
@@ -282,7 +283,6 @@ class World {
     //     if (collidedObjectIndex !== -1) {
     //         this.level.ammunition.splice(collidedObjectIndex, 1);
     //     }
-
     // }
 
     //ammunition 
@@ -357,8 +357,7 @@ class World {
     }
 
     checkCharacter() {
-        let hasPassed2000 = false;
-        if (this.character.x >= 2000 && !hasPassed2000) {
+        if (this.character.x >= 2000 && !this.hasPassed2000) {
             this.hasPassed2000 = true;
             this.level.endboss.forEach((endboss) => {
                 endboss.animate();

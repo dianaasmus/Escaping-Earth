@@ -2,7 +2,9 @@ let canvas;
 let world;
 let keyboard = new Keyboard(); // keyboard in game.js deklarieren
 let isNextSiteVisible = false; // Variable für den aktuellen Zustand
-// let loadingArray = [''];
+let music = new Audio('audio/background-music-trimm.mp3');
+music.volume = 0.25;
+music.loop = true;
 
 window.addEventListener('load', function () {
     var loadingScreen = document.getElementById('loadingScreen');
@@ -16,7 +18,8 @@ function startGame() {
     init();
 }
 
-function openInfo() {
+function info() {
+
     document.getElementById('startBtn').classList.add('d-none'); //disable while loading
     let infoContainer = document.getElementById("info-container");
     if (infoContainer) {
@@ -24,6 +27,14 @@ function openInfo() {
         document.getElementById('startBtn').classList.remove('d-none');
     } else {
         document.body.innerHTML += gameInfo();
+        if (typeof init === 'function') {
+            // gameDescription.innerHTML += `<p>- pause -</p>`;
+            const descriptionDiv = document.getElementById('gameDescription');
+            const newElement = document.createElement('p');
+            newElement.textContent = '- pause -';
+
+            descriptionDiv.prepend(newElement);
+        }
     }
 }
 
@@ -83,10 +94,20 @@ function nextSite() {
     }
 }
 
+function audio() {
+    let audioIcon = document.getElementById('audio-icon');
+    if (audioIcon.style.backgroundImage.includes('img/start-screen/add-audio.png')) {
+        audioIcon.style.backgroundImage = "url('img/start-screen/remove-audio.png')";
+        music.pause();
+    } else {
+        audioIcon.style.backgroundImage = "url('img/start-screen/add-audio.png')";
+        music.play();
+    }
+}
+
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard); //mit world.js "verbinden"
-    // music = new Audio('audio/music.mp3');
     // console.log('My Character is', world.character);
 }
 

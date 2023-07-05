@@ -4,6 +4,7 @@ class Character extends MovableObject {
     otherDirection = false; // Character bewegt sich byDefault nach Rechts
     height = 80;
     width = 40;
+    imageLength;
 
     IMAGES_WALKING = [ //Übersichtlicher
         'img/alien/walk/walk1.png',
@@ -16,7 +17,7 @@ class Character extends MovableObject {
     IMAGES_JUMPING = [ //Übersichtlicher
         'img/alien/jump/jump1.png',
         'img/alien/jump/jump2.png',
-        'img/alien/jump/jump3.png',
+        // 'img/alien/jump/jump3.png',
         'img/alien/jump/jump4.png',
         'img/alien/standing.png'
     ];
@@ -24,7 +25,7 @@ class Character extends MovableObject {
         'img/alien/dead/dead1.png',
         'img/alien/dead/dead2.png',
         'img/alien/dead/dead3.png',
-        'img/alien/dead/dead4.png',
+        // 'img/alien/dead/dead4.png',
         'img/alien/dead/dead5.png'
     ];
     IMAGES_HURT = [
@@ -50,6 +51,7 @@ class Character extends MovableObject {
     collecting_ammunition_sound = new Audio('audio/collect.mp3');
     collecting_lives_sound = new Audio('audio/collect.mp3');
     crushing_zombie_sound = new Audio('audio/crushing-zombie.mp3');
+    state = 'IDLE';
     // isSoundPlaying = false;
 
     //wird immer und als erstes von JS aufgerufen
@@ -63,7 +65,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_SHOOTING);
         this.applyGravitiy();
         this.animate();
-        
+
     }
 
     animate() {
@@ -98,13 +100,13 @@ class Character extends MovableObject {
                     this.isSoundPlaying = true;
                 }
             }
-            if (this.world.keyboard.KEY_TAB && this.otherDirection == false ) {
+            if (this.world.keyboard.KEY_TAB && this.otherDirection == false) {
                 if (!this.isSoundPlaying && this.ammunition !== 0) {
                     this.shooting_sound.play();
                     this.isSoundPlaying = false;
                 }
             }
-            if (this.world.keyboard.KEY_UP ) {
+            if (this.world.keyboard.KEY_UP) {
                 if (!this.isSoundPlaying) {
                     this.jumping_sound.play();
                     this.isSoundPlaying = false;
@@ -117,12 +119,11 @@ class Character extends MovableObject {
     addAudioSettings() {
         this.isSoundPlaying = false;
         this.running_sound.loop = true; // Audio immer wieder abspielen
-        // this.jumping_sound.loop = false; // Audio immer wieder abspielen
         this.running_sound.playbackRate = 2; // Wiedergabegeschwindiigkeit auf 2 erhöhen
-        this.shooting_sound.playbackRate = 2; 
-        this.collecting_lives_sound.playbackRate = 2; 
-        this.collecting_ammunition_sound.playbackRate = 2; 
-        this.jumping_sound.playbackRate = 3 ; 
+        this.shooting_sound.playbackRate = 2;
+        this.collecting_lives_sound.playbackRate = 2;
+        this.collecting_ammunition_sound.playbackRate = 2;
+        this.jumping_sound.playbackRate = 3;
         this.jumping_sound.volume = 0.25;
     }
 
@@ -131,17 +132,41 @@ class Character extends MovableObject {
             if (this.isDead()) {
                 this.height = 80;
                 this.width = 40;
-                this.playAnimation(this.IMAGES_DYING);
+                if (this.state !== 'DYING') {
+                    this.state = 'DYING';
+                    this.currentImage = 0;
+                }
+                this.imageLength = 2;
+                this.playOnce(this.IMAGES_DYING, this.imageLength);
+                // this.state = 'DEAD';
+                // this.playAnimation(this.IMAGES_DYING);
             } else if (this.isHurt()) {
-                this.playAnimation(this.IMAGES_HURT);
+                if (this.state !== 'HURT') {
+                    this.state = 'HURT';
+                    this.currentImage = 0;
+                }
+                this.imageLength = 4;
+                this.playOnce(this.IMAGES_HURT, this.imageLength);
             } else if (this.isAboveGround()) {
-                this.playAnimation(this.IMAGES_JUMPING);
+                if (this.state !== 'JUMPING') {
+                    this.state = 'JUMPING';
+                    this.currentImage = 0;
+                }
+                this.imageLength = 4;
+                this.playOnce(this.IMAGES_JUMPING, this.imageLength);
             } else if (this.world.keyboard.KEY_RIGHT || this.world.keyboard.KEY_LEFT) { //Animation wird abgespielt, wenn keyboard gedrückt
+                this.state = 'WALKING';
                 this.playAnimation(this.IMAGES_WALKING);
             }
             if (this.world.keyboard.KEY_UP && !this.isAboveGround()) { //Animation wird abgespielt, wenn keyboard gedrückt
                 this.speedY = 40; //jump
             }
-        }, 200);
-    }   
+        }, 100);
+    }
+
+    playOnce(images, imageLength) {
+        if (this.currentImage <= imageLength) {
+            this.playAnimation(images);
+        }
+    }
 }
