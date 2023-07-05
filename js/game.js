@@ -14,26 +14,27 @@ window.addEventListener('load', function () {
 function startGame() {
     startBtn.disabled = true;
     headline.classList.add('animation');
+    setTimeout(() => {
+        headline.classList.remove('animation');
+        headline.classList.add('headline-2');
+    }, 500);
     startScreen.classList.add('d-none');
     init();
 }
 
 function info() {
-
     document.getElementById('startBtn').classList.add('d-none'); //disable while loading
     let infoContainer = document.getElementById("info-container");
     if (infoContainer) {
         infoContainer.remove(); //toggle
         document.getElementById('startBtn').classList.remove('d-none');
     } else {
-        document.body.innerHTML += gameInfo();
-        if (typeof init === 'function') {
-            // gameDescription.innerHTML += `<p>- pause -</p>`;
-            const descriptionDiv = document.getElementById('gameDescription');
-            const newElement = document.createElement('p');
-            newElement.textContent = '- pause -';
+        document.getElementById('infoContainer2').innerHTML += gameInfo();
+        if (headline.classList.contains('headline-2')) {
+            let infoContainer = document.getElementById("info-container");
+            infoContainer.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
 
-            descriptionDiv.prepend(newElement);
+            document.getElementById('pause').classList.remove('d-none');
         }
     }
 }
@@ -41,6 +42,7 @@ function info() {
 function gameInfo() {
     return `
     <div id="info-container">
+        <p id="pause" class="d-none">- pause - </p>
         <div id="info-content">
             <div id="gameSettings" class="d-none">
                 <div class="column">                
