@@ -16,12 +16,17 @@ class MovableObject extends DrawableObject {
     batteryThree = 3; //robot
     batteryAll = 10; //robot
 
+
     moveRight() {
-        this.x += this.speed;
+        if (!document.getElementById('info-container')) {
+            this.x += this.speed;
+        }
     }
 
     moveLeft() {
-        this.x -= this.speed;
+        if (!document.getElementById('info-container')) {
+            this.x -= this.speed;
+        }
     }
 
     isColliding(movableObject) {
@@ -89,7 +94,7 @@ class MovableObject extends DrawableObject {
         }
     }
 
-    incrementProperty(property, increment, min, max) { 
+    incrementProperty(property, increment, min, max) {
         this[property] += increment; // this[property] ≠ this.property ( z. B this['ammunition']) -> dynamische Referenz 
         // -> wird verwendet, wenn der Name der Eigenschaft zur Entwicklungszeit nicht bekannt ist oder zur Laufzeit variieren kann
         this[property] = Math.min(Math.max(this[property], min), max); //Math.min(this.ammunition, 0),10)

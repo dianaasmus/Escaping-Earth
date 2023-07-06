@@ -116,7 +116,7 @@ class World {
             // this.isCollidingCollectableObject(this.level.ammunition, this.character.ammunition);
             // this.isCollidingCollectableObject(this.level.lives);
             this.checkThrowObjects();
-            this.checkCharacter(); // error
+            this.checkCharacter();
         }, 100);
     }
 
@@ -342,12 +342,17 @@ class World {
     checkThrowObjects() {
         if (this.availableAmmunition()) {
             if (this.keyboard.KEY_TAB && this.character.otherDirection == false) {
-                let laser = new ShootingObject(this.character.x, this.character.y);
-                // this.character.laser.otherDirection = true; // bilder spiegeln
-                this.character.playAnimation(this.character.IMAGES_SHOOTING);
-                this.shootingObject.push(laser);
-                this.character.hittedObject('hitEnemy');
-                this.ammunitionStatusBar.setPercentage(this.character.ammunition);
+                if (!document.getElementById('info-container')) {
+
+                    let laser = new ShootingObject(this.character.x + 50, this.character.y);
+                    // this.character.laser.otherDirection = true; // bilder spiegeln
+                    let shootingWidth = 60;
+                    this.character.width = shootingWidth;
+                    this.character.playAnimation(this.character.IMAGES_SHOOTING);
+                    this.shootingObject.push(laser);
+                    this.character.hittedObject('hitEnemy');
+                    this.ammunitionStatusBar.setPercentage(this.character.ammunition);
+                }
             }
         }
     }

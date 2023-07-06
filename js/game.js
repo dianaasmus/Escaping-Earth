@@ -1,10 +1,12 @@
 let canvas;
 let world;
 let keyboard = new Keyboard(); // keyboard in game.js deklarieren
-let isNextSiteVisible = false; // Variable für den aktuellen Zustand
+// let isNextSiteVisible = false; // Variable für den aktuellen Zustand
 let music = new Audio('audio/background-music-trimm.mp3');
 music.volume = 0.25;
 music.loop = true;
+
+// import { playAnimation } from './models/movable-object.class.js';
 
 window.addEventListener('load', function () {
     let loadingScreen = document.getElementById('circle');
@@ -16,9 +18,7 @@ function startGame() {
     headline.classList.add('animation');
     removeAnimation();
     startScreen.classList.add('d-none');
-    console.log('before init');
     init();
-    console.log('after init');
 }
 
 function removeAnimation() {

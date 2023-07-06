@@ -19,7 +19,7 @@ class Zombie extends MovableObject {
         this.loadImages(this.IMAGES_WALKING);
         this.animate();
     }
-    
+
     animate() {
         setInterval(() => {
             this.moveLeft();
@@ -27,5 +27,7 @@ class Zombie extends MovableObject {
         setInterval(() => { //jedes bild wird 1 sekunde angezeigt, dann currentImage++
             this.playAnimation(this.IMAGES_WALKING);
         }, 200);
+        
     }
+
 }

@@ -22,20 +22,20 @@ class DrawableObject {
         return allowedClasses.some(cls => this instanceof cls);
     }
 
-    drawRectangle(ctx) {
-        ctx.beginPath();
-        ctx.lineWidth = '5';
-        ctx.strokeStyle = 'blue';
-        ctx.rect(this.x, this.y, this.width, this.height);
-        ctx.stroke();
-    }
-
     drawFrame(ctx) {
         const shouldDrawFrame = this.shouldDrawFrame();
 
         if (shouldDrawFrame) {
             this.drawRectangle(ctx);
         }
+    }
+
+    drawRectangle(ctx) {
+        ctx.beginPath();
+        ctx.lineWidth = '5';
+        ctx.strokeStyle = 'transparent';
+        ctx.rect(this.x, this.y, this.width, this.height);
+        ctx.stroke();
     }
 
     draw(ctx) {
