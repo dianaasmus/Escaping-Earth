@@ -7,19 +7,25 @@ music.volume = 0.25;
 music.loop = true;
 
 window.addEventListener('load', function () {
-    var loadingScreen = document.getElementById('loadingScreen');
+    let loadingScreen = document.getElementById('circle');
     loadingScreen.style.display = 'none';
 });
 
 function startGame() {
     startBtn.disabled = true;
     headline.classList.add('animation');
+    removeAnimation();
+    startScreen.classList.add('d-none');
+    console.log('before init');
+    init();
+    console.log('after init');
+}
+
+function removeAnimation() {
     setTimeout(() => {
         headline.classList.remove('animation');
         headline.classList.add('headline-2');
     }, 500);
-    startScreen.classList.add('d-none');
-    init();
 }
 
 function info() {
@@ -33,7 +39,6 @@ function info() {
         if (headline.classList.contains('headline-2')) {
             let infoContainer = document.getElementById("info-container");
             infoContainer.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
-
             document.getElementById('pause').classList.remove('d-none');
         }
     }
@@ -110,7 +115,6 @@ function audio() {
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard); //mit world.js "verbinden"
-    // console.log('My Character is', world.character);
 }
 
 window.addEventListener("keydown", (e) => {
