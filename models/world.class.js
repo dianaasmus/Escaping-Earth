@@ -13,6 +13,8 @@ class World {
     collectableObject = new CollectableObject();
     background_music = new Audio('audio/music.mp3');
     hasPassed2000 = false;
+    gameLost = false;
+    gameWin = false;
 
     constructor(canvas, keyboard) { //von game.js aufnehmen
         canvas.width = 720;
@@ -123,7 +125,6 @@ class World {
     isCollidingEnemies() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
-                console.log(this.character.y);
                 if (this.character.isAboveGround()) { //jump von unten !!
                     this.character.crushing_zombie_sound.play();
                     this.getEnemyIndex(enemy);
@@ -228,10 +229,23 @@ class World {
 
         this.character.batteryAll -= 1;
         this.batteryStatusBar.setPercentage(this.character.batteryAll);
-        if (this.character.batteryAll === 0) {
-            console.log('you won');
-        }
+        // if (this.character.batteryAll === 0 && this.level.endboss.length == 0 && !this.gameLost) {
+        //     this.gameWin = true;
+        //     this.youWon();
+        // }
+        this.checkGameOver();
+    }
 
+    youWon() {
+        startScreen.innerHTML += `<div id="gameOver"><button>START AGAIN</button></div>`;
+        document.getElementById('headline').innerHTML = 'YOU WON!';
+        document.getElementById('headline').classList.add('game-over-animation');
+    }
+
+    gameOver() {
+        startScreen.innerHTML += `<div id="gameOver"><button>START AGAIN</button></div>`;
+        document.getElementById('headline').innerHTML = 'YOU LOST!';
+        document.getElementById('headline').classList.add('game-over-animation');
     }
 
     removeEndboss(endbossIndex) {
@@ -342,7 +356,7 @@ class World {
     checkThrowObjects() {
         if (this.availableAmmunition()) {
             if (this.keyboard.KEY_TAB && this.character.otherDirection == false) {
-                if (!document.getElementById('info-container')) {
+                if (!document.getElementById('info-container') && !document.getElementById('gameOver')) {
 
                     let laser = new ShootingObject(this.character.x + 50, this.character.y);
                     // this.character.laser.otherDirection = true; // bilder spiegeln
@@ -351,8 +365,32 @@ class World {
                     this.character.playAnimation(this.character.IMAGES_SHOOTING);
                     this.shootingObject.push(laser);
                     this.character.hittedObject('hitEnemy');
+                    this.checkGameOver();
                     this.ammunitionStatusBar.setPercentage(this.character.ammunition);
                 }
+            }
+        }
+    }
+
+    checkGameOver() {
+        // if (this.character.batteryAll === 0 && this.level.endboss.length == 0) {
+        //     // this.gameWin = true;
+        //     this.youWon();
+        // } else
+        //     if (this.character.ammunition == 0 && this.level.endboss.length >= 1) {
+        //         // this.gameLost = true;
+        //         this.gameOver();
+        //     }
+        if (this.character.batteryAll === 0 && this.level.endboss.length === 0 ) {
+            if (!this.gameLost) {
+                this.gameWin = true;
+                this.youWon();
+            }
+        } else
+        if (this.character.ammunition === 0 && this.level.endboss.length >= 1 && this.shootingObject === 0) {
+            if (!this.gameWon && !this.gameLost) {
+                this.gameLost = true;
+                this.gameOver();
             }
         }
     }
@@ -362,7 +400,7 @@ class World {
     }
 
     checkCharacter() {
-        if (this.character.x >= 2000 && !this.hasPassed2000) {
+        if (this.character.x >= 1500 && !this.hasPassed2000) {
             this.hasPassed2000 = true;
             this.level.endboss.forEach((endboss) => {
                 endboss.animate();

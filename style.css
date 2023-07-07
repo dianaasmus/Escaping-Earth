@@ -141,6 +141,25 @@ body {
     }
 }
 
+.game-over-animation {
+    animation: GameOver 225ms ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+@keyframes GameOver {
+    0% {
+        font-size: 4rem;
+        letter-spacing: 0px;
+        transform: translateY(-200%);
+    }
+
+    100% {
+        font-size: 8rem !important;
+        letter-spacing: 15px !important;
+        transform: translateY(0);
+    }
+}
+
 .headline-2 {
     font-size: 4rem !important;
     letter-spacing: 0px !important;
@@ -170,7 +189,14 @@ body {
 #startScreen button:hover {
     background-color: white;
     border: 2px solid black;
-    color: black;
+    color: rgb(0, 0, 0);
+}
+
+#gameOver {
+    height: 480px;
+    width: 720px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 20px;
 }
 
 #infoContainer2 {

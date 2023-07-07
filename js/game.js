@@ -17,7 +17,8 @@ function startGame() {
     startBtn.disabled = true;
     headline.classList.add('animation');
     removeAnimation();
-    startScreen.classList.add('d-none');
+    document.getElementById('start-img').classList.add('d-none');
+    document.getElementById('startBtn').classList.add('d-none');
     init();
 }
 

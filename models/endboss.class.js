@@ -18,7 +18,7 @@ class Endboss extends MovableObject {
         this.id = id;
         this.loadImage(this.IMAGES_WALKING[0]);
         this.x = 2860 - 300 * Math.random();
-        this.speed = 0.5 + Math.random() * 5; //unterschiedliche Geschw. Zahl zw. 0.15 und 0.65
+        this.speed = 8 + Math.random() * 15; //unterschiedliche Geschw. Zahl zw. 0.15 und 0.65
         this.loadImages(this.IMAGES_WALKING);
     }
 
@@ -28,13 +28,4 @@ class Endboss extends MovableObject {
             this.playAnimation(this.IMAGES_WALKING);
         }, 200);
     }
-
-    // checkCharacter() {
-    //     if (world.character.x >= 2000 && !this.hasPassed2000) {
-    //         this.hasPassed2000 = true;
-    //         this.level.endboss.forEach((endboss) => {
-    //             endboss.animate();
-    //         });
-    //     }
-    // }
 }

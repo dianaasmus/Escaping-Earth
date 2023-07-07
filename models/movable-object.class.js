@@ -16,15 +16,14 @@ class MovableObject extends DrawableObject {
     batteryThree = 3; //robot
     batteryAll = 10; //robot
 
-
     moveRight() {
-        if (!document.getElementById('info-container')) {
+        if (!document.getElementById('info-container') && !document.getElementById('gameOver')) {
             this.x += this.speed;
         }
     }
 
     moveLeft() {
-        if (!document.getElementById('info-container')) {
+        if (!document.getElementById('info-container') && !document.getElementById('gameOver')) {
             this.x -= this.speed;
         }
     }
@@ -121,5 +120,13 @@ class MovableObject extends DrawableObject {
         let timepassed = new Date().getTime() - this.lastHit; // differenz in ms 
         timepassed = timepassed / 1000; // differenz in s
         return timepassed < 1; //animation für 1 sek anzeigen
+    }
+
+    gameOver() {
+        if (!document.getElementById('gameOver')) {
+            startScreen.innerHTML += `<div id="gameOver"><button>START AGAIN</button></div>`;
+            document.getElementById('headline').innerHTML = 'Game Over';
+            document.getElementById('headline').classList.add('game-over-animation');
+        }
     }
 }

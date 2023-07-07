@@ -5,6 +5,7 @@ class Character extends MovableObject {
     height = 80;
     width = 40;
     imageLength;
+    intervalIds = [];
 
     IMAGES_WALKING = [ //Übersichtlicher
         'img/alien/walk/walk1.png',
@@ -70,13 +71,14 @@ class Character extends MovableObject {
     animate() {
         this.addAudios();
         this.addAnimations();
+        // this.setStoppableInterval(this.addAnimations, 100);
     }
 
     addAudios() {
         this.addAudioSettings();
 
         setInterval(() => {
-            if (!document.getElementById('info-container')) {
+            if (!document.getElementById('info-container') && !document.getElementById('gameOver')) {
                 if (!this.world.keyboard.KEY_RIGHT && !this.world.keyboard.KEY_LEFT) {
                     if (this.isSoundPlaying) {
                         this.running_sound.pause();
@@ -129,9 +131,9 @@ class Character extends MovableObject {
     }
 
     addAnimations() {
+        console.log('1')
         setInterval(() => { //jedes bild wird 1 sekunde angezeigt, dann currentImage++
-            if (!document.getElementById('info-container')) {
-
+            if (!document.getElementById('info-container') && !document.getElementById('gameOver')) {
                 if (this.isDead()) {
                     this.height = 50;
                     this.width = 70;
@@ -139,6 +141,9 @@ class Character extends MovableObject {
                     if (this.state !== 'DYING') {
                         this.state = 'DYING';
                         this.currentImage = 0;
+                        setInterval(() => {
+                            this.gameOver();
+                        }, 1000);
                     }
                     this.imageLength = 4;
                     this.playOnce(this.IMAGES_DYING, this.imageLength);
@@ -167,6 +172,16 @@ class Character extends MovableObject {
                 }
             }
         }, 100);
+        // console.log(imagesIntervall);
+    }
+
+    setStoppableInterval(fn, time) {
+        let id = setInterval(fn, time);
+        this.intervalIds.push(id);
+    }
+
+    stopGame() {
+        this.intervalIds.forEach(clearInterval);
     }
 
     playOnce(images, imageLength) {
