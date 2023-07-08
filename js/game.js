@@ -5,6 +5,8 @@ let keyboard = new Keyboard(); // keyboard in game.js deklarieren
 let music = new Audio('audio/background-music-trimm.mp3');
 music.volume = 0.25;
 music.loop = true;
+let isMobileDevice = 'ontouchstart' in window;
+
 
 // import { playAnimation } from './models/movable-object.class.js';
 
@@ -13,13 +15,30 @@ window.addEventListener('load', function () {
     loadingScreen.style.display = 'none';
 });
 
-function startGame() {
+function init() {
+    // checkmobileDevice();
+    console.log('xy')
+}
+
+function start() {
     startBtn.disabled = true;
     headline.classList.add('animation');
     removeAnimation();
     document.getElementById('start-img').classList.add('d-none');
     document.getElementById('startBtn').classList.add('d-none');
-    init();
+    startGame();
+}
+
+function checkmobileDevice() {
+    if (!isMobileDevice)  {
+        console.log('not mobile');
+        
+    } else {
+        console.log('mobile');
+        document.getElementById('overlay').classList.remove('d-none');
+        document.getElementById('info-icon').classList.add('d-none');
+        document.getElementById('audio-icon').classList.add('d-none');
+    }
 }
 
 function removeAnimation() {
@@ -113,7 +132,7 @@ function audio() {
     }
 }
 
-function init() {
+function startGame() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard); //mit world.js "verbinden"
 }

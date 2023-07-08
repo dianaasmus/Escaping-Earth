@@ -172,7 +172,7 @@ body {
     display: block;
 }
 
-#startScreen button {
+#startBtn {
     position: absolute;
     margin-top: 660px;
     background-color: black;
@@ -186,7 +186,7 @@ body {
     cursor: pointer;
 }
 
-#startScreen button:hover {
+#startBtn:hover {
     background-color: white;
     border: 2px solid black;
     color: rgb(0, 0, 0);
@@ -260,7 +260,7 @@ table {
     height: 60px;
 }
 
-.arrow-left {
+.arrow-left.align {
     rotate: deg(45);
 }
 
@@ -299,6 +299,118 @@ canvas {
     box-shadow: 0px 0px 50px 4px rgba(126, 173, 255, 0.65);
     border-radius: 20px;
     display: block;
+}
+
+
+
+@media (max-width: 1024px) {
+
+    #info-icon,
+    #audio-icon {
+        display: none;
+    }
+
+    /* Overlay */
+    #overlay {
+        height: 480px;
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+        justify-content: space-between;
+        padding: 20px;
+        box-sizing: border-box;
+        opacity: 0;
+        animation: FadeIn 225ms ease-in-out;
+        animation-fill-mode: forwards;
+    }
+
+    @keyframes FadeIn {
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+    .panel {
+        display: flex;
+        width: 720px;
+        justify-content: space-between;
+        padding: 0 20px;
+        box-sizing: border-box;
+    }
+
+    .panel-wrapper {
+        gap: 20px;
+        display: flex;
+    }
+
+    .panel:nth-child(1) {
+        width: 720px;
+        justify-content: center;
+    }
+    
+    #overlay button {
+        width: 45px;
+        height: 45px;
+        border-radius: 100%;
+        background-color: black;
+        border: 1px solid white;
+        cursor: pointer;
+    }
+
+    #info-overlay {
+        background-image: url(img/start-screen/info-icon.png);
+        border: none !important;
+        background-repeat: no-repeat;
+        background-size: 45px;
+        background-position: center;
+    }
+
+    #music-overlay {
+        background-image: url(img/start-screen/remove-audio.png);
+        border: none !important;
+        background-repeat: no-repeat;
+        background-size: 19px;
+        background-position: center;
+        background-position-x: 11px;
+    }
+
+    #leftBtn,
+    #rightBtn,
+    #jumpBtn {
+        background-size: 26px;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    #leftBtn {
+        background-image: url(img/start-screen/arrow-left.png);
+        background-position-y: 9px;
+        background-position-x: 7px;
+    }
+
+    #rightBtn {
+        background-image: url(img/start-screen/arrow-right.png);
+        background-position-y: 9px;
+        background-position-x: 10px;
+    }
+
+    #jumpBtn {
+        background-image: url(img/start-screen/arrow.png);
+        background-position-x: 9px;
+        background-position-y: 8px;
+    }
+
+    #shootBtn {
+        background-image: url(img/ammunition/attack/ammunition-attack.png);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 25px;
+    }
 }
 
 @media only screen and (max-width: 720px) {
