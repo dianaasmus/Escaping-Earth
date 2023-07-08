@@ -122,11 +122,4 @@ class MovableObject extends DrawableObject {
         return timepassed < 1; //animation für 1 sek anzeigen
     }
 
-    gameOver() {
-        if (!document.getElementById('gameOver')) {
-            startScreen.innerHTML += `<div id="gameOver"><button>START AGAIN</button></div>`;
-            document.getElementById('headline').innerHTML = 'Game Over';
-            document.getElementById('headline').classList.add('game-over-animation');
-        }
-    }
 }

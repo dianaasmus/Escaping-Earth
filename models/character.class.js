@@ -172,7 +172,6 @@ class Character extends MovableObject {
                 }
             }
         }, 100);
-        // console.log(imagesIntervall);
     }
 
     setStoppableInterval(fn, time) {
@@ -188,5 +187,17 @@ class Character extends MovableObject {
         if (this.currentImage <= imageLength) {
             this.playAnimation(images);
         }
+    }
+
+    gameOver() {
+        if (!document.getElementById('gameOver')) {
+            this.addGameOverContainer();
+            document.getElementById('headline').innerHTML = 'Game Over';
+            document.getElementById('headline').classList.add('game-over-animation');
+        }
+    }
+
+    addGameOverContainer() { 
+        startScreen.innerHTML += `<div id="gameOver"><button id="gameOverBtn">START AGAIN</button></div>`;
     }
 }

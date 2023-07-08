@@ -229,22 +229,17 @@ class World {
 
         this.character.batteryAll -= 1;
         this.batteryStatusBar.setPercentage(this.character.batteryAll);
-        // if (this.character.batteryAll === 0 && this.level.endboss.length == 0 && !this.gameLost) {
-        //     this.gameWin = true;
-        //     this.youWon();
-        // }
-        this.checkGameOver();
+        if (this.character.ammunition === 0 && this.level.endboss.length >= 1) {
+            if (!this.gameWon && !this.gameLost && this.shootingObject === 0) {
+                this.gameLost = true;
+                this.gameOver();
+            }
+        }
     }
 
     youWon() {
-        startScreen.innerHTML += `<div id="gameOver"><button>START AGAIN</button></div>`;
+        this.character.addGameOverContainer();
         document.getElementById('headline').innerHTML = 'YOU WON!';
-        document.getElementById('headline').classList.add('game-over-animation');
-    }
-
-    gameOver() {
-        startScreen.innerHTML += `<div id="gameOver"><button>START AGAIN</button></div>`;
-        document.getElementById('headline').innerHTML = 'YOU LOST!';
         document.getElementById('headline').classList.add('game-over-animation');
     }
 
@@ -356,7 +351,7 @@ class World {
     checkThrowObjects() {
         if (this.availableAmmunition()) {
             if (this.keyboard.KEY_TAB && this.character.otherDirection == false) {
-                if (!document.getElementById('info-container') && !document.getElementById('gameOver')) {
+                if (!document.getElementById('info-container')) {
 
                     let laser = new ShootingObject(this.character.x + 50, this.character.y);
                     // this.character.laser.otherDirection = true; // bilder spiegeln
@@ -365,33 +360,13 @@ class World {
                     this.character.playAnimation(this.character.IMAGES_SHOOTING);
                     this.shootingObject.push(laser);
                     this.character.hittedObject('hitEnemy');
-                    this.checkGameOver();
                     this.ammunitionStatusBar.setPercentage(this.character.ammunition);
+                    
                 }
             }
-        }
-    }
-
-    checkGameOver() {
-        // if (this.character.batteryAll === 0 && this.level.endboss.length == 0) {
-        //     // this.gameWin = true;
-        //     this.youWon();
-        // } else
-        //     if (this.character.ammunition == 0 && this.level.endboss.length >= 1) {
-        //         // this.gameLost = true;
-        //         this.gameOver();
-        //     }
-        if (this.character.batteryAll === 0 && this.level.endboss.length === 0 ) {
-            if (!this.gameLost) {
-                this.gameWin = true;
-                this.youWon();
-            }
-        } else
-        if (this.character.ammunition === 0 && this.level.endboss.length >= 1 && this.shootingObject === 0) {
-            if (!this.gameWon && !this.gameLost) {
-                this.gameLost = true;
-                this.gameOver();
-            }
+        } else 
+        if (this.character.batteryAll === 0 && this.level.endboss.length === 0 && !document.getElementById('gameOver')) {
+            this.youWon();
         }
     }
 
