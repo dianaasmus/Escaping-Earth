@@ -6,38 +6,47 @@ let music = new Audio('audio/background-music-trimm.mp3');
 music.volume = 0.25;
 music.loop = true;
 let isMobileDevice = 'ontouchstart' in window;
+let startBtnPressed = false;
 
+function init() {
+    setMobileDisplay();
+}
 
-// import { playAnimation } from './models/movable-object.class.js';
+function setMobileDisplay() {
+    if (isMobileDevice) {
+        document.getElementById('headline').style.marginBottom = "280px";
+        document.getElementById('gameAdjustments').classList.remove('gameAdjustmentsDesktop');
+        document.getElementById('gameAdjustments').classList.add('gameAdjustmentsMobile');
+        document.getElementById('startBtn').style.marginTop = "380px";
+        document.getElementById('headline').style.fontSize = "calc(4vw + 12px)";
+    }
+}
 
 window.addEventListener('load', function () {
     let loadingScreen = document.getElementById('circle');
     loadingScreen.style.display = 'none';
 });
 
-function init() {
-    // checkmobileDevice();
-    console.log('xy')
-}
-
 function start() {
     startBtn.disabled = true;
-    headline.classList.add('animation');
-    removeAnimation();
+    startBtnPressed = true;
+    checkmobileDevice();
     document.getElementById('start-img').classList.add('d-none');
     document.getElementById('startBtn').classList.add('d-none');
     startGame();
 }
 
 function checkmobileDevice() {
-    if (!isMobileDevice)  {
+    if (!isMobileDevice) {
         console.log('not mobile');
-        
+        headline.classList.add('animation');
+        removeAnimation();
+
     } else {
         console.log('mobile');
+        headline.classList.add('fadeout');
         document.getElementById('overlay').classList.remove('d-none');
-        document.getElementById('info-icon').classList.add('d-none');
-        document.getElementById('audio-icon').classList.add('d-none');
+        document.getElementById('gameAdjustments').classList.add('startGameAdjustments');
     }
 }
 
@@ -48,23 +57,75 @@ function removeAnimation() {
     }, 500);
 }
 
-function info() {
-    document.getElementById('startBtn').classList.add('d-none'); //disable while loading
-    let infoContainer = document.getElementById("info-container");
+// function info() {
+//     document.getElementById('startBtn').classList.add('d-none'); 
+//     let infoContainer = document.getElementById("info-container");
+//     if (infoContainer) {
+//         infoContainer.remove(); //toggle
+
+//         if (!startBtnPressed) {
+//             document.getElementById('startBtn').classList.remove('d-none');
+//         } else if (isMobileDevice) {
+//             document.getElementById('overlay').classList.remove('d-none');
+//         }
+//     } else {
+//         document.getElementById('infoContainer2').innerHTML += gameInfo();
+//         if (startBtnPressed) {
+//             let infoContainer = document.getElementById("info-container");
+//             infoContainer.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+//             document.getElementById('pause').classList.remove('d-none');
+//         }
+//         if (isMobileDevice) {
+//             document.getElementById('overlay').classList.add('d-none');
+//         }
+//     }
+// }
+
+function toggleInfo() {
+    const startBtn = document.getElementById('startBtn');
+    const infoContainer = document.getElementById("info-container");
+    const overlay = document.getElementById('overlay');
+
     if (infoContainer) {
-        infoContainer.remove(); //toggle
-        document.getElementById('startBtn').classList.remove('d-none');
+        infoContainer.remove();
+
+        if (!startBtnPressed) {
+            showElement(startBtn);
+        } else if (isMobileDevice) {
+            hideElement(overlay);
+            showElement(overlay);
+        }
     } else {
-        document.getElementById('infoContainer2').innerHTML += gameInfo();
-        if (headline.classList.contains('headline-2')) {
-            let infoContainer = document.getElementById("info-container");
-            infoContainer.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
-            document.getElementById('pause').classList.remove('d-none');
+        startBtn.classList.add('d-none');
+
+        document.getElementById('infoContainer2').innerHTML += createGameInfo();
+
+        if (startBtnPressed) {
+            applyInfoContainerStyle();
+            showElement(document.getElementById('pause'));
+        }
+
+        if (isMobileDevice) {
+            hideElement(overlay);
         }
     }
 }
 
-function gameInfo() {
+function showElement(element) {
+    element.classList.remove('d-none');
+}
+
+function hideElement(element) {
+    element.classList.add('d-none');
+}
+
+function applyInfoContainerStyle() {
+    const infoContainer = document.getElementById("info-container");
+    infoContainer.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+}
+
+
+function createGameInfo() {
     return `
     <div id="info-container">
         <p id="pause" class="d-none">- pause - </p>
@@ -121,7 +182,7 @@ function nextSite() {
     }
 }
 
-function audio() {
+function toggleAudio() {
     let audioIcon = document.getElementById('audio-icon');
     if (audioIcon.style.backgroundImage.includes('img/start-screen/add-audio.png')) {
         audioIcon.style.backgroundImage = "url('img/start-screen/remove-audio.png')";

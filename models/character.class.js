@@ -192,7 +192,7 @@ class Character extends MovableObject {
     gameOver() {
         if (!document.getElementById('gameOver')) {
             this.addGameOverContainer();
-            document.getElementById('headline').innerHTML = 'Game Over';
+            document.getElementById('headline').innerHTML = 'You Lost';
             document.getElementById('headline').classList.add('game-over-animation');
         }
     }

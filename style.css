@@ -76,15 +76,22 @@ body {
     align-items: center;
 }
 
+.gameAdjustmentsDesktop {
+    position: absolute;
+    top: 50px;
+    padding: 0 50px;
+    width: 100vw;
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
 #info-icon {
     background-image: url(img/start-screen/info-icon.png);
     background-size: 37px;
     background-repeat: no-repeat;
-    position: absolute;
     border: none;
     background-color: unset;
-    top: 50px;
-    left: 50px;
     height: 40px;
     width: 40px;
     cursor: pointer;
@@ -94,9 +101,6 @@ body {
 #audio-icon {
     background-image: url(img/start-screen/remove-audio.png);
     background-repeat: no-repeat;
-    position: absolute;
-    top: 50px;
-    right: 50px;
     height: 40px;
     width: 40px;
     background-color: unset;
@@ -141,6 +145,21 @@ body {
     }
 }
 
+.fadeout {
+    animation: FadeOut 225ms ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+@keyframes FadeOut {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
 .game-over-animation {
     animation: GameOver 225ms ease-in-out;
     animation-fill-mode: forwards;
@@ -152,7 +171,7 @@ body {
     }
 
     100% {
-        transform: translateY(25%);
+        transform: translateY(100%);
     }
 }
 
@@ -172,9 +191,10 @@ body {
     display: block;
 }
 
-#startBtn {
+#startBtn,
+#gameOverBtn {
     position: absolute;
-    margin-top: 660px;
+    margin-top: 360px;
     background-color: black;
     color: white;
     font-size: 1.5rem;
@@ -184,9 +204,11 @@ body {
     border-radius: 20px;
     transition: background-color 125ms ease-in-out, border 125ms ease-in-out, color 125ms ease-in-out;
     cursor: pointer;
+    z-index: 11;
 }
 
-#startBtn:hover {
+#startBtn:hover,
+#gameOverBtn:hover {
     background-color: white;
     border: 2px solid black;
     color: rgb(0, 0, 0);
@@ -200,6 +222,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 5;
 }
 
 #infoContainer2 {
@@ -230,7 +253,7 @@ body {
 
 #pause {
     position: absolute;
-    top: 65px;
+    top: 80px;
     font-size: 1.5rem;
 }
 
@@ -244,6 +267,7 @@ body {
     rotate: 90deg;
     height: 24px;
     cursor: pointer;
+    z-index: 100;
 }
 
 #info-content {
@@ -302,115 +326,124 @@ canvas {
 }
 
 
+/* Mobile Device  */
 
-@media (max-width: 1024px) {
+.gameAdjustmentsMobile {
+    position: absolute;
+    width: 720px;
+    height: 480px;
+    display: flex;
+    justify-content: space-between;
+    padding: 26px 20px;
+    box-sizing: border-box;
+    z-index: 1;
+}
 
-    #info-icon,
-    #audio-icon {
-        display: none;
-    }
+/* Overlay */
+#overlay {
+    height: 480px;
+    width: 720px;
+    position: absolute;
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    padding: 20px;
+    box-sizing: border-box;
+    opacity: 0;
+    animation: FadeIn 225ms ease-in-out;
+    animation-fill-mode: forwards;
+}
 
-    /* Overlay */
-    #overlay {
-        height: 480px;
-        position: absolute;
-        display: flex;
-        flex-direction: column;
-        align-items: end;
-        justify-content: space-between;
-        padding: 20px;
-        box-sizing: border-box;
+.startGameAdjustments {
+    justify-content: center;
+    gap: 20px;
+}
+
+@keyframes FadeIn {
+    0% {
         opacity: 0;
-        animation: FadeIn 225ms ease-in-out;
-        animation-fill-mode: forwards;
     }
 
-    @keyframes FadeIn {
-        0% {
-            opacity: 0;
-        }
+    100% {
+        opacity: 1;
+    }
+}
 
-        100% {
-            opacity: 1;
-        }
-    }
+.panel {
+    display: flex;
+    width: 720px;
+    justify-content: space-between;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
 
-    .panel {
-        display: flex;
-        width: 720px;
-        justify-content: space-between;
-        padding: 0 20px;
-        box-sizing: border-box;
-    }
+.panel-wrapper {
+    gap: 20px;
+    display: flex;
+}
 
-    .panel-wrapper {
-        gap: 20px;
-        display: flex;
-    }
+.panel:nth-child(1) {
+    width: 720px;
+    justify-content: center;
+}
 
-    .panel:nth-child(1) {
-        width: 720px;
-        justify-content: center;
-    }
-    
-    #overlay button {
-        width: 45px;
-        height: 45px;
-        border-radius: 100%;
-        background-color: black;
-        border: 1px solid white;
-        cursor: pointer;
-    }
+#overlay button {
+    width: 45px;
+    height: 45px;
+    border-radius: 100%;
+    background-color: black;
+    border: 1px solid white;
+    cursor: pointer;
+}
 
-    #info-overlay {
-        background-image: url(img/start-screen/info-icon.png);
-        border: none !important;
-        background-repeat: no-repeat;
-        background-size: 45px;
-        background-position: center;
-    }
+#info-overlay {
+    background-image: url(img/start-screen/info-icon.png);
+    border: none !important;
+    background-repeat: no-repeat;
+    background-size: 45px;
+    background-position: center;
+}
 
-    #music-overlay {
-        background-image: url(img/start-screen/remove-audio.png);
-        border: none !important;
-        background-repeat: no-repeat;
-        background-size: 19px;
-        background-position: center;
-        background-position-x: 11px;
-    }
+#music-overlay {
+    background-image: url(img/start-screen/remove-audio.png);
+    border: none !important;
+    background-repeat: no-repeat;
+    background-size: 19px;
+    background-position: center;
+    background-position-x: 11px;
+}
 
-    #leftBtn,
-    #rightBtn,
-    #jumpBtn {
-        background-size: 26px;
-        background-repeat: no-repeat;
-        background-position: center;
-    }
+#leftBtn,
+#rightBtn,
+#jumpBtn {
+    background-size: 26px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
 
-    #leftBtn {
-        background-image: url(img/start-screen/arrow-left.png);
-        background-position-y: 9px;
-        background-position-x: 7px;
-    }
+#leftBtn {
+    background-image: url(img/start-screen/arrow-left.png);
+    background-position-y: 9px;
+    background-position-x: 7px;
+}
 
-    #rightBtn {
-        background-image: url(img/start-screen/arrow-right.png);
-        background-position-y: 9px;
-        background-position-x: 10px;
-    }
+#rightBtn {
+    background-image: url(img/start-screen/arrow-right.png);
+    background-position-y: 9px;
+    background-position-x: 10px;
+}
 
-    #jumpBtn {
-        background-image: url(img/start-screen/arrow.png);
-        background-position-x: 9px;
-        background-position-y: 8px;
-    }
+#jumpBtn {
+    background-image: url(img/start-screen/arrow.png);
+    background-position-x: 9px;
+    background-position-y: 8px;
+}
 
-    #shootBtn {
-        background-image: url(img/ammunition/attack/ammunition-attack.png);
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: 25px;
-    }
+#shootBtn {
+    background-image: url(img/ammunition/attack/ammunition-attack.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 25px;
 }
 
 @media only screen and (max-width: 720px) {
