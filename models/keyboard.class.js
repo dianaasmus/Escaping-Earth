@@ -4,13 +4,9 @@ class Keyboard {
     KEY_UP = false;
     KEY_TAB = false;
     isMobileDevice = 'ontouchstart' in window;
-    startBtn = document.getElementById('startBtn');
 
-    constructor(startBtn) {
+    constructor() {
         this.bindKeyPressEvents();
-        if (this.isMobileDevice && this.startBtn) {
-            this.bindBtnsPressEvents();
-        }
     }
 
     bindKeyPressEvents() {
@@ -46,45 +42,40 @@ class Keyboard {
     }
 
     bindBtnsPressEvents() {
-        console.log('fkt');
-        document.addEventListener('DOMContentLoaded', () => {
-
-            document.getElementById('jumpBtn').addEventListener('touchstart', (e) => {
-                e.preventDefault();
-                this.KEY_UP = true;
-            });
-            document.getElementById('jumpBtn').addEventListener('touchend', (e) => {
-                e.preventDefault();
-                this.KEY_UP = false;
-            });
-
-            document.getElementById('shootBtn').addEventListener('touchstart', (e) => {
-                e.preventDefault();
-                this.KEY_TAB = true;
-            });
-            document.getElementById('shootBtn').addEventListener('touchend', (e) => {
-                e.preventDefault();
-                this.KEY_TAB = false;
-            });
-
-            document.getElementById('leftBtn').addEventListener('touchstart', (e) => {
-                e.preventDefault();
-                this.KEY_LEFT = true;
-            });
-            document.getElementById('leftBtn').addEventListener('touchend', (e) => {
-                e.preventDefault();
-                this.KEY_LEFT = false;
-            });
-
-            document.getElementById('rightBtn').addEventListener('touchstart', (e) => {
-                e.preventDefault();
-                this.KEY_RIGHT = true;
-            });
-            document.getElementById('rightBtn').addEventListener('touchend', (e) => {
-                e.preventDefault();
-                this.KEY_RIGHT = false;
-            });
+        document.getElementById('jumpBtn').addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            this.KEY_UP = true;
+        });
+        document.getElementById('jumpBtn').addEventListener('touchend', (e) => {
+            e.preventDefault();
+            this.KEY_UP = false;
         });
 
+        document.getElementById('shootBtn').addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            this.KEY_TAB = true;
+        });
+        document.getElementById('shootBtn').addEventListener('touchend', (e) => {
+            e.preventDefault();
+            this.KEY_TAB = false;
+        });
+
+        document.getElementById('leftBtn').addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            this.KEY_LEFT = true;
+        });
+        document.getElementById('leftBtn').addEventListener('touchend', (e) => {
+            e.preventDefault();
+            this.KEY_LEFT = false;
+        });
+
+        document.getElementById('rightBtn').addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            this.KEY_RIGHT = true;
+        });
+        document.getElementById('rightBtn').addEventListener('touchend', (e) => {
+            e.preventDefault();
+            this.KEY_RIGHT = false;
+        });
     }
 }

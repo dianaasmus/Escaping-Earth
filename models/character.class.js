@@ -131,7 +131,6 @@ class Character extends MovableObject {
     }
 
     addAnimations() {
-        console.log('1')
         setInterval(() => { //jedes bild wird 1 sekunde angezeigt, dann currentImage++
             if (!document.getElementById('innerInfoContainer') && !document.getElementById('gameOver')) {
                 if (this.isDead()) {

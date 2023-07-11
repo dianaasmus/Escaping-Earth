@@ -39,7 +39,9 @@ function start() {
     hideElement(document.getElementById('start-img'));
     hideElement(document.getElementById('startBtn'));
     checkmobileDevice();
+    initLevel();
     startGame();
+    keyboard.bindBtnsPressEvents();
 }
 
 
