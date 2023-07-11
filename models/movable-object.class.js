@@ -17,13 +17,13 @@ class MovableObject extends DrawableObject {
     batteryAll = 10; //robot
 
     moveRight() {
-        if (!document.getElementById('info-container') && !document.getElementById('gameOver')) {
+        if (!document.getElementById('innerInfoContainer') && !document.getElementById('gameOver')) {
             this.x += this.speed;
         }
     }
 
     moveLeft() {
-        if (!document.getElementById('info-container') && !document.getElementById('gameOver')) {
+        if (!document.getElementById('innerInfoContainer') && !document.getElementById('gameOver')) {
             this.x -= this.speed;
         }
     }

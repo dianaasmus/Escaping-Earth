@@ -78,7 +78,7 @@ class Character extends MovableObject {
         this.addAudioSettings();
 
         setInterval(() => {
-            if (!document.getElementById('info-container') && !document.getElementById('gameOver')) {
+            if (!document.getElementById('innerInfoContainer') && !document.getElementById('gameOver')) {
                 if (!this.world.keyboard.KEY_RIGHT && !this.world.keyboard.KEY_LEFT) {
                     if (this.isSoundPlaying) {
                         this.running_sound.pause();
@@ -133,7 +133,7 @@ class Character extends MovableObject {
     addAnimations() {
         console.log('1')
         setInterval(() => { //jedes bild wird 1 sekunde angezeigt, dann currentImage++
-            if (!document.getElementById('info-container') && !document.getElementById('gameOver')) {
+            if (!document.getElementById('innerInfoContainer') && !document.getElementById('gameOver')) {
                 if (this.isDead()) {
                     this.height = 50;
                     this.width = 70;
@@ -192,12 +192,13 @@ class Character extends MovableObject {
     gameOver() {
         if (!document.getElementById('gameOver')) {
             this.addGameOverContainer();
+            document.getElementById('headline').classList.remove('d-none');
             document.getElementById('headline').innerHTML = 'You Lost';
             document.getElementById('headline').classList.add('game-over-animation');
         }
     }
 
-    addGameOverContainer() { 
+    addGameOverContainer() {
         startScreen.innerHTML += `<div id="gameOver"><button id="gameOverBtn">START AGAIN</button></div>`;
     }
 }

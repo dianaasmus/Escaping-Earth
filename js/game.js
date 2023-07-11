@@ -45,6 +45,7 @@ function checkmobileDevice() {
     } else {
         console.log('mobile');
         headline.classList.add('fadeout');
+        // hideElement(document.getElementById('headline'));
         document.getElementById('gameBtns').classList.remove('d-none');
         document.getElementById('gameAdjustments').classList.add('startGameAdjustments');
         // world.keyboard.bindBtnsPressEvents();
@@ -60,7 +61,7 @@ function removeAnimation() {
 
 function toggleInfo() {
     const startBtn = document.getElementById('startBtn');
-    const infoContainer = document.getElementById("info-container");
+    const infoContainer = document.getElementById("innerInfoContainer");
     const gameBtns = document.getElementById('gameBtns');
 
     if (infoContainer) {
@@ -76,7 +77,7 @@ function toggleInfo() {
         startBtn.classList.add('d-none');
 
 
-        document.getElementById('infoContainer2').innerHTML += createGameInfo();
+        document.getElementById('infoContainer').innerHTML += createGameInfo();
 
         if (startBtnPressed) {
             applyInfoContainerStyle();
@@ -98,14 +99,14 @@ function hideElement(element) {
 }
 
 function applyInfoContainerStyle() {
-    const infoContainer = document.getElementById("info-container");
+    const infoContainer = document.getElementById("innerInfoContainer");
     infoContainer.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
 }
 
 
 function createGameInfo() {
     return `
-    <div id="info-container">
+    <div id="innerInfoContainer">
         <p id="pause" class="d-none">- pause - </p>
         <div id="info-content">
             <div id="gameSettings" class="d-none">

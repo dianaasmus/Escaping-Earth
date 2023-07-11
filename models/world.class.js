@@ -239,6 +239,7 @@ class World {
 
     youWon() {
         this.character.addGameOverContainer();
+        document.getElementById('headline').classList.remove('d-none');
         document.getElementById('headline').innerHTML = 'YOU WON!';
         document.getElementById('headline').classList.add('game-over-animation');
     }
@@ -355,7 +356,7 @@ class World {
 
         if (this.availableAmmunition()) {
             if (this.keyboard.KEY_TAB && this.character.otherDirection == false) {
-                if (!document.getElementById('info-container')) {
+                if (!document.getElementById('innerInfoContainer')) {
 
                     let laser = new ShootingObject(this.character.x + 50, this.character.y);
                     // this.character.laser.otherDirection = true; // bilder spiegeln
