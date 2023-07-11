@@ -349,6 +349,10 @@ class World {
     }
 
     checkThrowObjects() {
+        const batteryIsDepleted = this.character.batteryAll === 0;
+        const noEndBossRemaining = this.level.endboss.length === 0;
+        const gameOverElementNotPresent = !document.getElementById('gameOver');
+
         if (this.availableAmmunition()) {
             if (this.keyboard.KEY_TAB && this.character.otherDirection == false) {
                 if (!document.getElementById('info-container')) {
@@ -361,11 +365,10 @@ class World {
                     this.shootingObject.push(laser);
                     this.character.hittedObject('hitEnemy');
                     this.ammunitionStatusBar.setPercentage(this.character.ammunition);
-                    
+
                 }
             }
-        } else 
-        if (this.character.batteryAll === 0 && this.level.endboss.length === 0 && !document.getElementById('gameOver')) {
+        } else if (batteryIsDepleted && noEndBossRemaining && gameOverElementNotPresent) {
             this.youWon();
         }
     }

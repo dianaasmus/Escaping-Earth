@@ -14,7 +14,7 @@ function init() {
 
 function setMobileDisplay() {
     if (isMobileDevice) {
-        document.getElementById('headline').style.marginBottom = "280px";
+        document.getElementById('headline').style.marginBottom = "290px !important";
         document.getElementById('gameAdjustments').classList.remove('gameAdjustmentsDesktop');
         document.getElementById('gameAdjustments').classList.add('gameAdjustmentsMobile');
         document.getElementById('startBtn').style.marginTop = "380px";
@@ -30,10 +30,10 @@ window.addEventListener('load', function () {
 function start() {
     startBtn.disabled = true;
     startBtnPressed = true;
-    checkmobileDevice();
     document.getElementById('start-img').classList.add('d-none');
     document.getElementById('startBtn').classList.add('d-none');
     startGame();
+    checkmobileDevice();
 }
 
 function checkmobileDevice() {
@@ -45,8 +45,9 @@ function checkmobileDevice() {
     } else {
         console.log('mobile');
         headline.classList.add('fadeout');
-        document.getElementById('overlay').classList.remove('d-none');
+        document.getElementById('gameBtns').classList.remove('d-none');
         document.getElementById('gameAdjustments').classList.add('startGameAdjustments');
+        // world.keyboard.bindBtnsPressEvents();
     }
 }
 
@@ -57,34 +58,10 @@ function removeAnimation() {
     }, 500);
 }
 
-// function info() {
-//     document.getElementById('startBtn').classList.add('d-none'); 
-//     let infoContainer = document.getElementById("info-container");
-//     if (infoContainer) {
-//         infoContainer.remove(); //toggle
-
-//         if (!startBtnPressed) {
-//             document.getElementById('startBtn').classList.remove('d-none');
-//         } else if (isMobileDevice) {
-//             document.getElementById('overlay').classList.remove('d-none');
-//         }
-//     } else {
-//         document.getElementById('infoContainer2').innerHTML += gameInfo();
-//         if (startBtnPressed) {
-//             let infoContainer = document.getElementById("info-container");
-//             infoContainer.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
-//             document.getElementById('pause').classList.remove('d-none');
-//         }
-//         if (isMobileDevice) {
-//             document.getElementById('overlay').classList.add('d-none');
-//         }
-//     }
-// }
-
 function toggleInfo() {
     const startBtn = document.getElementById('startBtn');
     const infoContainer = document.getElementById("info-container");
-    const overlay = document.getElementById('overlay');
+    const gameBtns = document.getElementById('gameBtns');
 
     if (infoContainer) {
         infoContainer.remove();
@@ -92,11 +69,12 @@ function toggleInfo() {
         if (!startBtnPressed) {
             showElement(startBtn);
         } else if (isMobileDevice) {
-            hideElement(overlay);
-            showElement(overlay);
+            // hideElement(overlay);
+            showElement(gameBtns);
         }
     } else {
         startBtn.classList.add('d-none');
+
 
         document.getElementById('infoContainer2').innerHTML += createGameInfo();
 
@@ -106,7 +84,7 @@ function toggleInfo() {
         }
 
         if (isMobileDevice) {
-            hideElement(overlay);
+            hideElement(gameBtns);
         }
     }
 }
@@ -197,33 +175,3 @@ function startGame() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard); //mit world.js "verbinden"
 }
-
-window.addEventListener("keydown", (e) => {
-    if (e.keyCode == 39) {
-        keyboard.KEY_RIGHT = true;
-    }
-    if (e.keyCode == 37) {
-        keyboard.KEY_LEFT = true;
-    }
-    if (e.keyCode == 38) {
-        keyboard.KEY_UP = true;
-    }
-    if (e.keyCode == 32) {
-        keyboard.KEY_TAB = true;
-    }
-});
-
-window.addEventListener("keyup", (e) => {
-    if (e.keyCode == 39) {
-        keyboard.KEY_RIGHT = false;
-    }
-    if (e.keyCode == 37) {
-        keyboard.KEY_LEFT = false;
-    }
-    if (e.keyCode == 38) {
-        keyboard.KEY_UP = false;
-    }
-    if (e.keyCode == 32) {
-        keyboard.KEY_TAB = false;
-    }
-});
