@@ -1,56 +1,66 @@
 let canvas;
 let world;
 let keyboard = new Keyboard(); // keyboard in game.js deklarieren
-// let isNextSiteVisible = false; // Variable für den aktuellen Zustand
 let music = new Audio('audio/background-music-trimm.mp3');
 music.volume = 0.25;
 music.loop = true;
 let isMobileDevice = 'ontouchstart' in window;
 let startBtnPressed = false;
 
-function init() {
-    setMobileDisplay();
-}
-
-function setMobileDisplay() {
-    if (isMobileDevice) {
-        document.getElementById('headline').style.marginBottom = "290px !important";
-        document.getElementById('gameAdjustments').classList.remove('gameAdjustmentsDesktop');
-        document.getElementById('gameAdjustments').classList.add('gameAdjustmentsMobile');
-        document.getElementById('startBtn').style.marginTop = "380px";
-        document.getElementById('headline').style.fontSize = "calc(4vw + 12px)";
-    }
-}
 
 window.addEventListener('load', function () {
     let loadingScreen = document.getElementById('circle');
     loadingScreen.style.display = 'none';
 });
 
+
+function init() {
+    setMobileDisplay();
+}
+
+
+function setMobileDisplay() {
+    if (isMobileDevice) {
+        const headline = document.getElementById('headline');
+        const gameAdjustments = document.getElementById('gameAdjustments');
+        const startBtn = document.getElementById('startBtn');
+
+        headline.classList.add('headline');
+        gameAdjustments.classList.remove('gameAdjustmentsDesktop');
+        gameAdjustments.classList.add('gameAdjustmentsMobile');
+        startBtn.style.marginTop = "380px";
+    }
+}
+
+
 function start() {
     startBtn.disabled = true;
     startBtnPressed = true;
-    document.getElementById('start-img').classList.add('d-none');
-    document.getElementById('startBtn').classList.add('d-none');
-    startGame();
+    hideElement(document.getElementById('start-img'));
+    hideElement(document.getElementById('startBtn'));
     checkmobileDevice();
+    startGame();
 }
+
 
 function checkmobileDevice() {
     if (!isMobileDevice) {
-        console.log('not mobile');
         headline.classList.add('animation');
         removeAnimation();
-
     } else {
-        console.log('mobile');
         headline.classList.add('fadeout');
-        // hideElement(document.getElementById('headline'));
-        document.getElementById('gameBtns').classList.remove('d-none');
+        hideElement(document.getElementById('headline'));
+        showElement(document.getElementById('gameBtns'));
         document.getElementById('gameAdjustments').classList.add('startGameAdjustments');
-        // world.keyboard.bindBtnsPressEvents();
     }
 }
+
+
+function startGame() {
+    canvas = document.getElementById('canvas');
+    world = new World(canvas, keyboard); //mit world.js "verbinden"
+}
+
 
 function removeAnimation() {
     setTimeout(() => {
@@ -59,48 +69,43 @@ function removeAnimation() {
     }, 500);
 }
 
+
 function toggleInfo() {
     const startBtn = document.getElementById('startBtn');
-    const infoContainer = document.getElementById("innerInfoContainer");
+    const innerInfoContainer = document.getElementById("innerInfoContainer");
     const gameBtns = document.getElementById('gameBtns');
+    const infoContainer = document.getElementById('infoContainer');
 
-    if (infoContainer) {
-        infoContainer.remove();
-
-        if (!startBtnPressed) {
-            showElement(startBtn);
-        } else if (isMobileDevice) {
-            // hideElement(overlay);
-            showElement(gameBtns);
-        }
+    if (innerInfoContainer) {
+        removeInnerInfoContainer(innerInfoContainer, startBtn, gameBtns);
     } else {
-        startBtn.classList.add('d-none');
-
-
-        document.getElementById('infoContainer').innerHTML += createGameInfo();
-
-        if (startBtnPressed) {
-            applyInfoContainerStyle();
-            showElement(document.getElementById('pause'));
-        }
-
-        if (isMobileDevice) {
-            hideElement(gameBtns);
-        }
+        addInnerInfoContainer(startBtn, infoContainer, gameBtns);
     }
 }
 
-function showElement(element) {
-    element.classList.remove('d-none');
+
+function removeInnerInfoContainer(innerInfoContainer, startBtn, gameBtns) {
+    innerInfoContainer.remove();
+
+    if (!startBtnPressed) {
+        showElement(startBtn);
+    } else if (isMobileDevice) {
+        showElement(gameBtns);
+    }
 }
 
-function hideElement(element) {
-    element.classList.add('d-none');
-}
 
-function applyInfoContainerStyle() {
-    const infoContainer = document.getElementById("innerInfoContainer");
-    infoContainer.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+function addInnerInfoContainer(startBtn, infoContainer, gameBtns) {
+    startBtn.classList.add('d-none');
+    infoContainer.innerHTML += createGameInfo();
+
+    if (startBtnPressed) {
+        applyInfoContainerStyle();
+        showElement(document.getElementById('pause'));
+    }
+    if (isMobileDevice) {
+        hideElement(gameBtns);
+    }
 }
 
 
@@ -146,20 +151,6 @@ function createGameInfo() {
 `;
 }
 
-function nextSite() {
-    let gameSettings = document.getElementById("gameSettings");
-    let gameDescription = document.getElementById('gameDescription');
-
-    if (gameSettings.classList.contains('d-none')) {
-        gameSettings.classList.remove('d-none');
-        gameDescription.classList.add('d-none');
-        document.getElementById('arrow').style.transform = "rotate(180deg)";
-    } else {
-        gameSettings.classList.add('d-none');
-        gameDescription.classList.remove('d-none');
-        document.getElementById('arrow').style.transform = "rotate(0deg)";
-    }
-}
 
 function toggleAudio() {
     let audioIcon = document.getElementById('audio-icon');
@@ -172,7 +163,45 @@ function toggleAudio() {
     }
 }
 
-function startGame() {
-    canvas = document.getElementById('canvas');
-    world = new World(canvas, keyboard); //mit world.js "verbinden"
+
+function nextSite() {
+    const gameSettings = document.getElementById("gameSettings");
+    const gameDescription = document.getElementById('gameDescription');
+    const arrow = document.getElementById('arrow');
+
+    if (gameSettings.classList.contains('d-none')) {
+        showGameSettings(gameSettings, gameDescription, arrow);
+    } else {
+        showGameDescription(gameSettings, gameDescription, arrow);
+    }
+}
+
+
+function showGameSettings(gameSettings, gameDescription, arrow) {
+    showElement(gameSettings);
+    hideElement(gameDescription);
+    arrow.style.transform = "rotate(180deg)";
+}
+
+
+function showGameDescription(gameSettings, gameDescription, arrow) {
+    hideElement(gameSettings);
+    showElement(gameDescription);
+    arrow.style.transform = "rotate(0deg)";
+}
+
+
+function applyInfoContainerStyle() {
+    const infoContainer = document.getElementById("innerInfoContainer");
+    infoContainer.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+}
+
+
+function showElement(element) {
+    element.classList.remove('d-none');
+}
+
+
+function hideElement(element) {
+    element.classList.add('d-none');
 }

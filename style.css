@@ -321,6 +321,11 @@ canvas {
 }
 
 /* MOBILE DEVICE: OVERLAY */
+.headline {
+    font-size: calc(4vw + 12px) !important;
+    margin-bottom: 285px !important;
+}
+
 .gameAdjustmentsMobile {
     /* position: absolute; */
     width: 720px;
