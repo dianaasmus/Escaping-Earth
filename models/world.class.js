@@ -12,7 +12,7 @@ class World {
     shootingObject = [];
     collectableObject = new CollectableObject();
     background_music = new Audio('audio/music.mp3');
-    hasPassed2000 = false;
+    hasPassed1500 = false;
     gameLost = false;
     gameWin = false;
 
@@ -125,7 +125,8 @@ class World {
     isCollidingEnemies() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
-                if (this.character.isAboveGround()) { //jump von unten !!
+                console.log(this.character.y);
+                if (this.character.isAboveGround() && this.character.y > 290) {
                     this.character.crushing_zombie_sound.play();
                     this.getEnemyIndex(enemy);
                 } else {
@@ -242,6 +243,8 @@ class World {
         document.getElementById('headline').classList.remove('d-none');
         document.getElementById('headline').innerHTML = 'YOU WON!';
         document.getElementById('headline').classList.add('game-over-animation');
+        document.getElementById('info-icon').classList.add('d-none');
+        document.getElementById('audio-icon').classList.add('d-none');
     }
 
     removeEndboss(endbossIndex) {
@@ -379,8 +382,8 @@ class World {
     }
 
     checkCharacter() {
-        if (this.character.x >= 1500 && !this.hasPassed2000) {
-            this.hasPassed2000 = true;
+        if (this.character.x >= 1500 && !this.hasPassed1500) {
+            this.hasPassed1500 = true;
             this.level.endboss.forEach((endboss) => {
                 endboss.animate();
             });

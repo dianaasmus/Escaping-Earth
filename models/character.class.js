@@ -194,6 +194,8 @@ class Character extends MovableObject {
             document.getElementById('headline').classList.remove('d-none');
             document.getElementById('headline').innerHTML = 'You Lost';
             document.getElementById('headline').classList.add('game-over-animation');
+            document.getElementById('info-icon').disabled = true;
+            document.getElementById('audio-icon').disabled = true;
         }
     }
 
