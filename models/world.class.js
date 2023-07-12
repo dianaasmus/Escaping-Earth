@@ -15,6 +15,7 @@ class World {
     hasPassed1500 = false;
     gameLost = false;
     gameWin = false;
+    InteervalIDs = [];
 
     constructor(canvas, keyboard) { //von game.js aufnehmen
         canvas.width = 720;

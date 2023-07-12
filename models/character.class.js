@@ -69,15 +69,17 @@ class Character extends MovableObject {
     }
 
     animate() {
-        this.addAudios();
+        console.log(this.world);
+        this.addAudioSettings();
+        // this.addAudios();
+        this.setStoppableInterval(this.addAudios, 1000 / 60);
         this.addAnimations();
         // this.setStoppableInterval(this.addAnimations, 100);
     }
 
     addAudios() {
-        this.addAudioSettings();
 
-        setInterval(() => {
+        // setInterval(() => {
             if (!document.getElementById('innerInfoContainer') && !document.getElementById('gameOver')) {
                 if (!this.world.keyboard.KEY_RIGHT && !this.world.keyboard.KEY_LEFT) {
                     if (this.isSoundPlaying) {
@@ -116,7 +118,7 @@ class Character extends MovableObject {
                 }
                 this.world.camera_x = -this.x + 125; // x = 125, Alien um 125 verschieben
             }
-        }, 1000 / 60);
+        // }, 1000 / 60);
     }
 
     addAudioSettings() {
@@ -174,7 +176,7 @@ class Character extends MovableObject {
     }
 
     setStoppableInterval(fn, time) {
-        let id = setInterval(fn, time);
+        let id = setInterval(fn.bind(this), time);
         this.intervalIds.push(id);
     }
 
