@@ -207,3 +207,17 @@ function showElement(element) {
 function hideElement(element) {
     element.classList.add('d-none');
 }
+
+
+function startAgain() {
+    let headline = document.getElementById('headline');
+    headline.classList.remove('headline-2');
+    headline.classList.remove('game-over-animation');
+    headline.classList.add('animation');
+    headline.innerHTML = 'Escaping Earth';
+    document.getElementById('info-icon').disabled = false;
+    document.getElementById('audio-icon').disabled = false;
+    document.getElementById('gameOver').remove();
+    world.character.stopGame()
+    startGame();
+}
