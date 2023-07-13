@@ -64,8 +64,6 @@ class DrawableObject {
         this.intervalIDs.push(id);
     }
 
-    
-
     stopGame() {
         this.intervalIDs.forEach(clearInterval);
     }

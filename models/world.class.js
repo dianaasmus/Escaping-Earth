@@ -34,10 +34,12 @@ class World {
     checkGameOver() {
         let gameLost = false;
 
-        if (this.shootingObject === 0 && this.character.ammunition === 0 && this.level.endboss.length >= 1 && !gameLost == true) {
+        if (this.shootingObject.length === 0 && this.character.ammunition === 0 && this.level.endboss.length >= 1 && !gameLost) {
             // if (this.shootingObject === 0) {
-                this.gameLost = true;
-                this.character.gameOver();
+            this.gameLost = true;
+            this.character.gameOver();
+            // console.log(this.gameLost);
+
             // }
         }
     }
@@ -377,6 +379,7 @@ class World {
     checkThrowObjects() {
         const batteryIsDepleted = this.character.batteryAll === 0;
         const noEndBossRemaining = this.level.endboss.length === 0;
+        const endbossRemaining = this.level.endboss.length >= 1;
         const gameOverElementNotPresent = !document.getElementById('gameOver');
 
         if (this.availableAmmunition()) {
