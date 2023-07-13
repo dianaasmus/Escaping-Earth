@@ -36,12 +36,17 @@ function setMobileDisplay() {
 function start() {
     startBtn.disabled = true;
     startBtnPressed = true;
-    hideElement(document.getElementById('start-img'));
-    hideElement(document.getElementById('startBtn'));
+    displayElements();
     checkmobileDevice();
     initLevel();
     startGame();
     keyboard.bindBtnsPressEvents();
+}
+
+function displayElements() {
+    hideElement(document.getElementById('start-img'));
+    hideElement(document.getElementById('startBtn'));
+    showElement(document.getElementById('fullscreenIcon'));
 }
 
 
@@ -49,11 +54,15 @@ function checkmobileDevice() {
     if (!isMobileDevice) {
         headline.classList.add('animation');
         removeAnimation();
+        document.getElementById('fullscreenContainer').classList.remove('fullscreenIconMobile');
+
     } else {
         headline.classList.add('fadeout');
         hideElement(document.getElementById('headline'));
         showElement(document.getElementById('gameBtns'));
         document.getElementById('gameAdjustments').classList.add('startGameAdjustments');
+        document.getElementById('gameAdjustments').style.padding = "0 75px 0 20px";
+
     }
 }
 
@@ -222,20 +231,36 @@ function startAgain() {
     startGame();
 }
 
+
 function fullscreen() {
-    let fullscreen = document.getElementById('fullscreen');
-    enterFullscreen(fullscreen);
+    const fullscreenElement = document.getElementById('fullscreen');
+    if (isFullscreen()) {
+        exitFullscreen();
+    } else {
+        enterFullscreen(fullscreenElement);
+    }
 }
+
+
+function isFullscreen() {
+    return (
+        document.fullscreenElement ||
+        document.webkitFullscreenElement ||
+        document.msFullscreenElement
+    );
+}
+
 
 function enterFullscreen(element) {
     if (element.requestFullscreen) {
         element.requestFullscreen();
-    } else if (element.msRequestFullscreen) {      // for IE11 (remove June 15, 2022)
+    } else if (element.msRequestFullscreen) {
         element.msRequestFullscreen();
-    } else if (element.webkitRequestFullscreen) {  // iOS Safari
+    } else if (element.webkitRequestFullscreen) {
         element.webkitRequestFullscreen();
     }
 }
+
 
 function exitFullscreen() {
     if (document.exitFullscreen) {

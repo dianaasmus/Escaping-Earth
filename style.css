@@ -190,14 +190,15 @@ body {
 }
 
 #info-icon:hover,
-#audio-icon:hover {
+#audio-icon:hover,
+#fullscreenIcon:hover {
     transform: scale(1.1);
 }
 
 /* INFOCONTAINER  */
 #infoContainer {
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
 }
 
 #innerInfoContainer {
@@ -318,6 +319,16 @@ body {
     display: flex;
 }
 
+#fullscreenIcon {
+    height: 34px;
+}
+
+.fullscreenIconMobile {
+    position: absolute;
+    top: 22px;
+    left: 55%;
+}
+
 /* CANVAS */
 canvas {
     box-shadow: 0px 0px 50px 4px rgba(126, 173, 255, 0.65);
@@ -332,7 +343,6 @@ canvas {
 }
 
 .gameAdjustmentsMobile {
-    /* position: absolute; */
     width: 720px;
     display: flex;
     justify-content: space-between;
