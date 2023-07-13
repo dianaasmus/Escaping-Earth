@@ -68,7 +68,6 @@ class Character extends MovableObject {
     }
 
     animate() {
-        console.log(this.world);
         this.addAudioSettings();
         // this.addAudios();
         this.setStoppableInterval(this.addAudios, 1000 / 60);
@@ -184,17 +183,6 @@ class Character extends MovableObject {
             document.getElementById('audio-icon').disabled = true;
         }
     }
-
-    // startAgain() {
-    //     let headline = document.getElementById('headline');
-    //     headline.classList.add('headline');
-    //     headline.innerHTML = 'Escaping Earth';
-    //     document.getElementById('info-icon').disabled = false;
-    //     document.getElementById('audio-icon').disabled = false;
-    //     document.getElementById('gameOver').remove();
-    //     this.stopGame();
-    //     startGame();
-    // }
 
     addGameOverContainer() {
         startScreen.innerHTML += `<div id="gameOver"><button onclick="startAgain()" id="gameOverBtn">START AGAIN</button></div>`;

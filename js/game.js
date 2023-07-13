@@ -228,7 +228,9 @@ function startAgain() {
     document.getElementById('audio-icon').disabled = false;
     document.getElementById('gameOver').remove();
     world.character.stopGame()
-    startGame();
+    // startGame();
+    world = new World(canvas, keyboard); //mit world.js "verbinden"
+
 }
 
 

@@ -13,8 +13,7 @@ class World {
     collectableObject = new CollectableObject();
     background_music = new Audio('audio/music.mp3');
     hasPassed1500 = false;
-    gameLost = false;
-    gameWin = false;
+    // gameLost = false;
     intervalIDs = [];
 
     constructor(canvas, keyboard) { //von game.js aufnehmen
@@ -27,24 +26,18 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
-        // this.run();
         this.setStoppableInterval(this.run, 100);
     }
 
     checkGameOver() {
-        let gameLost = false;
+        // let gameLost = false;
 
-        if (this.shootingObject.length === 0 && this.character.ammunition === 0 && this.level.endboss.length >= 1 && !gameLost) {
-            // if (this.shootingObject === 0) {
-            this.gameLost = true;
+        if (this.shootingObject.length === 0 && this.character.ammunition === 0 && this.level.endboss.length >= 1) {
+            // this.gameLost = true;
             this.character.gameOver();
-            // console.log(this.gameLost);
-
-            // }
         }
     }
 
-    //!this.gameWon && !this.gameLost && 
 
     setStoppableInterval(fn, time) {
         let id = setInterval(fn.bind(this), time); // funktion (fn) binden (.bind) mit aktuellen wert (this)
@@ -149,7 +142,6 @@ class World {
     isCollidingEnemies() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
-                console.log(this.character.y);
                 if (this.character.isAboveGround() && this.character.y > 290) {
                     this.character.crushing_zombie_sound.play();
                     this.getEnemyIndex(enemy);
@@ -379,7 +371,6 @@ class World {
     checkThrowObjects() {
         const batteryIsDepleted = this.character.batteryAll === 0;
         const noEndBossRemaining = this.level.endboss.length === 0;
-        const endbossRemaining = this.level.endboss.length >= 1;
         const gameOverElementNotPresent = !document.getElementById('gameOver');
 
         if (this.availableAmmunition()) {
@@ -399,6 +390,8 @@ class World {
             }
         } else if (batteryIsDepleted && noEndBossRemaining && gameOverElementNotPresent) {
             this.youWon();
+            this.character.batteryAll = 10;
+
         }
     }
 
