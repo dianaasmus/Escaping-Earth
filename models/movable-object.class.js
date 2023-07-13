@@ -35,14 +35,16 @@ class MovableObject extends DrawableObject {
     }
 
     float() {
-        setInterval(() => {
-            this.y += this.shift; // Verschiebung hinzufügen 
-            // += : y wird um shift(-1) erhöht und gleichzeitig das Ergebnis als Wert erhalten
+        this.setStoppableInterval(this.floatingObject, 1000 / 15);
+    }
 
-            if (this.y <= this.minY || this.y >= this.maxY) {
-                this.shift *= -1; // Ändere die Richtung der Verschiebung (-1 * (-1)) => shift ≠ -1 => shift = 1;
-            }
-        }, 1000 / 15);
+    floatingObject() {
+        this.y += this.shift; // Verschiebung hinzufügen 
+        // += : y wird um shift(-1) erhöht und gleichzeitig das Ergebnis als Wert erhalten
+
+        if (this.y <= this.minY || this.y >= this.maxY) {
+            this.shift *= -1; // Ändere die Richtung der Verschiebung (-1 * (-1)) => shift ≠ -1 => shift = 1;
+        }
     }
 
     playAnimation(images) {
@@ -53,14 +55,16 @@ class MovableObject extends DrawableObject {
         this.currentImage++;
     }
 
-    applyGravitiy() {
+    applyGravity() {
         this.y = 290;
-        setInterval(() => { //390 // 390 // 391 
-            if (this.isAboveGround() || this.speedY > 0) {
-                this.y -= this.speedY; //390 - 0 = 390 // 390 - (-1) = 391 // 391 - 0 = 391
-                this.speedY -= this.acceleration; // 0 - 1 = -1 // -1 - (-1)  = 0
-            }
-        }, 1000 / 25); //25 mal pro Sekunde
+        this.setStoppableInterval(this.gravity, 1000 / 25);
+    }
+
+    gravity() {
+        if (this.isAboveGround() || this.speedY > 0) {
+            this.y -= this.speedY; //390 - 0 = 390 // 390 - (-1) = 391 // 391 - 0 = 391
+            this.speedY -= this.acceleration; // 0 - 1 = -1 // -1 - (-1)  = 0
+        }
     }
 
     isAboveGround() {
@@ -121,5 +125,4 @@ class MovableObject extends DrawableObject {
         timepassed = timepassed / 1000; // differenz in s
         return timepassed < 1; //animation für 1 sek anzeigen
     }
-
 }

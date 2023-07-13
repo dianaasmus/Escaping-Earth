@@ -15,7 +15,7 @@ class World {
     hasPassed1500 = false;
     gameLost = false;
     gameWin = false;
-    InteervalIDs = [];
+    intervalIDs = [];
 
     constructor(canvas, keyboard) { //von game.js aufnehmen
         canvas.width = 720;
@@ -27,7 +27,26 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
-        this.run();
+        // this.run();
+        this.setStoppableInterval(this.run, 100);
+    }
+
+    checkGameOver() {
+        let gameLost = false;
+
+        if (this.shootingObject === 0 && this.character.ammunition === 0 && this.level.endboss.length >= 1 && !gameLost == true) {
+            // if (this.shootingObject === 0) {
+                this.gameLost = true;
+                this.character.gameOver();
+            // }
+        }
+    }
+
+    //!this.gameWon && !this.gameLost && 
+
+    setStoppableInterval(fn, time) {
+        let id = setInterval(fn.bind(this), time); // funktion (fn) binden (.bind) mit aktuellen wert (this)
+        this.intervalIDs.push(id);
     }
 
     createBackgroundObjects() {
@@ -110,18 +129,20 @@ class World {
     }
 
     run() {
-        setInterval(() => {
-            this.isCollidingEnemies();
-            this.isCollidingEndboss();
-            this.isCollidingLives();
-            this.isCollidingAmmunition();
-            this.isCollidingLaser();
-            // this.isCollidingCollectableObject(this.level.ammunition, this.character.ammunition);
-            // this.isCollidingCollectableObject(this.level.lives);
-            this.checkThrowObjects();
-            this.checkCharacter();
-        }, 100);
+        // setInterval(() => {
+        this.isCollidingEnemies();
+        this.isCollidingEndboss();
+        this.isCollidingLives();
+        this.isCollidingAmmunition();
+        this.isCollidingLaser();
+        // this.isCollidingCollectableObject(this.level.ammunition, this.character.ammunition);
+        // this.isCollidingCollectableObject(this.level.lives);
+        this.checkThrowObjects();
+        this.checkCharacter();
+        // }, 100);
+        this.checkGameOver();
     }
+
 
     isCollidingEnemies() {
         this.level.enemies.forEach((enemy) => {
@@ -231,12 +252,12 @@ class World {
 
         this.character.batteryAll -= 1;
         this.batteryStatusBar.setPercentage(this.character.batteryAll);
-        if (this.character.ammunition === 0 && this.level.endboss.length >= 1) {
-            if (!this.gameWon && !this.gameLost && this.shootingObject === 0) {
-                this.gameLost = true;
-                this.gameOver();
-            }
-        }
+        // if (this.character.ammunition === 0 && this.level.endboss.length >= 1) {
+        //     if (!this.gameWon && !this.gameLost && this.shootingObject === 0) {
+        //         this.gameLost = true;
+        //         this.gameOver();
+        //     }
+        // }
     }
 
     youWon() {

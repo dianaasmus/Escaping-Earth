@@ -2,6 +2,8 @@ class Zombie extends MovableObject {
     height = 100;
     width = 70;
     y = 370;
+
+
     IMAGES_WALKING = [
         'img/enemies/zombie-walk.png',
         'img/enemies/zombie-walk2.png',
@@ -12,6 +14,7 @@ class Zombie extends MovableObject {
         'img/enemies/zombie-walk7.png'
     ];
 
+
     constructor() {
         super().loadImage('img/enemies/zombie-walk.png');
         this.x = 200 + Math.random() * 2060;
@@ -20,14 +23,19 @@ class Zombie extends MovableObject {
         this.animate();
     }
 
+
     animate() {
-        setInterval(() => {
-            this.moveLeft();
-        }, 1000 / 60);
-        setInterval(() => { //jedes bild wird 1 sekunde angezeigt, dann currentImage++
-            this.playAnimation(this.IMAGES_WALKING);
-        }, 200);
-        
+        this.setStoppableInterval(this.moveZombies, 1000 / 60);
+        this.setStoppableInterval(this.playAnimationZombies, 200);
     }
 
+
+    moveZombies() {
+        this.moveLeft();
+    }
+
+
+    playAnimationZombies() {
+        this.playAnimation(this.IMAGES_WALKING);
+    }
 }

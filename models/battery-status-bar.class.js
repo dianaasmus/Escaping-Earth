@@ -1,5 +1,6 @@
 class BatteryStatusBar extends DrawableObject {
     percentage = 10;
+    
 
     IMAGES_BATTERY = [ //Versalien = Konstante
         'img/battery/battery-0.png',
@@ -9,6 +10,7 @@ class BatteryStatusBar extends DrawableObject {
         'img/battery/battery-80.png',
         'img/battery/battery-100.png'
     ];
+
 
     constructor() {
         super();
@@ -20,8 +22,8 @@ class BatteryStatusBar extends DrawableObject {
         this.setPercentage(10);
     }
 
+
     setPercentage(percentage) {
-        // console.log(percentage);
         this.percentage = percentage;
         let path = this.IMAGES_BATTERY[this.resolveImageIndex()];
         this.img = this.imageCache[path];

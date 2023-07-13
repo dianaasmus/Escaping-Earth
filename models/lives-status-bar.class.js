@@ -1,6 +1,7 @@
 class LivesStatusBar extends DrawableObject {
     percentage = 10;
 
+    
     IMAGES_LIVES = [
         'img/lives/progress-bar/lives-0.png',
         'img/lives/progress-bar/lives-20.png',
@@ -9,6 +10,7 @@ class LivesStatusBar extends DrawableObject {
         'img/lives/progress-bar/lives-80.png',
         'img/lives/progress-bar/lives-100.png'
     ];
+
 
     constructor() {
         super();
@@ -20,8 +22,8 @@ class LivesStatusBar extends DrawableObject {
         this.setPercentage(10);
     }
 
+
     setPercentage(percentage) {
-        // console.log(percentage);
         this.percentage = percentage;
         let path = this.IMAGES_LIVES[this.resolveImageIndex()];
         this.img = this.imageCache[path];

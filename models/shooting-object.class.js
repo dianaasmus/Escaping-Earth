@@ -1,5 +1,6 @@
 class ShootingObject extends MovableObject {
 
+
     constructor(x, y) {
         super().loadImage('img/ammunition/attack/ammunition-attack.png'); //Startbild
         this.x = x;
@@ -9,10 +10,14 @@ class ShootingObject extends MovableObject {
         this.shoot();
     }
 
+
     shoot() {
         this.speedX = 50;
-        setInterval(() => {
-            this.x += 20;
-        }, 50);
+        this.setStoppableInterval(this.moveShot, 50);
     }
+
+    
+    moveShot() {
+        this.x += 20;
+    }   
 } 

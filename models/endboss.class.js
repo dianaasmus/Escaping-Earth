@@ -23,9 +23,11 @@ class Endboss extends MovableObject {
     }
 
     animate() {
-        setInterval(() => { //jedes bild wird 1 sekunde angezeigt, dann currentImage++
-            this.moveLeft();
-            this.playAnimation(this.IMAGES_WALKING);
-        }, 200);
+        this.setStoppableInterval(this.moveEndboss, 200);
+    }
+
+    moveEndboss() {
+        this.moveLeft();
+        this.playAnimation(this.IMAGES_WALKING);
     }
 }

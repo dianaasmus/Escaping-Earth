@@ -4,10 +4,8 @@ class CollectableObject extends MovableObject {
     width = 50;
     y = 390; 
 
+    
     constructor() {
         super();
-        // console.log(this.world.level);
     }
-
-
 }

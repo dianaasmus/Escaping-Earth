@@ -3,6 +3,7 @@ class DrawableObject {
     x = 125;
     currentImage = 0;
     imageCache = {};
+    intervalIDs = [];
 
     loadImage(path) {
         this.img = new Image(); //Fkt von JS - wie: this.img = doc.getEBID... <img id="image">
@@ -56,5 +57,16 @@ class DrawableObject {
         } else {
             return 0;
         } 
+    }
+
+    setStoppableInterval(fn, time) {
+        let id = setInterval(fn.bind(this), time); // funktion (fn) binden (.bind) mit aktuellen wert (this)
+        this.intervalIDs.push(id);
+    }
+
+    
+
+    stopGame() {
+        this.intervalIDs.forEach(clearInterval);
     }
 }

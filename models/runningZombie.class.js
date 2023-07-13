@@ -3,6 +3,8 @@ class RunningZombie extends MovableObject {
     width = 70;
     y = 370;
     speed = 1.5;
+
+
     IMAGES_WALKING = [ //Übersichtlicher
         'img/enemies/zombieRun1.png',
         'img/enemies/zombieRun2.png',
@@ -13,6 +15,7 @@ class RunningZombie extends MovableObject {
         'img/enemies/zombieRun7.png',
     ];
 
+
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
         this.x = 200 + Math.random() * 2060;
@@ -20,12 +23,19 @@ class RunningZombie extends MovableObject {
         this.animate();
     }
 
+
     animate() {
-        setInterval(() => {
-            this.moveLeft();
-        }, 1000 / 60);
-        setInterval(() => { //jedes bild wird 1 sekunde angezeigt, dann currentImage++
-            this.playAnimation(this.IMAGES_WALKING);
-        }, 100);
+        this.setStoppableInterval(this.moveLeftRunningZombie, 1000 / 60);
+        this.setStoppableInterval(this.playAnimationRunningZombie, 100);
+    }
+
+
+    moveLeftRunningZombie() {
+        this.moveLeft();
+    }
+
+    
+    playAnimationRunningZombie() {
+        this.playAnimation(this.IMAGES_WALKING);
     }
 }

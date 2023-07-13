@@ -1,6 +1,7 @@
 class AmmunitionStatusBar extends DrawableObject {
     percentage = 10;
 
+    
     IMAGES_AMMUNITION = [
         'img/ammunition/progress-bar/ammunition-0.png',
         'img/ammunition/progress-bar/ammunition-20.png',
@@ -9,6 +10,7 @@ class AmmunitionStatusBar extends DrawableObject {
         'img/ammunition/progress-bar/ammunition-80.png',
         'img/ammunition/progress-bar/ammunition-100.png'
     ];
+
 
     constructor() {
         super();
@@ -20,8 +22,8 @@ class AmmunitionStatusBar extends DrawableObject {
         this.setPercentage(10);
     }
 
+
     setPercentage(percentage) {
-        // console.log(percentage);
         this.percentage = percentage;
         let path = this.IMAGES_AMMUNITION[this.resolveImageIndex()];
         this.img = this.imageCache[path];
