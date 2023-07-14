@@ -4,6 +4,7 @@ class DrawableObject {
     currentImage = 0;
     imageCache = {};
     intervalIDs = [];
+    otherDirection = false; // Character bewegt sich byDefault nach Rechts
 
     loadImage(path) {
         this.img = new Image(); //Fkt von JS - wie: this.img = doc.getEBID... <img id="image">

@@ -134,7 +134,6 @@ class World {
         // this.isCollidingCollectableObject(this.level.lives);
         this.checkThrowObjects();
         this.checkCharacter();
-        // }, 100);
         this.checkGameOver();
     }
 
@@ -210,7 +209,6 @@ class World {
     isCollidingWithLaser(endboss) {
         this.shootingObject.forEach((shot) => {
             if (shot.isColliding(endboss)) {
-                console.log('Kollision erkannt');
                 this.handleCollisionEndboss(shot, endboss);
             }
         });
@@ -246,12 +244,6 @@ class World {
 
         this.character.batteryAll -= 1;
         this.batteryStatusBar.setPercentage(this.character.batteryAll);
-        // if (this.character.ammunition === 0 && this.level.endboss.length >= 1) {
-        //     if (!this.gameWon && !this.gameLost && this.shootingObject === 0) {
-        //         this.gameLost = true;
-        //         this.gameOver();
-        //     }
-        // }
     }
 
     youWon() {
@@ -276,43 +268,6 @@ class World {
         });
         this.removeEnemy(collidedObjectIndex);
     }
-
-    // //allg: für ammunition + lives
-    // isCollidingCollectableObject(collectableObject, collect) {
-    //     // console.log(collectableObject, collect); // array -5   | 10
-    //     collectableObject.forEach((object) => {
-    //         if (this.character.isColliding(object)) { //Ammunition
-    //             this.getAmmunitionIndex(object); // 
-    //             this.character.collectObject(collect); // 10
-
-    //             this.setStatusBar(collect).setPercentage(this.character.object);
-    //             console.log('this.getAmmunitionIndex', collect);
-    //         }
-    //     });
-    // }
-
-    // setStatusBar(collectableObject) {
-    //     if (collectableObject == this.level.ammunition) {
-    //         return this.ammunitionStatusBar;
-    //     } else {
-    //         return this.livesStatusBar;
-    //     }
-    // }
-
-    // getAmmunitionIndex(object) {
-    //     // Index von jeweiliger Ammunition bei isColliding
-    //     const collidedObjectIndex = this.level.object.findIndex((object) => {
-    //         return this.character.isColliding(object);
-    //     });
-    //     // this.removeAmmunition(collidedObjectIndex);
-    // }
-
-    // removeAmmunition(collidedObjectIndex) {
-    //     // splice Ammunition an jeweiligen Stelle (index)
-    //     if (collidedObjectIndex !== -1) {
-    //         this.level.ammunition.splice(collidedObjectIndex, 1);
-    //     }
-    // }
 
     //ammunition 
     isCollidingAmmunition() {
@@ -374,25 +329,37 @@ class World {
         const gameOverElementNotPresent = !document.getElementById('gameOver');
 
         if (this.availableAmmunition()) {
-            if (this.keyboard.KEY_TAB && this.character.otherDirection == false) {
-                if (!document.getElementById('innerInfoContainer')) {
-
-                    let laser = new ShootingObject(this.character.x + 50, this.character.y);
-                    // this.character.laser.otherDirection = true; // bilder spiegeln
-                    let shootingWidth = 60;
-                    this.character.width = shootingWidth;
-                    this.character.playAnimation(this.character.IMAGES_SHOOTING);
-                    this.shootingObject.push(laser);
-                    this.character.hittedObject('hitEnemy');
-                    this.ammunitionStatusBar.setPercentage(this.character.ammunition);
-
-                }
+            //&& this.character.otherDirection == false
+            if (this.keyboard.KEY_TAB) {
+                this.createShot();
             }
         } else if (batteryIsDepleted && noEndBossRemaining && gameOverElementNotPresent) {
             this.youWon();
-            this.character.batteryAll = 10;
-
+            this.character.batteryAll = 10; // oben deklarieren nicht in character.js
         }
+    }
+
+    createShot() {
+        if (!document.getElementById('innerInfoContainer')) {
+            if (this.character.otherDirection) { 
+                let shootStart = this.character.x - 50;
+                this.setShoot(shootStart);
+            } else {
+                let shootStart = this.character.x + 50;
+                this.setShoot(shootStart);
+            }
+        }
+    }
+
+
+    setShoot(shootStart) {
+        let shootingWidth = 60;
+        this.character.width = shootingWidth;
+        let laser = new ShootingObject(shootStart, this.character.y, this.character.otherDirection);
+        this.character.playAnimation(this.character.IMAGES_SHOOTING);
+        this.shootingObject.push(laser);
+        this.character.hittedObject('hitEnemy');
+        this.ammunitionStatusBar.setPercentage(this.character.ammunition);
     }
 
     availableAmmunition() {

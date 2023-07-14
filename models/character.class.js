@@ -1,7 +1,6 @@
 class Character extends MovableObject {
     world; // character hat eine Variable namens 'world', womit wir auf die variablen aus der world zugreifen können => keyboard
     speed = 7;
-    otherDirection = false; // Character bewegt sich byDefault nach Rechts
     height = 80;
     width = 40;
     imageLength;
@@ -101,10 +100,12 @@ class Character extends MovableObject {
                     this.isSoundPlaying = true;
                 }
             }
-            if (this.world.keyboard.KEY_TAB && this.otherDirection == false) {
+
+            // && this.otherDirection == false
+            if (this.world.keyboard.KEY_TAB) {
                 if (!this.isSoundPlaying && this.ammunition !== 0) {
                     this.shooting_sound.play();
-                    this.isSoundPlaying = false;
+                    this.isSoundPlaying = true;
                 }
             }
             if (this.world.keyboard.KEY_UP) {
