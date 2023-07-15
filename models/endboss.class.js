@@ -4,6 +4,14 @@ class Endboss extends MovableObject {
     y = 270;
     // hasPassed2000 = false;
 
+    offset = {
+        top : 10,
+        right : 40,
+        bottom: 10,
+        left: 40,
+        color: 'green' // Neue color-Eigenschaft hinzugefügt
+    }
+
     IMAGES_WALKING = [
         'img/endboss/walk/walk-1.png',
         'img/endboss/walk/walk-2.png',
