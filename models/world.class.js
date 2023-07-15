@@ -106,6 +106,7 @@ class World {
         }
         movableObject.draw(this.ctx);
         movableObject.drawFrame(this.ctx);
+        // movableObject.drawOffset(this.ctx, this.offset);
         if (movableObject.otherDirection) {
             this.flipImageBack(movableObject);
         }
@@ -331,7 +332,7 @@ class World {
         if (this.availableAmmunition()) {
             //&& this.character.otherDirection == false
             if (this.keyboard.KEY_TAB) {
-                this.createShot();
+                this.setShot();
             }
         } else if (batteryIsDepleted && noEndBossRemaining && gameOverElementNotPresent) {
             this.youWon();
@@ -339,20 +340,20 @@ class World {
         }
     }
 
-    createShot() {
+    setShot() {
         if (!document.getElementById('innerInfoContainer')) {
             if (this.character.otherDirection) { 
                 let shootStart = this.character.x - 50;
-                this.setShoot(shootStart);
+                this.createShot(shootStart);
             } else {
                 let shootStart = this.character.x + 50;
-                this.setShoot(shootStart);
+                this.createShot(shootStart);
             }
         }
     }
 
 
-    setShoot(shootStart) {
+    createShot(shootStart) {
         let shootingWidth = 60;
         this.character.width = shootingWidth;
         let laser = new ShootingObject(shootStart, this.character.y, this.character.otherDirection);

@@ -2,19 +2,18 @@ class MovableObject extends DrawableObject {
     speed = 0.15;
     speedY = 0;
     acceleration = 5;
-    shift = -1; // Startverschiebung
-    minY = 375; // Untere Grenze des Bewegungsbereichs
-    maxY = 400; // Obere Grenze des Bewegungsbereichs
-    offsety = 10;
+
     onCollisionCourse = true;
     lives = 10; //alien
     ammunition = 10; //alien
     lastHit = 0;
     speedX = 1;
+
     batteryOne = 3; //robot
     batteryTwo = 4; //robot
     batteryThree = 3; //robot
     batteryAll = 10; //robot
+
 
     moveRight() {
         if (!document.getElementById('innerInfoContainer') && !document.getElementById('gameOver')) {
@@ -22,30 +21,23 @@ class MovableObject extends DrawableObject {
         }
     }
 
+
     moveLeft() {
         if (!document.getElementById('innerInfoContainer') && !document.getElementById('gameOver')) {
             this.x -= this.speed;
         }
     }
 
+
     isColliding(movableObject) {
-        return (this.x + this.width) >= movableObject.x && this.x <= (movableObject.x + movableObject.width) &&
-            (this.y + this.offsety + this.height) >= movableObject.y &&
-            (this.y + this.offsety) <= (movableObject.y + movableObject.height);
+        return (
+            this.x + this.width - this.offset.right > movableObject.x + movableObject.offset.left &&
+            this.y + this.height - this.offset.bottom > movableObject.y + movableObject.offset.top &&
+            this.x + this.offset.left < movableObject.x + movableObject.width - movableObject.offset.right &&
+            this.y + this.offset.top < movableObject.y + movableObject.height - movableObject.offset.bottom
+        );    
     }
 
-    float() {
-        this.setStoppableInterval(this.floatingObject, 1000 / 15);
-    }
-
-    floatingObject() {
-        this.y += this.shift; // Verschiebung hinzufügen 
-        // += : y wird um shift(-1) erhöht und gleichzeitig das Ergebnis als Wert erhalten
-
-        if (this.y <= this.minY || this.y >= this.maxY) {
-            this.shift *= -1; // Ändere die Richtung der Verschiebung (-1 * (-1)) => shift ≠ -1 => shift = 1;
-        }
-    }
 
     playAnimation(images) {
         let i = this.currentImage % images.length; //Modulo: let i = 0 % 6; => Stelle[0] 0, rest 0 ... Stelle [1] 0, rest 1 ... 
@@ -55,10 +47,12 @@ class MovableObject extends DrawableObject {
         this.currentImage++;
     }
 
+
     applyGravity() {
         this.y = 290;
         this.setStoppableInterval(this.gravity, 1000 / 25);
     }
+
 
     gravity() {
         if (this.isAboveGround() || this.speedY > 0) {
@@ -67,9 +61,11 @@ class MovableObject extends DrawableObject {
         }
     }
 
+
     isAboveGround() {
         return this.y < 390;
     }
+
 
     hit() {
         this.lives -= 1;
@@ -79,6 +75,7 @@ class MovableObject extends DrawableObject {
             this.lastHit = new Date().getTime(); //wenn Energie abnimmt geht, aber nicht 0 -> Zeit festhalten -> isHurt()
         }
     }
+
 
     hittedObject(action) {
         switch (action) {
@@ -97,6 +94,7 @@ class MovableObject extends DrawableObject {
         }
     }
 
+
     incrementProperty(property, increment, min, max) {
         this[property] += increment; // this[property] ≠ this.property ( z. B this['ammunition']) -> dynamische Referenz 
         // -> wird verwendet, wenn der Name der Eigenschaft zur Entwicklungszeit nicht bekannt ist oder zur Laufzeit variieren kann
@@ -107,6 +105,7 @@ class MovableObject extends DrawableObject {
         //4. Ergebnis Math.max = 8 -> Ergebnis Math.min((8), 10) -> Ergebnis: 8 (8 ist der kleinere Wert der beiden Werte)
     }
 
+
     decrementProperty(property, decrement, min) {
         this[property] -= decrement;
         this[property] = Math.max(this[property], min);
@@ -116,9 +115,11 @@ class MovableObject extends DrawableObject {
         //-> this.energy = 8;
     }
 
+
     isDead() {
         return this.lives == 0;
     }
+    
 
     isHurt() { // Falls Zeit unter 1 sekunde -> true -> Graphik anzeigen
         let timepassed = new Date().getTime() - this.lastHit; // differenz in ms 

@@ -5,6 +5,15 @@ class RunningZombie extends MovableObject {
     speed = 1.5;
 
 
+    offset = {
+        top : 10,
+        right : 20,
+        bottom: 10,
+        left: 20,
+        color: 'red' // Neue color-Eigenschaft hinzugefügt
+    }
+
+
     IMAGES_WALKING = [ //Übersichtlicher
         'img/enemies/zombieRun1.png',
         'img/enemies/zombieRun2.png',

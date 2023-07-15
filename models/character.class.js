@@ -5,6 +5,14 @@ class Character extends MovableObject {
     width = 40;
     imageLength;
 
+    offset = {
+        top : 10,
+        right : 10,
+        bottom: 10,
+        left: 10,
+        color: 'red' // Neue color-Eigenschaft hinzugefügt
+    }
+
     IMAGES_WALKING = [ //Übersichtlicher
         'img/alien/walk/walk1.png',
         'img/alien/walk/walk2.png',
@@ -13,6 +21,8 @@ class Character extends MovableObject {
         // 'img/alien/walk/walk5.png',
         // 'img/alien/walk/walk6.png'
     ];
+
+
     IMAGES_JUMPING = [ //Übersichtlicher
         'img/alien/jump/jump1.png',
         'img/alien/jump/jump2.png',

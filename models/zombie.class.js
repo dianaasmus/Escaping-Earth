@@ -4,6 +4,15 @@ class Zombie extends MovableObject {
     y = 370;
 
 
+    offset = {
+        top : 10,
+        right : 20,
+        bottom: 10,
+        left: 30,
+        color: 'red' // Neue color-Eigenschaft hinzugefügt
+    }
+
+
     IMAGES_WALKING = [
         'img/enemies/zombie-walk.png',
         'img/enemies/zombie-walk2.png',
