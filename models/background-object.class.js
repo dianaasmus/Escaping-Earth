@@ -9,9 +9,13 @@ class BackgroundObject extends MovableObject {
     //     'img/background/1.png'
     // ];
 
+    // FOREGROUNDS = ['img/background/Foreground-1.png', 'img/background/Foreground-2.png', 'img/background/Foreground-3.png'];
+
     constructor(imagePath, x) {
         super().loadImage(imagePath, x);
         this.x = x;
+        // this.loadImages(this.FOREGROUNDS);
+        
         // this.createBackgroundObjects(); //Hintergrund erstelllen -> Fkt
         // this.setWorld();
         // this.loadImages(this.IMAGES_WALKING);

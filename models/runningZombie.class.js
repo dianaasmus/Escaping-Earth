@@ -7,9 +7,9 @@ class RunningZombie extends MovableObject {
 
     offset = {
         top : 10,
-        right : 20,
+        right : 15,
         bottom: 10,
-        left: 20,
+        left: 15,
         color: 'red' // Neue color-Eigenschaft hinzugefügt
     }
 

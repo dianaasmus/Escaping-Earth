@@ -6,9 +6,9 @@ class Zombie extends MovableObject {
 
     offset = {
         top : 10,
-        right : 20,
+        right : 15,
         bottom: 10,
-        left: 30,
+        left: 25,
         color: 'red' // Neue color-Eigenschaft hinzugefügt
     }
 

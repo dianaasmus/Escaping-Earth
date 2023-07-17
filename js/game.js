@@ -4,7 +4,7 @@ let keyboard = new Keyboard(); // keyboard in game.js deklarieren
 let music = new Audio('audio/background-music-trimm.mp3');
 music.volume = 0.25;
 music.loop = true;
-let isMobileDevice = 'ontouchstart' in window;
+// let isMobileDevice = 'ontouchstart' in window;
 let startBtnPressed = false;
 
 
@@ -16,20 +16,6 @@ window.addEventListener('load', function () {
 
 function init() {
     setMobileDisplay();
-}
-
-
-function setMobileDisplay() {
-    if (isMobileDevice) {
-        const headline = document.getElementById('headline');
-        const gameAdjustments = document.getElementById('gameAdjustments');
-        const startBtn = document.getElementById('startBtn');
-
-        headline.classList.add('headline');
-        gameAdjustments.classList.remove('gameAdjustmentsDesktop');
-        gameAdjustments.classList.add('gameAdjustmentsMobile');
-        startBtn.style.marginTop = "380px";
-    }
 }
 
 
@@ -46,24 +32,6 @@ function start() {
 function displayElements() {
     hideElement(document.getElementById('start-img'));
     hideElement(document.getElementById('startBtn'));
-    showElement(document.getElementById('fullscreenIcon'));
-}
-
-
-function checkmobileDevice() {
-    if (!isMobileDevice) {
-        headline.classList.add('animation');
-        removeAnimation();
-        document.getElementById('fullscreenContainer').classList.remove('fullscreenIconMobile');
-
-    } else {
-        headline.classList.add('fadeout');
-        hideElement(document.getElementById('headline'));
-        showElement(document.getElementById('gameBtns'));
-        document.getElementById('gameAdjustments').classList.add('startGameAdjustments');
-        document.getElementById('gameAdjustments').style.padding = "0 75px 0 20px";
-
-    }
 }
 
 
@@ -228,7 +196,8 @@ function startAgain() {
     document.getElementById('audio-icon').disabled = false;
     document.getElementById('gameOver').remove();
     world.character.stopGame()
-    world = new World(canvas, keyboard); //mit world.js "verbinden"
+    
+    start();
 }
 
 

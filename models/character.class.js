@@ -124,7 +124,7 @@ class Character extends MovableObject {
                     this.isSoundPlaying = false;
                 }
             }
-            this.world.camera_x = -this.x + 125; // x = 125, Alien um 125 verschieben
+            this.world.camera_x = -this.x + 150; // x = 125, Alien um 125 verschieben
         }
     }
 
@@ -192,10 +192,11 @@ class Character extends MovableObject {
             document.getElementById('headline').classList.add('game-over-animation');
             document.getElementById('info-icon').disabled = true;
             document.getElementById('audio-icon').disabled = true;
+            document.getElementById('overlay').classList.add('d-none');
         }
     }
 
     addGameOverContainer() {
-        startScreen.innerHTML += `<div id="gameOver"><button onclick="startAgain()" id="gameOverBtn">START AGAIN</button></div>`;
+        document.getElementById('fullscreen').innerHTML += `<div id="gameOver"><button onclick="startAgain()" id="gameOverBtn">START AGAIN</button></div>`;
     }
 }

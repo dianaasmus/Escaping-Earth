@@ -1,0 +1,107 @@
+/* MOBILE DEVICE: OVERLAY */
+.headline {
+    font-size: calc(4vw + 12px) !important;
+    margin-bottom: 285px !important;
+}
+
+.gameAdjustmentsMobile {
+    width: 720px;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 20px 0 20px;
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+#gameBtns {
+    display: flex;
+    width: 720px;
+    justify-content: space-between;
+    padding: 0 20px 20px 20px;
+}
+
+.startGameAdjustments {
+    justify-content: center;
+    gap: 20px;
+}
+
+@keyframes FadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.panel-wrapper {
+    gap: 20px;
+    display: flex;
+}
+
+#jumpBtn, #shootBtn,
+#leftBtn, #rightBtn {
+    width: 45px;
+    height: 45px;
+    border-radius: 100%;
+    background-color: black;
+    border: 1px solid white;
+    cursor: pointer;
+}
+
+#leftBtn,
+#rightBtn,
+#jumpBtn {
+    background-size: 26px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#leftBtn {
+    background-image: url(img/start-screen/arrow-left.png);
+    background-position-y: 9px;
+    background-position-x: 7px;
+}
+
+#rightBtn {
+    background-image: url(img/start-screen/arrow-right.png);
+    background-position-y: 9px;
+    background-position-x: 10px;
+}
+
+#jumpBtn {
+    background-image: url(img/start-screen/arrow.png);
+    background-position-x: 9px;
+    background-position-y: 8px;
+}
+
+#shootBtn {
+    background-image: url(img/ammunition/attack/ammunition-attack.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 25px;
+}
+
+
+/* MEDIA QUERY */
+@media only screen and (max-width: 720px) {
+
+    canvas {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-height: 480px) {
+
+    canvas {
+        height: 100vh;
+    }
+}
+
+@media (max-width: 720px) {
+
+    #startscreen {
+        background-image: url('');
+    }
+}

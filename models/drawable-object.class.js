@@ -1,6 +1,6 @@
 class DrawableObject {
     img;
-    x = 125;
+    x = 300;
     currentImage = 0;
     imageCache = {};
     intervalIDs = [];
@@ -44,7 +44,7 @@ class DrawableObject {
 
     drawOffset(ctx, offset) {
         ctx.beginPath();
-        ctx.lineWidth = '2';
+        ctx.lineWidth = '5';
         ctx.strokeStyle = offset.color;
         ctx.rect(this.x + offset.left, this.y + offset.top, this.width - offset.left - offset.right, this.height - offset.top - offset.bottom);
         ctx.stroke();

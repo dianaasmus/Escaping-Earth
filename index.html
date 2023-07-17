@@ -5,9 +5,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google" translate="no"> 
+    <meta name="google" translate="no">
     <title>Escaping Earth</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="responsive.css">
     <link rel="stylesheet" href="fonts.css">
     <link rel="icon" href="img/alien/alien-head.png">
     <script src="models/drawable-object.class.js"></script>
@@ -28,6 +29,7 @@
     <script src="models/level.class.js"></script>
     <script src="models/endboss.class.js"></script>
     <script src="levels/level1.js"></script>
+    <script src="js/responsive.js"></script>
     <script src="js/game.js"></script>
 </head>
 
@@ -43,31 +45,31 @@
         <button onclick="start()" id="startBtn">START</button>
     </div>
 
-    <div id="overlay">
-        <div class="gameAdjustmentsDesktop" id="gameAdjustments">
-            <button onclick="toggleInfo()" id="info-icon"></button>
-            <button onclick="toggleAudio()" id="audio-icon"></button>
-        </div>
-        <div id="fullscreenContainer" class="fullscreenIconMobile">
-            <img onclick="fullscreen()" src="img/start-screen/fullscreen-icon.png" id="fullscreenIcon" class="d-none">
-        </div>
-        <div id="gameBtns" class="d-none">
-            <div class="panel-wrapper">
-                <button id="jumpBtn"></button>
-                <button id="shootBtn"></button>
-            </div>
-            <div class="panel-wrapper">
-                <button id="leftBtn"></button>
-                <button id="rightBtn"></button>
-            </div>
-        </div>
-    </div>
-
-
     <div id="fullscreen">
+
+        <div id="overlay">
+            <div class="gameAdjustmentsDesktop" id="gameAdjustments">
+                <button onclick="toggleInfo()" id="info-icon"></button>
+                <button onclick="toggleAudio()" id="audio-icon"></button>
+            </div>
+            <div id="gameBtns" class="d-none">
+                <div class="panel-wrapper">
+                    <button id="jumpBtn"></button>
+                    <button id="shootBtn"></button>
+                </div>
+                <div class="panel-wrapper">
+                    <button id="leftBtn"></button>
+                    <button id="rightBtn"></button>
+                </div>
+            </div>
+        </div>
+
+        <img onclick="fullscreen()" src="img/start-screen/fullscreen-icon.png" id="fullscreenIcon" class="d-none">
+
         <div id="infoContainer"></div>
 
         <canvas id="canvas" width="720" height="480"></canvas>
+        
     </div>
 
 </body>
