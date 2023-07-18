@@ -26,7 +26,7 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
-        this.setStoppableInterval(this.run, 100);
+        this.setStoppableInterval(this.run, 50);
     }
 
     checkGameOver() {
