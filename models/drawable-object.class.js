@@ -1,6 +1,6 @@
 class DrawableObject {
     img;
-    x = 300;
+    x = 150;
     currentImage = 0;
     imageCache = {};
     intervalIDs = [];
@@ -13,7 +13,6 @@ class DrawableObject {
         left: 10,
         color: 'red'
     }
-    
 
     loadImage(path) {
         this.img = new Image(); //Fkt von JS - wie: this.img = doc.getEBID... <img id="image">

@@ -7,6 +7,7 @@ function setMobileDisplay() {
         const gameAdjustmentsElement = document.getElementById('gameAdjustments');
         const startBtnElement = document.getElementById('startBtn');
 
+        // headlineElement.classList.add('animationMobile');
         headlineElement.classList.add('headline');
         gameAdjustmentsElement.classList.remove('gameAdjustmentsDesktop');
         gameAdjustmentsElement.classList.add('gameAdjustmentsMobile');
@@ -27,7 +28,9 @@ function checkmobileDevice() {
         showElement(fullscreenIconElement);
     } else {
         headlineElement.classList.add('fadeout');
-        hideElement(headlineElement);
+        setTimeout( () => {
+            hideElement(headlineElement);
+        }, 400)
         showElement(gameBtnsElement);
         gameAdjustmentsElement.classList.add('startGameAdjustments');
     }

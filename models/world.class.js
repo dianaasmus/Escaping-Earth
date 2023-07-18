@@ -46,10 +46,13 @@ class World {
 
     createBackgroundObjects() {
         for (let i = 0; i < this.level.backgrounds.length; i++) {
-            for (let j = 0; j < this.level.positions.length; j++) {
-                const background = this.level.backgrounds[i];
-                const position = this.level.positions[j];
-                this.backgroundObjects.push(new BackgroundObject(background, position));
+            for (let b = 0; b < this.level.buildings.length; b++) {
+                for (let j = 0; j < this.level.positions.length; j++) {
+                    const building = this.level.buildings[b];
+                    const background = this.level.backgrounds[i];
+                    const position = this.level.positions[j];
+                    this.backgroundObjects.push(new BackgroundObject(background, position, building));
+                }
             }
         }
     }
@@ -342,7 +345,7 @@ class World {
 
     setShot() {
         if (!document.getElementById('innerInfoContainer')) {
-            if (this.character.otherDirection) { 
+            if (this.character.otherDirection) {
                 let shootStart = this.character.x - 50;
                 this.createShot(shootStart);
             } else {

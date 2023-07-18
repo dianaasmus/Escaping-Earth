@@ -4,7 +4,6 @@ let keyboard = new Keyboard(); // keyboard in game.js deklarieren
 let music = new Audio('audio/background-music-trimm.mp3');
 music.volume = 0.25;
 music.loop = true;
-// let isMobileDevice = 'ontouchstart' in window;
 let startBtnPressed = false;
 
 
@@ -195,6 +194,7 @@ function startAgain() {
     document.getElementById('info-icon').disabled = false;
     document.getElementById('audio-icon').disabled = false;
     document.getElementById('gameOver').remove();
+    document.getElementById('overlay').classList.remove('d-none');
     world.character.stopGame()
     
     start();
