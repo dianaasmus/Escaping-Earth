@@ -11,6 +11,7 @@
     padding: 20px 20px 0 20px;
     box-sizing: border-box;
     z-index: 1;
+    gap: 20px;
 }
 
 #gameBtns {
@@ -40,8 +41,10 @@
     display: flex;
 }
 
-#jumpBtn, #shootBtn,
-#leftBtn, #rightBtn {
+#jumpBtn,
+#shootBtn,
+#leftBtn,
+#rightBtn {
     width: 45px;
     height: 45px;
     border-radius: 100%;
@@ -100,6 +103,10 @@
     }
 }
 
+#portraitMobile {
+    display: none;
+}
+
 
 /* MEDIA QUERY */
 @media only screen and (max-width: 720px) {
@@ -132,5 +139,32 @@
 
     #startBtn {
         margin-top: 295px !important;
+    }
+}
+
+/* Landscape  */
+/* @media screen and (width > height) { */
+@media screen and (orientation: portrait) {
+
+    #portraitMobile {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: url('img/background/bg.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        z-index: 12;
+    }
+
+    #portraitMobile {
+        font-size: 2rem;
+        font-weight: 100;
     }
 }

@@ -146,7 +146,6 @@ html::-webkit-scrollbar {
 /* OVERLAY  */
 #overlay {
     height: 480px;
-    /* width: 720px; */
     position: absolute;
     display: flex;
     justify-content: space-between;
