@@ -8,11 +8,11 @@ function setMobileDisplay() {
         const gameAdjustmentsElement = document.getElementById('gameAdjustments');
         const startBtnElement = document.getElementById('startBtn');
 
-        checkOrientatiOnChange();
         headlineElement.classList.add('headline');
         gameAdjustmentsElement.classList.remove('gameAdjustmentsDesktop');
         gameAdjustmentsElement.classList.add('gameAdjustmentsMobile');
         startBtnElement.style.marginTop = '380px';
+        checkOrientatiOnChange();
     }
 }
 
@@ -32,7 +32,7 @@ function checkmobileDevice() {
             hideElement(headlineElement);
         }, 400)
         showElement(gameBtnsElement);
-        gameAdjustmentsElement.classList.add('startGameAdjustments');
+        // gameAdjustmentsElement.classList.add('startGameAdjustments');
     }
 
     // window.addEventListener("orientationchange", checkOrientatiOnChange);
@@ -40,7 +40,7 @@ function checkmobileDevice() {
 
 
 function checkOrientatiOnChange() {
-    const statusElement = document.getElementById("portraitMobile");
+    // const statusElement = document.getElementById("portraitMobile");
 
     if (isMobileDeviceInPortraitMode()) {
         // statusElement.textContent = "Portrait-Modus";

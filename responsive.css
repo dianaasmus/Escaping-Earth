@@ -1,14 +1,12 @@
 /* MOBILE DEVICE: OVERLAY */
 .headline {
-    /* font-size: calc(4vw + 12px) !important; */
     margin-bottom: 285px !important;
 }
 
 .gameAdjustmentsMobile {
-    /* width: 720px; */
     display: flex;
     justify-content: space-between;
-    padding: 20px 20px 0 20px;
+    padding: 0 30px;
     box-sizing: border-box;
     z-index: 1;
     gap: 20px;
@@ -16,7 +14,6 @@
 
 #gameBtns {
     display: flex;
-    width: 720px;
     justify-content: space-between;
     padding: 0 20px 20px 20px;
 }
@@ -109,6 +106,9 @@
 /* MEDIA QUERY */
 @media only screen and (max-width: 720px) {
 
+    #fullscreen,
+    #overlay,
+    #innerInfoContainer,
     canvas {
         width: 100%;
     }
@@ -120,6 +120,9 @@
 
 @media only screen and (max-height: 480px) {
 
+    #fullscreen,
+    #overlay,
+    #innerInfoContainer,
     canvas {
         height: 100vh;
     }
@@ -163,7 +166,13 @@
     }
 
     #portraitMobile {
-        font-size: 2rem;
+        font-size: 1.5rem;
+        text-align: center;
         font-weight: 100;
+        padding: 0 20px;
+    }
+
+    .rotate-phone-icon {
+        height: 20rem;
     }
 }

@@ -1,19 +1,19 @@
 class Character extends MovableObject {
-    world; // character hat eine Variable namens 'world', womit wir auf die variablen aus der world zugreifen können => keyboard
+    world;
     speed = 7;
     height = 80;
     width = 40;
     imageLength;
 
     offset = {
-        top : 10,
-        right : 10,
+        top: 10,
+        right: 10,
         bottom: 10,
         left: 10,
-        color: 'red' // Neue color-Eigenschaft hinzugefügt
+        color: 'red'
     }
 
-    IMAGES_WALKING = [ //Übersichtlicher
+    IMAGES_WALKING = [
         'img/alien/walk/walk1.png',
         'img/alien/walk/walk2.png',
         'img/alien/walk/walk3.png'
@@ -23,7 +23,7 @@ class Character extends MovableObject {
     ];
 
 
-    IMAGES_JUMPING = [ //Übersichtlicher
+    IMAGES_JUMPING = [
         'img/alien/jump/jump1.png',
         'img/alien/jump/jump2.png',
         // 'img/alien/jump/jump3.png',
@@ -63,10 +63,9 @@ class Character extends MovableObject {
     state = 'IDLE';
     // isSoundPlaying = false;
 
-    //wird immer und als erstes von JS aufgerufen
     constructor() {
         super();
-        this.loadImage('img/alien/standing.png'); //Startbild
+        this.loadImage('img/alien/standing.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_DYING);
@@ -78,11 +77,8 @@ class Character extends MovableObject {
 
     animate() {
         this.addAudioSettings();
-        // this.addAudios();
         this.setStoppableInterval(this.addAudios, 1000 / 60);
         this.setStoppableInterval(this.addAnimations, 100);
-        // this.addAnimations();
-        // this.setStoppableInterval(this.addAnimations, 100);
     }
 
     addAudios() {
@@ -95,23 +91,20 @@ class Character extends MovableObject {
             }
             if (this.world.keyboard.KEY_RIGHT && this.x < this.world.level.level_end_x) {
                 this.moveRight();
-                this.otherDirection = false; //bilder nicht spiegeln
-
+                this.otherDirection = false;
                 if (!this.isSoundPlaying) {
                     this.running_sound.play();
                     this.isSoundPlaying = true;
                 }
             }
             if (this.world.keyboard.KEY_LEFT && this.x > 125) {
-                this.otherDirection = true; // bilder spiegeln
+                this.otherDirection = true;
                 this.moveLeft();
                 if (!this.isSoundPlaying) {
                     this.running_sound.play();
                     this.isSoundPlaying = true;
                 }
             }
-
-            // && this.otherDirection == false
             if (this.world.keyboard.KEY_TAB) {
                 if (!this.isSoundPlaying && this.ammunition !== 0) {
                     this.shooting_sound.play();
@@ -124,14 +117,14 @@ class Character extends MovableObject {
                     this.isSoundPlaying = false;
                 }
             }
-            this.world.camera_x = -this.x + 150; // x = 125, Alien um 125 verschieben
+            this.world.camera_x = -this.x + 150;
         }
     }
 
     addAudioSettings() {
         this.isSoundPlaying = false;
-        this.running_sound.loop = true; // Audio immer wieder abspielen
-        this.running_sound.playbackRate = 2; // Wiedergabegeschwindiigkeit auf 2 erhöhen
+        this.running_sound.loop = true;
+        this.running_sound.playbackRate = 2;
         this.shooting_sound.playbackRate = 2;
         this.collecting_lives_sound.playbackRate = 2;
         this.collecting_ammunition_sound.playbackRate = 2;
@@ -148,7 +141,7 @@ class Character extends MovableObject {
                 if (this.state !== 'DYING') {
                     this.state = 'DYING';
                     this.currentImage = 0;
-                    this.setStoppableInterval(this.gameOver, 1000);
+                    this.setStoppableInterval(() => this.gameOver('youLost'), 1000);
                 }
                 this.imageLength = 4;
                 this.playOnce(this.IMAGES_DYING, this.imageLength);
@@ -167,13 +160,13 @@ class Character extends MovableObject {
                 }
                 this.imageLength = 2;
                 this.playOnce(this.IMAGES_JUMPING, this.imageLength);
-            } else if (this.world.keyboard.KEY_RIGHT || this.world.keyboard.KEY_LEFT) { //Animation wird abgespielt, wenn keyboard gedrückt
+            } else if (this.world.keyboard.KEY_RIGHT || this.world.keyboard.KEY_LEFT) {
                 this.width = 40;
                 this.state = 'WALKING';
                 this.playAnimation(this.IMAGES_WALKING);
             }
-            if (this.world.keyboard.KEY_UP && !this.isAboveGround()) { //Animation wird abgespielt, wenn keyboard gedrückt
-                this.speedY = 40; //jump
+            if (this.world.keyboard.KEY_UP && !this.isAboveGround()) {
+                this.speedY = 40; 
             }
         }
     }
@@ -184,21 +177,41 @@ class Character extends MovableObject {
         }
     }
 
-    gameOver() {
+    gameOver(result) {
         if (!document.getElementById('gameOver')) {
             this.addGameOverContainer();
-            document.getElementById('headline').classList.remove('fadeout');
-            document.getElementById('headline').classList.remove('d-none');
-            document.getElementById('headline').innerHTML = 'You Lost';
-            document.getElementById('headline').classList.add('game-over-animation');
-            document.getElementById('info-icon').disabled = true;
-            document.getElementById('audio-icon').disabled = true;
-            document.getElementById('overlay').classList.add('d-none');
-            document.getElementById('fullscreenIcon').classList.add('d-none');
+            this.displayElements();
+            this.disableBtns();
+            this.displayResult(result);
         }
     }
 
     addGameOverContainer() {
         document.getElementById('fullscreen').innerHTML += `<div id="gameOver"><button onclick="startAgain()" id="gameOverBtn">START AGAIN</button></div>`;
+    }
+
+    displayElements() {
+        showElement(document.getElementById('headline'));
+        hideElement(document.getElementById('overlay'));
+        hideElement(document.getElementById('fullscreenIcon'));
+        document.getElementById('headline').classList.add('game-over-animation');
+        document.getElementById('headline').classList.remove('fadeout');
+    }
+
+    disableBtns() {
+        document.getElementById('info-icon').disabled = true;
+        document.getElementById('audio-icon').disabled = true;
+    }
+
+    displayResult(result) {
+        if (result == 'youLost') {
+            this.youLost();
+        } else {
+            this.world.youWon();
+        }
+    }
+
+    youLost() {
+        document.getElementById('headline').innerHTML = 'You Lost';
     }
 }

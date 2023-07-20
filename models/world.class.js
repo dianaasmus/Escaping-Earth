@@ -251,12 +251,12 @@ class World {
     }
 
     youWon() {
-        this.character.addGameOverContainer();
-        document.getElementById('headline').classList.remove('d-none');
+        // this.character.addGameOverContainer();
+        // document.getElementById('headline').classList.remove('d-none');
         document.getElementById('headline').innerHTML = 'YOU WON!';
-        document.getElementById('headline').classList.add('game-over-animation');
-        document.getElementById('info-icon').classList.add('d-none');
-        document.getElementById('audio-icon').classList.add('d-none');
+        // document.getElementById('headline').classList.add('game-over-animation');
+        // document.getElementById('info-icon').classList.add('d-none');
+        // document.getElementById('audio-icon').classList.add('d-none');
     }
 
     removeEndboss(endbossIndex) {
@@ -338,7 +338,8 @@ class World {
                 this.setShot();
             }
         } else if (batteryIsDepleted && noEndBossRemaining && gameOverElementNotPresent) {
-            this.youWon();
+            // this.youWon();
+            this.setStoppableInterval(() => this.character.gameOver('youWon'), 1000);
             this.character.batteryAll = 10; // oben deklarieren nicht in character.js
         }
     }
