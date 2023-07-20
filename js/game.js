@@ -21,14 +21,17 @@ function init() {
 function start() {
     startBtn.disabled = true;
     startBtnPressed = true;
-    displayElements();
+    hideElements();
     checkmobileDevice();
     initLevel();
     startGame();
     keyboard.bindBtnsPressEvents();
 }
 
-function displayElements() {
+function hideElements() {
+    if (window.matchMedia("(max-height: 800px)").matches) {
+        headline.classList.add('fadeout'); 
+    }
     hideElement(document.getElementById('start-img'));
     hideElement(document.getElementById('startBtn'));
 }
@@ -42,8 +45,8 @@ function startGame() {
 
 function removeAnimation() {
     setTimeout(() => {
-        headline.classList.remove('animation');
-        headline.classList.add('headline-2');
+            headline.classList.remove('animation');
+            headline.classList.add('headline-2');
     }, 500);
 }
 
@@ -171,7 +174,7 @@ function showGameDescription(gameSettings, gameDescription, arrow) {
 
 function applyInfoContainerStyle() {
     const infoContainer = document.getElementById("innerInfoContainer");
-    infoContainer.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+    infoContainer.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
 }
 
 
@@ -196,7 +199,7 @@ function startAgain() {
     document.getElementById('gameOver').remove();
     document.getElementById('overlay').classList.remove('d-none');
     world.character.stopGame()
-    
+
     start();
 }
 

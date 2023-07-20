@@ -187,12 +187,14 @@ class Character extends MovableObject {
     gameOver() {
         if (!document.getElementById('gameOver')) {
             this.addGameOverContainer();
+            document.getElementById('headline').classList.remove('fadeout');
             document.getElementById('headline').classList.remove('d-none');
             document.getElementById('headline').innerHTML = 'You Lost';
             document.getElementById('headline').classList.add('game-over-animation');
             document.getElementById('info-icon').disabled = true;
             document.getElementById('audio-icon').disabled = true;
             document.getElementById('overlay').classList.add('d-none');
+            document.getElementById('fullscreenIcon').classList.add('d-none');
         }
     }
 

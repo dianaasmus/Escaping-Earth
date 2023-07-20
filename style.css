@@ -80,6 +80,7 @@ html::-webkit-scrollbar {
     text-decoration: none;
     color: white;
     white-space: nowrap;
+    opacity: 1;
     z-index: 10;
 }
 
@@ -91,20 +92,29 @@ html::-webkit-scrollbar {
 @keyframes Headline {
     0% {
         font-size: calc(7vw + 12px);
-        letter-spacing: 15px;
-        margin-bottom: 326px;
-        /* transform: translateY(0); */
+        letter-spacing: 1vw;
+        /* margin-bottom: 326px; */
+        transform: translateY(0);
         /* opacity: 1; */
     }
 
     100% {
         /* font-size: calc(10vw + 12px); */
+        /* margin-bottom: 529px !important; */
+
         font-size: 4rem;
-        letter-spacing: 0px;
-        margin-bottom: 529px;
+        letter-spacing: 0vw;
         /* opacity: 0; */
-        /* transform: translateY(-200%); */
+        transform: translateY(-200%);
     }
+}
+
+.headline-2 {
+    /* margin-bottom: 529px !important; */
+
+    font-size: 4rem !important;
+    letter-spacing: 0vw !important;
+    transform: translateY(-200%);
 }
 
 #start-img {
@@ -284,21 +294,12 @@ html::-webkit-scrollbar {
 
 @keyframes GameOver {
     0% {
-        /* transform: translateY(-200%); */
-        margin-bottom: 326px;
+        transform: translateY(-200%);
     }
 
     100% {
-        /* transform: translateY(100%); */
-        margin-bottom: 529px;
+        transform: translateY(50%);
     }
-}
-
-.headline-2 {
-    font-size: 4rem !important;
-    letter-spacing: 0px !important;
-    /* transform: translateY(-200%); */
-    margin-bottom: 529px !important;
 }
 
 #gameOverBtn {

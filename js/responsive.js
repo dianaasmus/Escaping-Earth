@@ -28,7 +28,6 @@ function checkmobileDevice() {
         removeAnimation();
         showElement(fullscreenIconElement);
     } else {
-        headlineElement.classList.add('fadeout');
         setTimeout(() => {
             hideElement(headlineElement);
         }, 400)
