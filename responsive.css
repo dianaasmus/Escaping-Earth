@@ -1,16 +1,7 @@
 /* MOBILE DEVICE: OVERLAY */
-.headline {
+/* .headline {
     margin-bottom: 285px !important;
-}
-
-.gameAdjustmentsMobile {
-    display: flex;
-    justify-content: space-between;
-    padding: 0 30px;
-    box-sizing: border-box;
-    z-index: 1;
-    gap: 20px;
-}
+} */
 
 #gameBtns {
     display: flex;
@@ -101,14 +92,28 @@
 #portraitMobile {
     display: none;
 }
+/* fullscreen  */
+.gameOverFullscreen {
+    animation: GameOverFullscreen 225ms ease-in-out;
+    animation-fill-mode: forwards;
+}
 
+@keyframes GameOverFullscreen {
+    0% {
+        transform: translateY(-200%);
+    }
+    
+    100% {
+        transform: translateY(300%);
+    }
+}
 
 /* MEDIA QUERY */
 @media only screen and (max-width: 720px) {
 
     #fullscreen,
     #overlay,
-    #innerInfoContainer,
+    /* #innerInfoContainer, */
     canvas {
         width: 100%;
     }
@@ -122,7 +127,7 @@
 
     #fullscreen,
     #overlay,
-    #innerInfoContainer,
+    /* #innerInfoContainer, */
     canvas {
         height: 100vh;
     }
@@ -132,10 +137,11 @@
     }
 }
 
-@media (max-width: 850px) {
+@media (max-height: 850px) {
 
     .headline {
-        margin-bottom: 220px !important;
+        margin-bottom: 0;
+        transform: translateY(37%) !important;
     }
 
     #startBtn {
@@ -143,6 +149,61 @@
     }
 
 }
+
+@media (max-height: 480px) {
+
+    /* INFOCONTAINER  */
+    #infoContainer {
+        display: flex;
+        align-items: center;
+    }
+
+    #innerInfoContainer {
+        position: absolute;
+        height: 100vh !important;
+        /* max-width: 720px; */
+        width: calc(480px * (16/13));
+        /* aspect-ratio: auto; */
+        /* width: 100%; */
+        border-radius: 20px;
+        box-sizing: border-box;
+        padding: 13% 50px 0 50px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        background-color: rgb(0, 0, 0);
+    }
+
+    #innerInfoContainer p {
+        margin: 13px 0;
+        font-family: sans-serif;
+        letter-spacing: 5px;
+        line-height: 30px;
+        text-align: justify;
+        font-size: 14px;
+    }
+
+    #pause {
+        top: 40px;
+        font-size: 1.5rem !important;
+    }
+
+    .align {
+        height: 50px;
+    }
+
+    #gameOverBtn {
+        margin-top: 290px !important;
+    }
+
+    #gameOver {
+        display: flex;
+        /* justify-content: center; */
+        align-items: baseline;
+        font-size: 1rem;
+    }
+}
+
 
 /* Landscape  */
 /* @media screen and (width > height) { */

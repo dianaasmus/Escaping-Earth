@@ -73,7 +73,7 @@ html::-webkit-scrollbar {
 /* HEADLINE */
 #headline {
     position: absolute;
-    margin-bottom: 326px;
+    /* margin-bottom: 326px; */
     font-size: calc(6vw + 12px);
     font-weight: 100;
     letter-spacing: 1vw;
@@ -82,6 +82,8 @@ html::-webkit-scrollbar {
     white-space: nowrap;
     opacity: 1;
     z-index: 10;
+    transform: translateY(0);
+
 }
 
 .animation {
@@ -91,7 +93,7 @@ html::-webkit-scrollbar {
 
 @keyframes Headline {
     0% {
-        font-size: calc(7vw + 12px);
+        /* font-size: calc(7vw + 12px); */
         letter-spacing: 1vw;
         /* margin-bottom: 326px; */
         transform: translateY(0);
@@ -114,7 +116,7 @@ html::-webkit-scrollbar {
 
     font-size: 4rem !important;
     letter-spacing: 0vw !important;
-    transform: translateY(-200%);
+    transform: translateY(-200%) !important;
 }
 
 #start-img {
@@ -155,33 +157,30 @@ html::-webkit-scrollbar {
 
 /* OVERLAY  */
 #overlay {
-    /* height: 480px; */
+    height: 100vh;
     width: 100%;
     position: absolute;
-    top: 30px;
-    /* display: block; */
-    /* justify-content: space-between;
-    flex-direction: column; */
+    top: 0;
+    padding-top: 30px;
     opacity: 0;
     animation: FadeIn 225ms ease-in-out;
     animation-fill-mode: forwards;
     z-index: 3;
-
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    /* max-height: 100vh; */
-    /* height: 480px; */
+    justify-content: end;
 }
 
 .gameAdjustmentsDesktop {
     position: fixed;
-    /* top: 50px; */
-    left: 0;
-    padding: 0 50px;
+    top: 30px;
+    padding: 0 30px;
     width: 100%;
     display: flex;
     justify-content: space-between;
+    box-sizing: border-box;
+    z-index: 1;
+    gap: 20px;
 }
 
 #info-icon {
@@ -216,6 +215,7 @@ html::-webkit-scrollbar {
 /* INFOCONTAINER  */
 #infoContainer {
     display: flex;
+    justify-content: end;
 }
 
 #innerInfoContainer {
@@ -303,10 +303,12 @@ html::-webkit-scrollbar {
 @keyframes GameOver {
     0% {
         transform: translateY(-200%);
+        font-size: 4rem;
     }
 
     100% {
-        transform: translateY(50%);
+        transform: translateY(130%);
+        font-size: 4rem;
     }
 }
 

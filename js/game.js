@@ -190,15 +190,21 @@ function hideElement(element) {
 
 function startAgain() {
     let headline = document.getElementById('headline');
-    headline.classList.remove('headline-2');
+    // headline.classList.remove('headline-2');
     headline.classList.remove('game-over-animation');
-    headline.classList.add('animation');
-    headline.innerHTML = 'Escaping Earth';
-    document.getElementById('info-icon').disabled = false;
-    document.getElementById('audio-icon').disabled = false;
+    
+    // document.getElementById('info-icon').disabled = false;
+    // document.getElementById('audio-icon').disabled = false;
     document.getElementById('gameOver').remove();
     document.getElementById('overlay').classList.remove('d-none');
     world.character.stopGame()
+
+    if (!isMobileDevice && !isFullscreen()) {
+        headline.innerHTML = 'Escaping Earth';
+        headline.classList.add('animation');
+    } else {
+        hideElement(headline);
+    }
 
     start();
 }

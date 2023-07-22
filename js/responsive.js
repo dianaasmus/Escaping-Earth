@@ -9,8 +9,8 @@ function setMobileDisplay() {
         const startBtnElement = document.getElementById('startBtn');
 
         headlineElement.classList.add('headline');
-        gameAdjustmentsElement.classList.remove('gameAdjustmentsDesktop');
-        gameAdjustmentsElement.classList.add('gameAdjustmentsMobile');
+        // gameAdjustmentsElement.classList.remove('gameAdjustmentsDesktop');
+        // gameAdjustmentsElement.classList.add('gameAdjustmentsMobile');
         startBtnElement.style.marginTop = '380px';
         checkOrientatiOnChange();
     }

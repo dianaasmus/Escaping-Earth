@@ -23,6 +23,7 @@ class Zombie extends MovableObject {
         'img/enemies/zombie-walk7.png'
     ];
 
+    // IMAGE_DEAD = 'img/enemies/dead.png';
 
     constructor() {
         super().loadImage('img/enemies/zombie-walk.png');
@@ -47,4 +48,8 @@ class Zombie extends MovableObject {
     playAnimationZombies() {
         this.playAnimation(this.IMAGES_WALKING);
     }
+
+    // showDeadEnemy() {
+    //     loadImage(this.IMAGE_DEAD);
+    // }
 }

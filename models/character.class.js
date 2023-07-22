@@ -141,7 +141,9 @@ class Character extends MovableObject {
                 if (this.state !== 'DYING') {
                     this.state = 'DYING';
                     this.currentImage = 0;
-                    this.setStoppableInterval(() => this.gameOver('youLost'), 1000);
+                    setInterval(() => {
+                        this.character.gameOver('youLost')
+                    }, 1000);
                 }
                 this.imageLength = 4;
                 this.playOnce(this.IMAGES_DYING, this.imageLength);
@@ -166,7 +168,7 @@ class Character extends MovableObject {
                 this.playAnimation(this.IMAGES_WALKING);
             }
             if (this.world.keyboard.KEY_UP && !this.isAboveGround()) {
-                this.speedY = 40; 
+                this.speedY = 40;
             }
         }
     }
@@ -181,7 +183,7 @@ class Character extends MovableObject {
         if (!document.getElementById('gameOver')) {
             this.addGameOverContainer();
             this.displayElements();
-            this.disableBtns();
+            // this.disableBtns();
             this.displayResult(result);
         }
     }
@@ -194,14 +196,20 @@ class Character extends MovableObject {
         showElement(document.getElementById('headline'));
         hideElement(document.getElementById('overlay'));
         hideElement(document.getElementById('fullscreenIcon'));
-        document.getElementById('headline').classList.add('game-over-animation');
+        document.getElementById('headline').classList.remove('headline-2');
+        if (isFullscreen()) {
+            document.getElementById('headline').classList.add('gameOverFullscreen');
+            document.getElementById('gameOver').style.alignItems = "unset";
+        } else {
+            document.getElementById('headline').classList.add('game-over-animation');
+        }
         document.getElementById('headline').classList.remove('fadeout');
     }
 
-    disableBtns() {
-        document.getElementById('info-icon').disabled = true;
-        document.getElementById('audio-icon').disabled = true;
-    }
+    // disableBtns() {
+    //     document.getElementById('info-icon').disabled = true;
+    //     document.getElementById('audio-icon').disabled = true;
+    // }
 
     displayResult(result) {
         if (result == 'youLost') {
