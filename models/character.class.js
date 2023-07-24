@@ -107,11 +107,6 @@ class Character extends MovableObject {
     }
 
 
-    // noPauseNoGameOver() {
-    //     return !document.getElementById('innerInfoContainer') && !document.getElementById('gameOver');
-    // }
-
-
     pauseAudios() {
         if (this.isSoundPlaying) {
             this.running_sound.pause();
@@ -200,8 +195,8 @@ class Character extends MovableObject {
         if (this.state !== 'DYING') {
             this.state = 'DYING';
             this.currentImage = 0;
-            setInterval(() => {
-                this.gameOver('youLost')
+            setTimeout(() => {
+                this.gameOver('youLost');
             }, 1000);
         }
     }

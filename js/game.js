@@ -18,14 +18,19 @@ function init() {
 }
 
 
-function start() {
+function startBtn() {
     startBtn.disabled = true;
     startBtnPressed = true;
     hideElements();
     checkmobileDevice();
+    initGame();
+    keyboard.bindBtnsPressEvents();
+}
+
+
+function initGame() {
     initLevel();
     startGame();
-    keyboard.bindBtnsPressEvents();
 }
 
 
@@ -200,7 +205,8 @@ function startAgain() {
         hideElement(headline);
     }
 
-    start();
+    initGame();
+    // start();
 }
 
 
