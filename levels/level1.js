@@ -18,7 +18,7 @@ function initLevel() {
             'img/background/Foreground-1.png',
             'img/background/Ground.png'
         ],
-        ['img/background/Foreground-1.png', 'img/background/Foreground-2.png', 'img/background/Foreground-3.png'],
+        // ['img/background/Foreground-1.png', 'img/background/Foreground-2.png', 'img/background/Foreground-3.png'],
         [
             0,
             720,

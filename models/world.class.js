@@ -1,6 +1,6 @@
 class World {
     character = new Character();
-    level = level1; //auf alle variablen in level1 zugreifen + Z. 
+    level = level1;
     backgroundObjects = [];
     canvas;
     ctx;
@@ -13,74 +13,86 @@ class World {
     collectableObject = new CollectableObject();
     background_music = new Audio('audio/music.mp3');
     hasPassed1500 = false;
-    // gameLost = false;
     intervalIDs = [];
 
-    constructor(canvas, keyboard) { //von game.js aufnehmen
-        canvas.width = 720;
-        canvas.height = 480;
-        this.ctx = canvas.getContext('2d');
-        // this.background_music.play(); //geht nur nach einer User-Aktion z. B. Button onclick
-        this.createBackgroundObjects(); //Hintergrund erstelllen -> Fkt
-        this.canvas = canvas;
+
+    constructor(canvas, keyboard) {
+        this.setCanvas(canvas);
+        this.createBackgroundObjects();
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
         this.setStoppableInterval(this.run, 50);
     }
 
-    checkGameOver() {
-        // let gameLost = false;
 
-        if (this.shootingObject.length === 0 && this.character.ammunition === 0 && this.level.endboss.length >= 1) {
-            // this.gameLost = true;
+    setCanvas(canvas) {
+        canvas.width = 720;
+        canvas.height = 480;
+        this.ctx = canvas.getContext('2d');
+        this.canvas = canvas;
+    }
+
+
+    checkGameOver() {
+        if (this.noAmmunitionButEndboss()) {
             this.character.gameOver();
         }
     }
 
 
+    noAmmunitionButEndboss() {
+        return this.shootingObject.length === 0 && this.character.ammunition === 0 && this.level.endboss.length >= 1;
+    }
+
+
     setStoppableInterval(fn, time) {
-        let id = setInterval(fn.bind(this), time); // funktion (fn) binden (.bind) mit aktuellen wert (this)
+        let id = setInterval(fn.bind(this), time);
         this.intervalIDs.push(id);
     }
 
+
     createBackgroundObjects() {
         for (let i = 0; i < this.level.backgrounds.length; i++) {
-            for (let b = 0; b < this.level.buildings.length; b++) {
-                for (let j = 0; j < this.level.positions.length; j++) {
-                    const building = this.level.buildings[b];
-                    const background = this.level.backgrounds[i];
-                    const position = this.level.positions[j];
-                    this.backgroundObjects.push(new BackgroundObject(background, position, building));
-                }
+            for (let j = 0; j < this.level.positions.length; j++) {
+                const background = this.level.backgrounds[i];
+                const position = this.level.positions[j];
+                this.backgroundObjects.push(new BackgroundObject(background, position));
             }
         }
     }
 
-    setWorld() { // character hat eine Variable namens 'world', womit wir auf die variablen aus der world zugreifen können => keyboard
-        this.character.world = this; //this.character.world = neue Variable. die auf das aktuelle Objekt (world) verweist.
+
+    setWorld() {
+        this.character.world = this;
     }
+
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        // this.addBackground();
         this.addFoundation();
         this.createFrameLoop();
     }
 
+
     addFoundation() {
-        this.ctx.translate(this.camera_x, 0); //verschiebt die Kameraansicht 
+        this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.backgroundObjects);
-        this.ctx.translate(-this.camera_x, 0); // Back //Elemente werden bei -100 gezeichnet, dann wird camera wieder zurückgesetzt
-        // ...space for fixed objects...
-        this.addToMap(this.livesStatusBar);
-        this.addToMap(this.batteryStatusBar);
-        this.addToMap(this.ammunitionStatusBar);
-        this.ctx.translate(this.camera_x, 0); //forward //verschiebt die Kameraansicht 
+        this.ctx.translate(-this.camera_x, 0);
+        this.addStatusBars(this.livesStatusBar, this.batteryStatusBar, this.ammunitionStatusBar);
+        this.ctx.translate(this.camera_x, 0);
         this.addMovableObjects();
         this.addToMap(this.character);
-        this.ctx.translate(-this.camera_x, 0); //Elemente werden bei -100 gezeichnet, dann wird camera wieder zurückgesetzt
+        this.ctx.translate(-this.camera_x, 0);
     }
+
+
+    addStatusBars(livesStatusBar, batteryStatusBar, ammunitionStatusBar) {
+        this.addToMap(livesStatusBar);
+        this.addToMap(batteryStatusBar);
+        this.addToMap(ammunitionStatusBar);
+    }
+
 
     createFrameLoop() {
         let self = this;
@@ -88,6 +100,7 @@ class World {
             self.draw();
         });
     }
+
 
     addMovableObjects() {
         this.addObjectsToMap(this.shootingObject);
@@ -97,45 +110,46 @@ class World {
         this.addObjectsToMap(this.level.ammunition);
     }
 
+
     addObjectsToMap(objects) {
         objects.forEach(object => {
             this.addToMap(object);
         });
     }
 
+
     addToMap(movableObject) {
-        if (movableObject.otherDirection) { //character.otherDirection exists -> true/false
+        if (movableObject.otherDirection) {
             this.flipImage(movableObject);
         }
         movableObject.draw(this.ctx);
         movableObject.drawFrame(this.ctx);
-        // movableObject.drawOffset(this.ctx, this.offset);
         if (movableObject.otherDirection) {
             this.flipImageBack(movableObject);
         }
     }
 
+
     flipImage(movableObject) {
-        this.ctx.save(); // aktuellen Zusatnd speichern, um Änderungen am Kontext vornehmen z. B. Translate
-        this.ctx.translate(movableObject.width, 0); // Verschieben der aktuellen Zeichenposition um den Wert con movableObject.width
-        this.ctx.scale(-1, 1); //-1 = horizontaler Skalierungsfaktor (spiegeln), 1 = vertikaler Skalierungsfaktor bleibt gleich (keine Spiegelung)
-        movableObject.x = movableObject.x * -1; // X Koordinate spiegeln (ingesamt 2 mal spiegeln, zum Urgsprungswert)
+        this.ctx.save();
+        this.ctx.translate(movableObject.width, 0);
+        this.ctx.scale(-1, 1);
+        movableObject.x = movableObject.x * -1;
     }
+
 
     flipImageBack(movableObject) {
-        movableObject.x = movableObject.x * -1; // X Koordinate spiegeln
-        this.ctx.restore(); //den Kontext auf den zuvor gespeicherten Zustand zurücksetzen, einschließlich aller Einstellungen, die zuvor mit save() gesichert wurden
+        movableObject.x = movableObject.x * -1;
+        this.ctx.restore();
     }
 
+
     run() {
-        // setInterval(() => {
         this.isCollidingEnemies();
         this.isCollidingEndboss();
         this.isCollidingLives();
         this.isCollidingAmmunition();
         this.isCollidingLaser();
-        // this.isCollidingCollectableObject(this.level.ammunition, this.character.ammunition);
-        // this.isCollidingCollectableObject(this.level.lives);
         this.checkThrowObjects();
         this.checkCharacter();
         this.checkGameOver();
@@ -156,10 +170,8 @@ class World {
         });
     }
 
-    //Laser + Enemy Collision ========================================= START
+
     isCollidingLaser() {
-        // überprüft, ob es Kollisionen zwischen laser und enemy gibt
-        // durchläuft alle shootingObjects und enemies und ruft die handleCollision Fkt auf, wenn eine Kollision festgestellt wird
         this.shootingObject.forEach((shot) => {
             this.level.enemies.forEach((enemy) => {
                 if (shot.isColliding(enemy)) {
@@ -169,33 +181,28 @@ class World {
         });
     }
 
+
     handleCollision(shot, enemy) {
-        // behandelt die Kollision zwischen shot und enemy
-        // ermittelt den Index des betroffenen enemys und des shots
         const enemyIndex = this.level.enemies.findIndex((e) => e === enemy);
-        // const endboxIndex = this.level.enemies.findIndex((e) => e === enemy);
         const shotIndex = this.shootingObject.findIndex((s) => s === shot);
         this.removeEnemy(enemyIndex);
-        // this.removeEndboss(endboxIndex);
         this.removeLaser(shotIndex);
     }
 
+
     removeEnemy(collidedObjectIndex) {
-        // entfernt den enemy anhand des angegebenen Indexes aus der Liste der enemies
         if (collidedObjectIndex !== -1) {
             this.level.enemies.splice(collidedObjectIndex, 1);
         }
     }
 
     removeLaser(collidedObjectIndex) {
-        // entfernt den laser anhand des angegebenen Indexes aus der Liste der shootingObjects
         if (collidedObjectIndex !== -1) {
             this.shootingObject.splice(collidedObjectIndex, 1);
         }
     }
-    //Laser + Enemy Collision ========================================= END
 
-    // fast dasselbe wie enemies -> zusammenschreiben
+
     isCollidingEndboss() {
         this.level.endboss.forEach((endboss) => {
             this.handleCharacterEndbossCollision(endboss);
@@ -203,12 +210,14 @@ class World {
         });
     }
 
+
     handleCharacterEndbossCollision(endboss) {
         if (this.character.isColliding(endboss)) {
             this.character.hit();
             this.livesStatusBar.setPercentage(this.character.lives);
         }
     }
+
 
     isCollidingWithLaser(endboss) {
         this.shootingObject.forEach((shot) => {
@@ -218,41 +227,50 @@ class World {
         });
     }
 
+
     handleCollisionEndboss(shot, endboss) {
-        // behandelt die Kollision zwischen shot und enemy
-        // ermittelt den Index des betroffenen enemys und des shots
         const endbossIndex = this.level.endboss.findIndex((e) => e === endboss);
         const shotIndex = this.shootingObject.findIndex((s) => s === shot);
         this.hitEndboss(endbossIndex);
         this.removeLaser(shotIndex);
     }
 
+
     hitEndboss(endbossIndex) {
         const endboss = this.level.endboss[endbossIndex];
-        if (endboss.id === 1) {
-            this.character.batteryOne -= 1;
-            if (this.character.batteryOne === 0) {
-                this.removeEndboss(endbossIndex, endboss.id);
-            }
-        } else if (endboss.id === 2) {
-            this.character.batteryTwo -= 1;
-            if (this.character.batteryTwo === 0) {
-                this.removeEndboss(endbossIndex, endboss.id);
-            }
-        } else if (endboss.id === 3) {
-            this.character.batteryThree -= 1;
-            if (this.character.batteryThree === 0) {
-                this.removeEndboss(endbossIndex, endboss.id);
-            }
+        const battery = this.getBatteryForEndboss(endboss.id);
+
+        if (!battery) {
+            return;
+        }
+        this.character[battery] -= 1;
+        if (this.character[battery] === 0) {
+            this.removeEndboss(endbossIndex, endboss.id);
         }
 
         this.character.batteryAll -= 1;
         this.batteryStatusBar.setPercentage(this.character.batteryAll);
     }
 
+
+    getBatteryForEndboss(endbossId) {
+        switch (endbossId) {
+            case 1:
+                return 'batteryOne';
+            case 2:
+                return 'batteryTwo';
+            case 3:
+                return 'batteryThree';
+            default:
+                return null;
+        }
+    }
+
+
     youWon() {
         document.getElementById('headline').innerHTML = 'YOU WON!';
     }
+
 
     removeEndboss(endbossIndex) {
         if (endbossIndex !== -1) {
@@ -262,23 +280,30 @@ class World {
 
 
     getEnemyIndex() {
-        // Index von jeweiliger Ammunition bei isColliding
         const collidedObjectIndex = this.level.enemies.findIndex((enemy) => {
             return this.character.isColliding(enemy);
         });
         // setTimeout(() => {
         // }, 1000);
         this.showDeadEnemy(collidedObjectIndex);
-        this.removeEnemy(collidedObjectIndex);
+        // this.removeEnemy(collidedObjectIndex);
     }
+    
 
     showDeadEnemy(collidedObjectIndex) {
         // let x = this.level.enemies[collidedObjectIndex].x;
+        // this.character.loadImage('img/enemies/dead.png');
+        clearInterval(this.level.enemies[collidedObjectIndex].moveZombies());
+        clearInterval(this.level.enemies[collidedObjectIndex].playAnimationZombies());
+        // setInterval(() => {
+        //     this.setStoppableInterval(this.moveZombies, 1000 / 60);
+        // this.setStoppableInterval(this.playAnimationZombies, 200);
         this.level.enemies[collidedObjectIndex].loadImage('img/enemies/dead.png');
+        // }, 1500);
         // this.level.enemies[collidedObjectIndex].x = x;
     }
 
-    //ammunition 
+
     isCollidingAmmunition() {
         this.level.ammunition.forEach((ammunition) => {
             if (this.character.isColliding(ammunition)) {
@@ -290,22 +315,22 @@ class World {
         });
     }
 
+
     getAmmunitionIndex() {
-        // Index von jeweiliger Ammunition bei isColliding
         const collidedObjectIndex = this.level.ammunition.findIndex((ammunition) => {
             return this.character.isColliding(ammunition);
         });
         this.removeAmmunition(collidedObjectIndex);
     }
 
+
     removeAmmunition(collidedObjectIndex) {
-        // splice Ammunition an jeweiligen Stelle (index)
         if (collidedObjectIndex !== -1) {
             this.level.ammunition.splice(collidedObjectIndex, 1);
         }
     }
 
-    //lives
+
     isCollidingLives() {
         this.level.lives.forEach((lives) => {
             if (this.character.isColliding(lives)) {
@@ -317,41 +342,46 @@ class World {
         });
     }
 
+
     getLivesIndex() {
-        // Index von jeweiliger Ammunition bei isColliding
         const collidedObjectIndex = this.level.lives.findIndex((lives) => {
             return this.character.isColliding(lives);
         });
         this.removeLives(collidedObjectIndex);
     }
 
+
     removeLives(collidedObjectIndex) {
-        // splice Ammunition an jeweiligen Stelle (index)
         if (collidedObjectIndex !== -1) {
             this.level.lives.splice(collidedObjectIndex, 1);
         }
     }
 
+
     checkThrowObjects() {
+        if (this.availableAmmunition()) {
+            if (this.keyboard.KEY_TAB) {
+                this.setShot();
+            }
+        } else if (this.noBatteryNoEndboss()) {
+            setInterval(() => {
+                this.character.gameOver('youWon')
+            }, 1000);
+            this.character.batteryAll = 10;
+        }
+    }
+
+    noBatteryNoEndboss() {
         const batteryIsDepleted = this.character.batteryAll === 0;
         const noEndBossRemaining = this.level.endboss.length === 0;
         const gameOverElementNotPresent = !document.getElementById('gameOver');
 
-        if (this.availableAmmunition()) {
-            //&& this.character.otherDirection == false
-            if (this.keyboard.KEY_TAB) {
-                this.setShot();
-            }
-        } else if (batteryIsDepleted && noEndBossRemaining && gameOverElementNotPresent) {
-            setInterval(() => {
-                this.character.gameOver('youWon')
-            }, 1000);
-            this.character.batteryAll = 10; // oben deklarieren nicht in character.js
-        }
+        return batteryIsDepleted && noEndBossRemaining && gameOverElementNotPresent;
     }
 
+
     setShot() {
-        if (!document.getElementById('innerInfoContainer')) {
+        if (this.character.noPauseNoGameOver()) {
             if (this.character.otherDirection) {
                 let shootStart = this.character.x - 50;
                 this.createShot(shootStart);
@@ -365,17 +395,20 @@ class World {
 
     createShot(shootStart) {
         let shootingWidth = 60;
-        this.character.width = shootingWidth;
         let laser = new ShootingObject(shootStart, this.character.y, this.character.otherDirection);
+
+        this.character.width = shootingWidth;
         this.character.playAnimation(this.character.IMAGES_SHOOTING);
         this.shootingObject.push(laser);
         this.character.hittedObject('hitEnemy');
         this.ammunitionStatusBar.setPercentage(this.character.ammunition);
     }
 
+
     availableAmmunition() {
         return this.character.ammunition > 0
     }
+
 
     checkCharacter() {
         if (this.character.x >= 1500 && !this.hasPassed1500) {

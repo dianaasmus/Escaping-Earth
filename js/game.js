@@ -1,6 +1,6 @@
 let canvas;
 let world;
-let keyboard = new Keyboard(); // keyboard in game.js deklarieren
+let keyboard = new Keyboard();
 let music = new Audio('audio/background-music-trimm.mp3');
 music.volume = 0.25;
 music.loop = true;
@@ -28,10 +28,8 @@ function start() {
     keyboard.bindBtnsPressEvents();
 }
 
+
 function hideElements() {
-    if (window.matchMedia("(max-height: 800px)").matches) {
-        headline.classList.add('fadeout'); 
-    }
     hideElement(document.getElementById('start-img'));
     hideElement(document.getElementById('startBtn'));
 }
@@ -39,7 +37,7 @@ function hideElements() {
 
 function startGame() {
     canvas = document.getElementById('canvas');
-    world = new World(canvas, keyboard); //mit world.js "verbinden"
+    world = new World(canvas, keyboard);
 }
 
 
@@ -190,11 +188,7 @@ function hideElement(element) {
 
 function startAgain() {
     let headline = document.getElementById('headline');
-    // headline.classList.remove('headline-2');
     headline.classList.remove('game-over-animation');
-    
-    // document.getElementById('info-icon').disabled = false;
-    // document.getElementById('audio-icon').disabled = false;
     document.getElementById('gameOver').remove();
     document.getElementById('overlay').classList.remove('d-none');
     world.character.stopGame()

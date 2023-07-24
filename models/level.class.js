@@ -4,17 +4,17 @@ class Level {
     lives;
     ammunition;
     backgrounds;
-    buildings;
+    // buildings;
     positions;
     level_end_x;
 
-    constructor(enemies, endboss, lives, ammunition, backgrounds, buildings, positions) {
+    constructor(enemies, endboss, lives, ammunition, backgrounds, positions) {
         this.enemies = enemies;
         this.endboss = endboss;
         this.lives = lives;
         this.ammunition = ammunition;
         this.backgrounds = backgrounds;
-        this.buildings = buildings;
+        // this.buildings = buildings;
         this.positions = positions;
         this.level_end_x = this.positions.pop();
     }

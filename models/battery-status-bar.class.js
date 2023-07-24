@@ -2,7 +2,7 @@ class BatteryStatusBar extends DrawableObject {
     percentage = 10;
     
 
-    IMAGES_BATTERY = [ //Versalien = Konstante
+    IMAGES_BATTERY = [
         'img/battery/battery-0.png',
         'img/battery/battery-20.png',
         'img/battery/battery-40.png',

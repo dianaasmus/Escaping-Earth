@@ -50,25 +50,25 @@
 }
 
 #leftBtn {
-    background-image: url(img/start-screen/arrow-left.png);
+    background-image: url(../img/start-screen/arrow-left.png);
     background-position-y: 9px;
     background-position-x: 7px;
 }
 
 #rightBtn {
-    background-image: url(img/start-screen/arrow-right.png);
+    background-image: url(../img/start-screen/arrow-right.png);
     background-position-y: 9px;
     background-position-x: 10px;
 }
 
 #jumpBtn {
-    background-image: url(img/start-screen/arrow.png);
+    background-image: url(../img/start-screen/arrow.png);
     background-position-x: 9px;
     background-position-y: 8px;
 }
 
 #shootBtn {
-    background-image: url(img/ammunition/attack/ammunition-attack.png);
+    background-image: url(../img/ammunition/attack/ammunition-attack.png);
     background-position: center;
     background-repeat: no-repeat;
     background-size: 25px;
@@ -89,9 +89,6 @@
     }
 }
 
-#portraitMobile {
-    display: none;
-}
 /* fullscreen  */
 .gameOverFullscreen {
     animation: GameOverFullscreen 225ms ease-in-out;
@@ -209,13 +206,17 @@
 /* @media screen and (width > height) { */
 @media screen and (orientation: portrait) {
 
+    #startScreen {
+        display: none !important;
+    }
+
     #portraitMobile {
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
-        background-image: url('img/background/bg.png');
+        background-image: url('../img/background/bg.png');
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;

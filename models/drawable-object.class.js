@@ -4,7 +4,8 @@ class DrawableObject {
     currentImage = 0;
     imageCache = {};
     intervalIDs = [];
-    otherDirection = false; // Character bewegt sich byDefault nach Rechts
+    otherDirection = false;
+
 
     offset = {
         top : 10,
@@ -14,10 +15,12 @@ class DrawableObject {
         color: 'red'
     }
 
+
     loadImage(path) {
-        this.img = new Image(); //Fkt von JS - wie: this.img = doc.getEBID... <img id="image">
+        this.img = new Image();
         this.img.src = path;
     }
+
 
     loadImages(imgArray) {
         imgArray.forEach((path) => {
@@ -27,10 +30,12 @@ class DrawableObject {
         });
     }
 
+
     shouldDrawFrame() {
         const allowedClasses = [Character, Zombie, RunningZombie, Endboss, Lives, Ammunition];
         return allowedClasses.some(cls => this instanceof cls);
     }
+
 
     drawFrame(ctx) {
         const shouldDrawFrame = this.shouldDrawFrame();
@@ -41,6 +46,7 @@ class DrawableObject {
         }
     }
 
+
     drawOffset(ctx, offset) {
         ctx.beginPath();
         ctx.lineWidth = '5';
@@ -48,6 +54,7 @@ class DrawableObject {
         ctx.rect(this.x + offset.left, this.y + offset.top, this.width - offset.left - offset.right, this.height - offset.top - offset.bottom);
         ctx.stroke();
     }
+
 
     drawRectangle(ctx) {
         ctx.beginPath();
@@ -57,9 +64,11 @@ class DrawableObject {
         ctx.stroke();
     }
 
+
     draw(ctx) {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
+
 
     resolveImageIndex() {
         if (this.percentage == 10) {
@@ -77,11 +86,13 @@ class DrawableObject {
         }
     }
 
+
     setStoppableInterval(fn, time) {
-        let id = setInterval(fn.bind(this), time); // funktion (fn) binden (.bind) mit aktuellen wert (this)
+        let id = setInterval(fn.bind(this), time);
         this.intervalIDs.push(id);
     }
 
+    
     stopGame() {
         this.intervalIDs.forEach(clearInterval);
     }

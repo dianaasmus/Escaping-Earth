@@ -3,15 +3,13 @@ class Zombie extends MovableObject {
     width = 70;
     y = 370;
 
-
     offset = {
-        top : 10,
-        right : 15,
+        top: 10,
+        right: 15,
         bottom: 10,
         left: 25,
-        color: 'red' // Neue color-Eigenschaft hinzugefügt
+        color: 'red'
     }
-
 
     IMAGES_WALKING = [
         'img/enemies/zombie-walk.png',
@@ -23,14 +21,14 @@ class Zombie extends MovableObject {
         'img/enemies/zombie-walk7.png'
     ];
 
-    // IMAGE_DEAD = 'img/enemies/dead.png';
-
     constructor() {
         super().loadImage('img/enemies/zombie-walk.png');
         this.x = 200 + Math.random() * 2060;
         this.speed = 0.15 + Math.random() * 0.5; //unterschiedliche Geschw. Zahl zw. 0.15 und 0.65
         this.loadImages(this.IMAGES_WALKING);
-        this.animate();
+        // if (!this.loadImage('img/enemies/dead.png')) {
+            this.animate();
+        // }
     }
 
 
@@ -49,7 +47,4 @@ class Zombie extends MovableObject {
         this.playAnimation(this.IMAGES_WALKING);
     }
 
-    // showDeadEnemy() {
-    //     loadImage(this.IMAGE_DEAD);
-    // }
 }

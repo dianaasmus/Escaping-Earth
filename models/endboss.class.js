@@ -2,15 +2,16 @@ class Endboss extends MovableObject {
     height = 200;
     width = 120;
     y = 270;
-    // hasPassed2000 = false;
+
 
     offset = {
         top : 10,
         right : 40,
         bottom: 10,
         left: 40,
-        color: 'green' // Neue color-Eigenschaft hinzugefügt
+        color: 'green'
     }
+
 
     IMAGES_WALKING = [
         'img/endboss/walk/walk-1.png',
@@ -21,19 +22,22 @@ class Endboss extends MovableObject {
         'img/endboss/walk/walk-6.png'
     ];
 
+
     constructor(id) {
         super();
         this.id = id;
         this.loadImage(this.IMAGES_WALKING[0]);
         this.x = 2860 - 300 * Math.random();
-        this.speed = 8 + Math.random() * 15; //unterschiedliche Geschw. Zahl zw. 0.15 und 0.65
+        this.speed = 8 + Math.random() * 15;
         this.loadImages(this.IMAGES_WALKING);
     }
+
 
     animate() {
         this.setStoppableInterval(this.moveEndboss, 200);
     }
 
+    
     moveEndboss() {
         this.moveLeft();
         this.playAnimation(this.IMAGES_WALKING);

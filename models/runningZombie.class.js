@@ -10,11 +10,11 @@ class RunningZombie extends MovableObject {
         right : 15,
         bottom: 10,
         left: 15,
-        color: 'red' // Neue color-Eigenschaft hinzugefügt
+        color: 'red'
     }
 
 
-    IMAGES_WALKING = [ //Übersichtlicher
+    IMAGES_WALKING = [
         'img/enemies/zombieRun1.png',
         'img/enemies/zombieRun2.png',
         'img/enemies/zombieRun3.png',

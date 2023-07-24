@@ -3,13 +3,15 @@ class Keyboard {
     KEY_RIGHT = false;
     KEY_UP = false;
     KEY_TAB = false;
-    isMobileDevice = 'ontouchstart' in window;
+
 
     constructor() {
-        this.bindKeyPressEvents();
+        this.isKeyDown();
+        this.isKeyUp();
     }
 
-    bindKeyPressEvents() {
+    
+    isKeyDown() {
         window.addEventListener("keydown", (e) => {
             if (e.keyCode == 39) {
                 keyboard.KEY_RIGHT = true;
@@ -24,7 +26,10 @@ class Keyboard {
                 keyboard.KEY_TAB = true;
             }
         });
+    }
 
+
+    isKeyUp() {
         window.addEventListener("keyup", (e) => {
             if (e.keyCode == 39) {
                 keyboard.KEY_RIGHT = false;
@@ -42,6 +47,14 @@ class Keyboard {
     }
 
     bindBtnsPressEvents() {
+        this.jumpBtn();
+        this.shootBtn();
+        this.leftBtn();
+        this.rightBtn();
+    }
+
+
+    jumpBtn() {
         document.getElementById('jumpBtn').addEventListener('touchstart', (e) => {
             e.preventDefault();
             this.KEY_UP = true;
@@ -50,7 +63,10 @@ class Keyboard {
             e.preventDefault();
             this.KEY_UP = false;
         });
+    }
 
+
+    shootBtn() {
         document.getElementById('shootBtn').addEventListener('touchstart', (e) => {
             e.preventDefault();
             this.KEY_TAB = true;
@@ -59,7 +75,10 @@ class Keyboard {
             e.preventDefault();
             this.KEY_TAB = false;
         });
+    }
 
+
+    leftBtn() {
         document.getElementById('leftBtn').addEventListener('touchstart', (e) => {
             e.preventDefault();
             this.KEY_LEFT = true;
@@ -68,7 +87,10 @@ class Keyboard {
             e.preventDefault();
             this.KEY_LEFT = false;
         });
+    }
 
+
+    rightBtn() {
         document.getElementById('rightBtn').addEventListener('touchstart', (e) => {
             e.preventDefault();
             this.KEY_RIGHT = true;
