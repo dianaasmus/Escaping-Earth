@@ -18,14 +18,17 @@ function checkmobileDevice() {
     const fullscreenIconElement = document.getElementById('fullscreenIcon');
     const gameBtnsElement = document.getElementById('gameBtns');
 
+    if (window.matchMedia("(max-height: 800px)").matches) {
+        headline.classList.add('fadeout'); 
+    }
+    if (window.matchMedia("(max-width: 720px)").matches) {
+        document.getElementById('gameAdjustments').classList.add('gameAdjustmentsMobile')
+    }
     if (!isMobileDevice) {
         headlineElement.classList.add('animation');
         removeAnimation();
         showElement(fullscreenIconElement);
     } else {
-        if (window.matchMedia("(max-height: 800px)").matches) {
-            headline.classList.add('fadeout'); 
-        }
         setTimeout(() => {
             hideElement(headlineElement);
         }, 400)

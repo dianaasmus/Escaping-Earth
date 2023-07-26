@@ -2,6 +2,7 @@ class Zombie extends MovableObject {
     height = 100;
     width = 70;
     y = 370;
+    isDead = false;
 
 
     offset = {
@@ -9,7 +10,7 @@ class Zombie extends MovableObject {
         right: 15,
         bottom: 10,
         left: 25,
-        color: 'red'
+        color: 'transparent'
     }
 
 
@@ -21,7 +22,7 @@ class Zombie extends MovableObject {
         'img/enemies/zombie-walk5.png',
         'img/enemies/zombie-walk6.png'
     ];
-    
+
 
     constructor() {
         super().loadImage('img/enemies/zombie-walk.png');
@@ -39,11 +40,15 @@ class Zombie extends MovableObject {
 
 
     moveZombies() {
-        this.moveLeft();
+        if (!this.isDead) {
+            this.moveLeft();
+        }
     }
 
 
     playAnimationZombies() {
-        this.playAnimation(this.IMAGES_WALKING);
+        if (!this.isDead) {
+            this.playAnimation(this.IMAGES_WALKING);
+        }
     }
 }

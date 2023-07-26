@@ -3,14 +3,15 @@ class RunningZombie extends MovableObject {
     width = 70;
     y = 370;
     speed = 1.5;
+    isDead = false;
 
 
     offset = {
-        top : 10,
-        right : 15,
+        top: 10,
+        right: 15,
         bottom: 10,
         left: 15,
-        color: 'red'
+        color: 'transparent'
     }
 
 
@@ -40,11 +41,15 @@ class RunningZombie extends MovableObject {
 
 
     moveLeftRunningZombie() {
-        this.moveLeft();
+        if (!this.isDead) {
+            this.moveLeft();
+        }
     }
 
-    
+
     playAnimationRunningZombie() {
-        this.playAnimation(this.IMAGES_WALKING);
+        if (!this.isDead) {
+            this.playAnimation(this.IMAGES_WALKING);
+        }
     }
 }

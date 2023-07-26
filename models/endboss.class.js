@@ -9,7 +9,7 @@ class Endboss extends MovableObject {
         right : 40,
         bottom: 10,
         left: 40,
-        color: 'green'
+        color: 'transparent'
     }
 
 

@@ -4,6 +4,7 @@ class Character extends MovableObject {
     height = 80;
     width = 40;
     imageLength;
+    state = 'IDLE';
 
 
     offset = {
@@ -11,7 +12,7 @@ class Character extends MovableObject {
         right: 10,
         bottom: 10,
         left: 10,
-        color: 'red'
+        color: 'transparent'
     }
 
 
@@ -51,20 +52,33 @@ class Character extends MovableObject {
     ];
 
 
+    IMAGES_STANDING = [
+        'img/alien/idle/IDLE1.png',
+        'img/alien/idle/IDLE1.png',
+        'img/alien/idle/IDLE1.png',
+        'img/alien/idle/IDLE1.png',
+        'img/alien/idle/IDLE1.png',
+        'img/alien/idle/IDLE1.png',
+        'img/alien/idle/IDLE1.png',
+        'img/alien/idle/IDLE2.png',
+        'img/alien/idle/IDLE3.png',
+        'img/alien/idle/IDLE2.png'
+    ];
+
+
     running_sound = new Audio('audio/running.mp3');
     shooting_sound = new Audio('audio/shooting.mp3');
     jumping_sound = new Audio('audio/jump.mp3');
     collecting_ammunition_sound = new Audio('audio/collect.mp3');
     collecting_lives_sound = new Audio('audio/collect.mp3');
     crushing_zombie_sound = new Audio('audio/crushing-zombie.mp3');
-    state = 'IDLE';
-
 
     constructor() {
         super();
         this.LoadingImages();
         this.applyGravity();
         this.animate();
+
     }
 
 
@@ -72,6 +86,7 @@ class Character extends MovableObject {
         this.loadImage('img/alien/standing.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
+        this.loadImages(this.IMAGES_STANDING);
         this.loadImages(this.IMAGES_DYING);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_SHOOTING);
@@ -82,6 +97,7 @@ class Character extends MovableObject {
         this.addAudioSettings();
         this.setStoppableInterval(this.addAudios, 1000 / 60);
         this.setStoppableInterval(this.addAnimations, 100);
+        // this.setStoppableInterval(this.isStandingSettings, 300);
     }
 
 
@@ -102,7 +118,8 @@ class Character extends MovableObject {
             if (this.world.keyboard.KEY_UP) {
                 this.jumpAudio();
             }
-            this.world.camera_x = -this.x + 123;
+            this.world.camera_x = -this.x + 122;
+            // this.state = 'IDLE'
         }
     }
 
@@ -173,6 +190,8 @@ class Character extends MovableObject {
                 this.isJumpingSettings();
             } else if (this.world.keyboard.KEY_RIGHT || this.world.keyboard.KEY_LEFT) {
                 this.isWalkingSettings();
+            } else {
+                this.isStandingSettings();
             }
             if (this.world.keyboard.KEY_UP && !this.isAboveGround()) {
                 this.speedY = 40;
@@ -196,9 +215,16 @@ class Character extends MovableObject {
             this.state = 'DYING';
             this.currentImage = 0;
             setTimeout(() => {
-                this.gameOver('youLost');
+                this.world.gameOver('youLost');
             }, 1000);
         }
+    }
+
+
+    isStandingSettings() {
+        this.width = 50;
+        this.height = 80;
+        this.playAnimation(this.IMAGES_STANDING);
     }
 
 
@@ -234,53 +260,5 @@ class Character extends MovableObject {
         if (this.currentImage <= imageLength) {
             this.playAnimation(images);
         }
-    }
-
-
-    gameOver(result) {
-        if (!document.getElementById('gameOver')) {
-            this.addGameOverContainer();
-            this.displayElements();
-            this.displayResult(result);
-        }
-    }
-
-
-    addGameOverContainer() {
-        document.getElementById('fullscreen').innerHTML += `<div id="gameOver"><button onclick="startAgain()" id="gameOverBtn">START AGAIN</button></div>`;
-    }
-
-
-    displayElements() {
-        showElement(document.getElementById('headline'));
-        hideElement(document.getElementById('overlay'));
-        hideElement(document.getElementById('fullscreenIcon'));
-        document.getElementById('headline').classList.remove('headline-2');
-        this.checkFullscreen();
-        document.getElementById('headline').classList.remove('fadeout');
-    }
-
-
-    checkFullscreen() {
-        if (isFullscreen()) {
-            document.getElementById('headline').classList.add('gameOverFullscreen');
-            document.getElementById('gameOver').style.alignItems = "unset";
-        } else {
-            document.getElementById('headline').classList.add('game-over-animation');
-        }
-    }
-
-
-    displayResult(result) {
-        if (result == 'youLost') {
-            this.youLost();
-        } else {
-            this.world.youWon();
-        }
-    }
-
-
-    youLost() {
-        document.getElementById('headline').innerHTML = 'You Lost';
     }
 }

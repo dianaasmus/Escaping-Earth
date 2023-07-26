@@ -73,8 +73,8 @@ html::-webkit-scrollbar {
 /* HEADLINE */
 #headline {
     position: absolute;
-    /* margin-bottom: 326px; */
-    font-size: calc(6vw + 12px);
+    /* bottom: 370px; */
+    font-size: calc(7vw + 12px);
     font-weight: 100;
     letter-spacing: 1vw;
     text-decoration: none;
@@ -82,7 +82,7 @@ html::-webkit-scrollbar {
     white-space: nowrap;
     opacity: 1;
     z-index: 10;
-    transform: translateY(0);
+    /* transform: translateY(0); */
 
 }
 
@@ -107,7 +107,7 @@ html::-webkit-scrollbar {
         font-size: 4rem;
         letter-spacing: 0vw;
         /* opacity: 0; */
-        transform: translateY(-200%);
+        transform: translateY(-170%);
     }
 }
 

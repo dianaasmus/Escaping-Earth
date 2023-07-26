@@ -10,7 +10,7 @@ class Lives extends CollectableObject {
         right : 10,
         bottom: 15,
         left: 10,
-        color: 'green' 
+        color: 'transparent' 
     }
 
     

@@ -13,7 +13,7 @@ class Ammunition extends CollectableObject {
         right : 15,
         bottom: 15,
         left: 15,
-        color: 'green'
+        color: 'transparent'
     }
 
 

@@ -14,6 +14,7 @@ class World {
     background_music = new Audio('audio/music.mp3');
     hasPassed1500 = false;
     intervalIDs = [];
+    gameIsOver = false;
 
 
     constructor(canvas, keyboard) {
@@ -36,13 +37,14 @@ class World {
 
     checkGameOver() {
         if (this.noAmmunitionButEndboss()) {
-            this.character.gameOver();
+            this.gameOver('youLost');
+            this.gameIsOver = true;
         }
     }
 
 
     noAmmunitionButEndboss() {
-        return this.shootingObject.length === 0 && this.character.ammunition === 0 && this.level.endboss.length >= 1;
+        return this.shootingObject.length === 0 && this.character.ammunition === 0 && this.level.endboss.length >= 1 && this.character.batteryAll >= 1;
     }
 
 
@@ -152,17 +154,19 @@ class World {
         this.isCollidingLaser();
         this.checkThrowObjects();
         this.checkCharacter();
-        this.checkGameOver();
+        if (this.gameIsOver == false) {
+            this.checkGameOver();
+        }
     }
 
 
     isCollidingEnemies() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
-                if (this.character.isAboveGround() && this.character.y > 290) {
+                if (this.character.isAboveGround() && this.character.y == 320) {
                     this.character.crushing_zombie_sound.play();
-                    this.getEnemyIndex(enemy);
-                } else {
+                    this.killZombie(enemy);
+                } else if (!enemy.isDead) {
                     this.character.hit();
                 }
                 this.livesStatusBar.setPercentage(this.character.lives);
@@ -279,28 +283,24 @@ class World {
     }
 
 
-    getEnemyIndex() {
+    killZombie() {
         const collidedObjectIndex = this.level.enemies.findIndex((enemy) => {
             return this.character.isColliding(enemy);
         });
-        // setTimeout(() => {
-        // }, 1000);
+        // this.enemies[collidedObjectIndex].isDead = true;
         this.showDeadEnemy(collidedObjectIndex);
-        // this.removeEnemy(collidedObjectIndex);
+        setTimeout(() => {
+            this.removeEnemy(collidedObjectIndex);
+        }, 1000);
     }
-    
+
 
     showDeadEnemy(collidedObjectIndex) {
-        // let x = this.level.enemies[collidedObjectIndex].x;
-        // this.character.loadImage('img/enemies/dead.png');
-        clearInterval(this.level.enemies[collidedObjectIndex].moveZombies());
-        clearInterval(this.level.enemies[collidedObjectIndex].playAnimationZombies());
-        // setInterval(() => {
-        //     this.setStoppableInterval(this.moveZombies, 1000 / 60);
-        // this.setStoppableInterval(this.playAnimationZombies, 200);
+        this.level.enemies[collidedObjectIndex].isDead = true;
+        this.level.enemies[collidedObjectIndex].height = 40;
+        this.level.enemies[collidedObjectIndex].width = 70;
+        this.level.enemies[collidedObjectIndex].y = 430;
         this.level.enemies[collidedObjectIndex].loadImage('img/enemies/dead.png');
-        // }, 1500);
-        // this.level.enemies[collidedObjectIndex].x = x;
     }
 
 
@@ -364,8 +364,8 @@ class World {
                 this.setShot();
             }
         } else if (this.noBatteryNoEndboss()) {
-            setInterval(() => {
-                this.character.gameOver('youWon')
+            setTimeout(() => {
+                this.gameOver('youWon')
             }, 1000);
             this.character.batteryAll = 10;
         }
@@ -417,5 +417,54 @@ class World {
                 endboss.animate();
             });
         }
+    }
+
+
+    gameOver(result) {
+        if (!document.getElementById('gameOver')) {
+            this.character.pauseAudios();
+            this.addGameOverContainer();
+            this.displayElements();
+            this.displayResult(result);
+        }
+    }
+
+
+    addGameOverContainer() {
+        document.getElementById('fullscreen').innerHTML += `<div id="gameOver"><button onclick="startAgain()" id="gameOverBtn">START AGAIN</button></div>`;
+    }
+
+
+    displayElements() {
+        showElement(document.getElementById('headline'));
+        hideElement(document.getElementById('overlay'));
+        hideElement(document.getElementById('fullscreenIcon'));
+        document.getElementById('headline').classList.remove('headline-2');
+        this.checkFullscreen();
+        document.getElementById('headline').classList.remove('fadeout');
+    }
+
+
+    checkFullscreen() {
+        if (isFullscreen()) {
+            document.getElementById('headline').classList.add('gameOverFullscreen');
+            document.getElementById('gameOver').style.alignItems = "unset";
+        } else {
+            document.getElementById('headline').classList.add('game-over-animation');
+        }
+    }
+
+
+    displayResult(result) {
+        if (result == 'youLost') {
+            this.youLost();
+        } else {
+            this.youWon();
+        }
+    }
+
+
+    youLost() {
+        document.getElementById('headline').innerHTML = 'You Lost';
     }
 }
