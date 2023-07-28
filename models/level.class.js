@@ -4,7 +4,6 @@ class Level {
     lives;
     ammunition;
     backgrounds;
-    // buildings;
     positions;
     level_end_x;
 
@@ -14,7 +13,6 @@ class Level {
         this.lives = lives;
         this.ammunition = ammunition;
         this.backgrounds = backgrounds;
-        // this.buildings = buildings;
         this.positions = positions;
         this.level_end_x = this.positions.pop();
     }

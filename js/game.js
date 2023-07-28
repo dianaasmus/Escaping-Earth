@@ -193,24 +193,41 @@ function hideElement(element) {
 
 function startAgain() {
     let headline = document.getElementById('headline');
+    removeGameOver();
+
+    if (!isMobileDevice && !isFullscreen()) {
+        startAgainDesktop(headline);
+    } else {
+        startAgainMobil(headline);
+    }
+
+    initGame();
+}
+
+
+function removeGameOver() {
     headline.classList.remove('game-over-animation');
     document.getElementById('gameOver').remove();
     document.getElementById('overlay').classList.remove('d-none');
-    world.character.stopGame()
+    world.character.stopGame();
+}
 
+
+function startAgainDesktop() {
     if (window.matchMedia("(max-height: 800px)").matches) {
-        headline.classList.add('fadeout'); 
-    }
-    if (!isMobileDevice && !isFullscreen()) {
+        headline.classList.add('fadeout');
+        hideElement(headline);
+    } else {
         headline.innerHTML = 'Escaping Earth';
         headline.classList.add('animation');
         showElement(document.getElementById('fullscreenIcon'));
-    } else {
-        headline.classList.add('fadeout');
-        hideElement(headline);
-    } 
+    }
+}
 
-    initGame();
+
+function startAgainMobil() {
+    headline.classList.add('fadeout');
+    hideElement(headline);
 }
 
 

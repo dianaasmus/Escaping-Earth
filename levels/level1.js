@@ -6,7 +6,7 @@ function initLevel() {
     const runningZombieArray = Array(5).fill().map(() => new RunningZombie());
     const endbossArray = Array(3).fill().map((_, index) => new Endboss(index + 1));
     const zombieArray = Array(5).fill().map(() => new Zombie());
-    const buildings = ['img/background/Foreground-1.png', 'img/background/Foreground-2.png', 'img/background/Foreground-3.png'];
+    const buildings = ['img/background/building-1.png', 'img/background/building-2.png', 'img/background/building-3.png'];
 
 
     level1 = new Level(
@@ -15,13 +15,11 @@ function initLevel() {
         [...livesArray],
         [...ammunitionArray],
         [
-            'img/background/Sky.png',
-            'img/background/Background.png',
-            'img/background/Foreground-1.png',
-            // buildings,
-            'img/background/Ground.png'
+            'img/background/sky.png',
+            'img/background/buildings-bg.png',
+            buildings,
+            'img/background/street-lamp.png'
         ],
-        // ['img/background/Foreground-1.png', 'img/background/Foreground-2.png', 'img/background/Foreground-3.png'],
         [
             0,
             720,

@@ -55,14 +55,35 @@ class World {
 
 
     createBackgroundObjects() {
-        for (let i = 0; i < this.level.backgrounds.length; i++) {
-            for (let j = 0; j < this.level.positions.length; j++) {
-                const background = this.level.backgrounds[i];
-                const position = this.level.positions[j];
-                this.backgroundObjects.push(new BackgroundObject(background, position));
+        let innerArrayCounter = 0;
+      
+        for (let j = 0; j < this.level.positions.length; j++) {
+          const position = this.level.positions[j];
+          for (let i = 0; i < this.level.backgrounds.length; i++) {
+            const background = this.level.backgrounds[i];
+            if (Array.isArray(background)) {
+              // Die Funktion addNewBuildings gibt den aktualisierten innerArrayCounter zurück
+              innerArrayCounter = this.addNewBuildings(innerArrayCounter, background, position);
+            } else {
+              this.backgroundObjects.push(new BackgroundObject(background, position));
             }
+          }
         }
-    }
+      }
+      
+      addNewBuildings(innerArrayCounter, background, position) {
+        const building = background[innerArrayCounter];
+        innerArrayCounter++; // Erhöhe die Variable für den nächsten Durchlauf
+      
+        if (innerArrayCounter >= background.length) {
+          innerArrayCounter = 0; // Setze den Zähler zurück, wenn alle Elemente im verschachtelten Array durchlaufen wurden
+        }
+      
+        this.backgroundObjects.push(new BackgroundObject(building, position));
+      
+        return innerArrayCounter; // Gib den aktualisierten Wert zurück
+      }
+      
 
 
     setWorld() {
