@@ -84,7 +84,6 @@
     }
 }
 
-/* fullscreen  */
 .gameOverFullscreen {
     animation: GameOverFullscreen 225ms ease-in-out;
     animation-fill-mode: forwards;
@@ -100,12 +99,10 @@
     }
 }
 
-/* MEDIA QUERY */
 @media only screen and (max-width: 720px) {
 
     #fullscreen,
     #overlay,
-    /* #innerInfoContainer, */
     canvas {
         width: 100%;
     }
@@ -113,13 +110,17 @@
     #gameOver {
         display: block;
     }
+
+    .canvas-circle {
+        width: 100% !important;
+    }
 }
 
 @media only screen and (max-height: 480px) {
 
     #fullscreen,
     #overlay,
-    /* #innerInfoContainer, */
+    .canvas-circle,
     canvas {
         height: 100vh;
     }
@@ -127,19 +128,8 @@
     #gameOver {
         display: block;
     }
-}
 
-@media (max-height: 850px) {
-
-    /* .headline {
-        margin-bottom: 0;
-        transform: translateY(37%) !important;
-    } */
-
-    /* #startBtn {
-        margin-top: 35% !important;
-    } */
-
+    
 }
 
 @media (max-height: 480px) {
@@ -148,12 +138,15 @@
         margin-top: 305px !important;
     }
 
+    .canvas-circle {
+        width: calc(480px * (16/13));
+    }
+
     #headline {
         bottom: 75% !important;
         font-size: calc(5vw + 12px);
     }
 
-    /* INFOCONTAINER  */
     #infoContainer {
         display: flex;
         align-items: center;
@@ -162,10 +155,7 @@
     #innerInfoContainer {
         position: absolute;
         height: 100vh !important;
-        /* max-width: 720px; */
         width: calc(480px * (16/13));
-        /* aspect-ratio: auto; */
-        /* width: 100%; */
         border-radius: 20px;
         box-sizing: border-box;
         padding: 13% 50px 0 50px;
@@ -199,7 +189,6 @@
 
     #gameOver {
         display: flex;
-        /* justify-content: center; */
         align-items: baseline;
         font-size: 1rem;
     }
@@ -216,6 +205,15 @@
         padding: 15% 50px 0 50px;
     }
 
+    .canvasCircle {
+        top: unset !important;
+        left: unset !important;
+        bottom: unset !important;
+        right: unset !important;
+        height: 100vh !important;
+        width: 100% !important;
+        border-radius: 20px;
+    }
 
     #pause {
         margin: 34px 0 0 0 !important;
@@ -256,9 +254,6 @@
     }
 }
 
-
-/* Landscape  */
-/* @media screen and (width > height) { */
 @media screen and (orientation: portrait) {
 
     #startScreen {

@@ -291,11 +291,6 @@ class World {
     }
 
 
-    // youWon() {
-    //     document.getElementById('headline').innerHTML = 'YOU WON!';
-    // }
-
-
     removeEndboss(endbossIndex) {
         if (endbossIndex !== -1) {
             this.level.endboss.splice(endbossIndex, 1);
@@ -438,28 +433,4 @@ class World {
             });
         }
     }
-
-
-    // gameOver(result) {
-    //     if (!document.getElementById('gameOver')) {
-    //         // this.character.pauseAudios();
-    //         addGameOverContainer();
-    //         displayElements();
-    //         this.displayResult(result);
-    //     }
-    // }
-
-
-    // displayResult(result) {
-    //     if (result == 'youLost') {
-    //         youLost();
-    //     } else {
-    //         this.youWon();
-    //     }
-    // }
-
-
-    // youLost() {
-    //     document.getElementById('headline').innerHTML = 'You Lost';
-    // }
 }

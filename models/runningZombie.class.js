@@ -28,7 +28,7 @@ class RunningZombie extends MovableObject {
 
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
-        this.x = 200 + Math.random() * 2060;
+        this.x = 400 + Math.random() * 2060;
         this.loadImages(this.IMAGES_WALKING);
         this.animate();
     }

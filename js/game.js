@@ -19,12 +19,19 @@ function init() {
 
 
 function startBtn() {
+    addLoadingCircle();
     startBtn.disabled = true;
     startBtnPressed = true;
     hideElements();
     checkmobileDevice();
     initGame();
     keyboard.bindBtnsPressEvents();
+}
+
+
+function addLoadingCircle() {
+    document.getElementById('circle').style.display = "flex";
+    document.getElementById('circle').classList.add('canvas-circle');
 }
 
 
@@ -43,6 +50,14 @@ function hideElements() {
 function startGame() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
+    removeLoadingCircle();
+}
+
+
+function removeLoadingCircle() {
+    setTimeout(() => {
+        document.getElementById('circle').style.display = "none";
+    }, 1000);
 }
 
 
@@ -321,7 +336,6 @@ function checkFullscreen() {
 
 function gameOver(result) {
     if (!document.getElementById('gameOver')) {
-        // this.character.pauseAudios();
         addGameOverContainer();
         displayElements();
         displayResult(result);

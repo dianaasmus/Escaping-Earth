@@ -48,21 +48,21 @@ class Character extends MovableObject {
 
 
     IMAGES_SHOOTING = [
-        'img/alien/shooting/attack6.png'
+        'img/alien/shooting/shoot.png'
     ];
 
 
     IMAGES_STANDING = [
-        'img/alien/idle/IDLE1.png',
-        'img/alien/idle/IDLE1.png',
-        'img/alien/idle/IDLE1.png',
-        'img/alien/idle/IDLE1.png',
-        'img/alien/idle/IDLE1.png',
-        'img/alien/idle/IDLE1.png',
-        'img/alien/idle/IDLE1.png',
-        'img/alien/idle/IDLE2.png',
-        'img/alien/idle/IDLE3.png',
-        'img/alien/idle/IDLE2.png'
+        'img/alien/idle/idle1.png',
+        'img/alien/idle/idle1.png',
+        'img/alien/idle/idle1.png',
+        'img/alien/idle/idle1.png',
+        'img/alien/idle/idle1.png',
+        'img/alien/idle/idle1.png',
+        'img/alien/idle/idle1.png',
+        'img/alien/idle/idle2.png',
+        'img/alien/idle/idle3.png',
+        'img/alien/idle/idle2.png'
     ];
 
 
