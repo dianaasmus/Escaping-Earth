@@ -11,6 +11,7 @@ class World {
     ammunitionStatusBar = new AmmunitionStatusBar();
     shootingObject = [];
     collectableObject = new CollectableObject();
+    movableObject = new MovableObject();
     background_music = new Audio('audio/music.mp3');
     hasPassed1500 = false;
     intervalIDs = [];
@@ -56,34 +57,32 @@ class World {
 
     createBackgroundObjects() {
         let innerArrayCounter = 0;
-      
+
         for (let j = 0; j < this.level.positions.length; j++) {
-          const position = this.level.positions[j];
-          for (let i = 0; i < this.level.backgrounds.length; i++) {
-            const background = this.level.backgrounds[i];
-            if (Array.isArray(background)) {
-              // Die Funktion addNewBuildings gibt den aktualisierten innerArrayCounter zurück
-              innerArrayCounter = this.addNewBuildings(innerArrayCounter, background, position);
-            } else {
-              this.backgroundObjects.push(new BackgroundObject(background, position));
+            const position = this.level.positions[j];
+            for (let i = 0; i < this.level.backgrounds.length; i++) {
+                const background = this.level.backgrounds[i];
+                if (Array.isArray(background)) {
+                    innerArrayCounter = this.addNewBuildings(innerArrayCounter, background, position);
+                } else {
+                    this.backgroundObjects.push(new BackgroundObject(background, position));
+                }
             }
-          }
         }
-      }
-      
-      addNewBuildings(innerArrayCounter, background, position) {
+    }
+
+
+    addNewBuildings(innerArrayCounter, background, position) {
         const building = background[innerArrayCounter];
-        innerArrayCounter++; // Erhöhe die Variable für den nächsten Durchlauf
-      
+        innerArrayCounter++;
+
         if (innerArrayCounter >= background.length) {
-          innerArrayCounter = 0; // Setze den Zähler zurück, wenn alle Elemente im verschachtelten Array durchlaufen wurden
+            innerArrayCounter = 0; 
         }
-      
+
         this.backgroundObjects.push(new BackgroundObject(building, position));
-      
-        return innerArrayCounter; // Gib den aktualisierten Wert zurück
-      }
-      
+        return innerArrayCounter;
+    }
 
 
     setWorld() {
@@ -173,7 +172,7 @@ class World {
         this.isCollidingLives();
         this.isCollidingAmmunition();
         this.isCollidingLaser();
-        this.checkThrowObjects();
+        this.checkShootObjects();
         this.checkCharacter();
         if (this.gameIsOver == false) {
             this.checkGameOver();
@@ -292,9 +291,9 @@ class World {
     }
 
 
-    youWon() {
-        document.getElementById('headline').innerHTML = 'YOU WON!';
-    }
+    // youWon() {
+    //     document.getElementById('headline').innerHTML = 'YOU WON!';
+    // }
 
 
     removeEndboss(endbossIndex) {
@@ -308,7 +307,6 @@ class World {
         const collidedObjectIndex = this.level.enemies.findIndex((enemy) => {
             return this.character.isColliding(enemy);
         });
-        // this.enemies[collidedObjectIndex].isDead = true;
         this.showDeadEnemy(collidedObjectIndex);
         setTimeout(() => {
             this.removeEnemy(collidedObjectIndex);
@@ -379,18 +377,19 @@ class World {
     }
 
 
-    checkThrowObjects() {
+    checkShootObjects() {
         if (this.availableAmmunition()) {
             if (this.keyboard.KEY_TAB) {
                 this.setShot();
             }
         } else if (this.noBatteryNoEndboss()) {
             setTimeout(() => {
-                this.gameOver('youWon')
+                gameOver('youWon')
             }, 1000);
             this.character.batteryAll = 10;
         }
     }
+
 
     noBatteryNoEndboss() {
         const batteryIsDepleted = this.character.batteryAll === 0;
@@ -441,51 +440,26 @@ class World {
     }
 
 
-    gameOver(result) {
-        if (!document.getElementById('gameOver')) {
-            this.character.pauseAudios();
-            this.addGameOverContainer();
-            this.displayElements();
-            this.displayResult(result);
-        }
-    }
+    // gameOver(result) {
+    //     if (!document.getElementById('gameOver')) {
+    //         // this.character.pauseAudios();
+    //         addGameOverContainer();
+    //         displayElements();
+    //         this.displayResult(result);
+    //     }
+    // }
 
 
-    addGameOverContainer() {
-        document.getElementById('fullscreen').innerHTML += `<div id="gameOver"><button onclick="startAgain()" id="gameOverBtn">START AGAIN</button></div>`;
-    }
+    // displayResult(result) {
+    //     if (result == 'youLost') {
+    //         youLost();
+    //     } else {
+    //         this.youWon();
+    //     }
+    // }
 
 
-    displayElements() {
-        showElement(document.getElementById('headline'));
-        hideElement(document.getElementById('overlay'));
-        hideElement(document.getElementById('fullscreenIcon'));
-        document.getElementById('headline').classList.remove('headline-2');
-        this.checkFullscreen();
-        document.getElementById('headline').classList.remove('fadeout');
-    }
-
-
-    checkFullscreen() {
-        if (isFullscreen()) {
-            document.getElementById('headline').classList.add('gameOverFullscreen');
-            document.getElementById('gameOver').style.alignItems = "unset";
-        } else {
-            document.getElementById('headline').classList.add('game-over-animation');
-        }
-    }
-
-
-    displayResult(result) {
-        if (result == 'youLost') {
-            this.youLost();
-        } else {
-            this.youWon();
-        }
-    }
-
-
-    youLost() {
-        document.getElementById('headline').innerHTML = 'You Lost';
-    }
+    // youLost() {
+    //     document.getElementById('headline').innerHTML = 'You Lost';
+    // }
 }

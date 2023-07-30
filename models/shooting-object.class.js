@@ -1,5 +1,6 @@
 class ShootingObject extends MovableObject {
 
+    
     constructor(x, y, otherdirection) {
         super().loadImage('img/ammunition/attack/ammunition-attack.png');
         this.x = x;

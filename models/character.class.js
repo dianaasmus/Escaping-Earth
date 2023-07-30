@@ -73,6 +73,7 @@ class Character extends MovableObject {
     collecting_lives_sound = new Audio('audio/collect.mp3');
     crushing_zombie_sound = new Audio('audio/crushing-zombie.mp3');
 
+
     constructor() {
         super();
         this.LoadingImages();
@@ -97,7 +98,6 @@ class Character extends MovableObject {
         this.addAudioSettings();
         this.setStoppableInterval(this.addAudios, 1000 / 60);
         this.setStoppableInterval(this.addAnimations, 100);
-        // this.setStoppableInterval(this.isStandingSettings, 300);
     }
 
 
@@ -119,7 +119,6 @@ class Character extends MovableObject {
                 this.jumpAudio();
             }
             this.world.camera_x = -this.x + 122;
-            // this.state = 'IDLE'
         }
     }
 
@@ -215,7 +214,7 @@ class Character extends MovableObject {
             this.state = 'DYING';
             this.currentImage = 0;
             setTimeout(() => {
-                this.world.gameOver('youLost');
+                gameOver('youLost');
             }, 1000);
         }
     }

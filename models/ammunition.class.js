@@ -2,7 +2,6 @@ class Ammunition extends CollectableObject {
     width = 60;
     y = 280;
 
-
     shift = -1;
     minY = this.y - 10;
     maxY = this.y + 10;

@@ -45,6 +45,7 @@ class Keyboard {
             }
         });
     }
+    
 
     bindBtnsPressEvents() {
         this.jumpBtn();

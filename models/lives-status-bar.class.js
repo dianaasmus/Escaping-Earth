@@ -15,11 +15,16 @@ class LivesStatusBar extends DrawableObject {
     constructor() {
         super();
         this.loadImages(this.IMAGES_LIVES);
+        this.addDimensions();
+        this.setPercentage(10);
+    }
+
+
+    addDimensions() {
         this.x = 30;
         this.y = 30;
         this.width = 180;
         this.height = 35;
-        this.setPercentage(10);
     }
 
 

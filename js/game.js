@@ -138,7 +138,7 @@ function createGameInfo() {
 
 function toggleAudio() {
     let audioIcon = document.getElementById('audio-icon');
-    if (audioIcon.style.backgroundImage.includes('img/start-screen/add-audio.png')) {
+    if (audioIsPlaying(audioIcon)) {
         audioIcon.style.backgroundImage = "url('img/start-screen/remove-audio.png')";
         music.pause();
     } else {
@@ -148,16 +148,26 @@ function toggleAudio() {
 }
 
 
+function audioIsPlaying(audioIcon) {
+    return audioIcon.style.backgroundImage.includes('img/start-screen/add-audio.png');
+}
+
+
 function nextSite() {
     const gameSettings = document.getElementById("gameSettings");
     const gameDescription = document.getElementById('gameDescription');
     const arrow = document.getElementById('arrow');
 
-    if (gameSettings.classList.contains('d-none')) {
+    if (hidingGameSetting(gameSettings)) {
         showGameSettings(gameSettings, gameDescription, arrow);
     } else {
         showGameDescription(gameSettings, gameDescription, arrow);
     }
+}
+
+
+function hidingGameSetting(gameSettings) {
+    return gameSettings.classList.contains('d-none');
 }
 
 
@@ -234,14 +244,24 @@ function startAgainMobil() {
 function fullscreen() {
     const fullscreenElement = document.getElementById('fullscreen');
     if (isFullscreen()) {
-        exitFullscreen();
-        showElement(document.getElementById('info-icon'));
-        showElement(document.getElementById('audio-icon'));
+        removeFullscreenSettings();
     } else {
-        enterFullscreen(fullscreenElement);
-        hideElement(document.getElementById('info-icon'));
-        hideElement(document.getElementById('audio-icon'));
+        addFullscreenSettings(fullscreenElement);
     }
+}
+
+
+function removeFullscreenSettings() {
+    exitFullscreen();
+    showElement(document.getElementById('info-icon'));
+    showElement(document.getElementById('audio-icon'));
+}
+
+
+function addFullscreenSettings(fullscreenElement) {
+    enterFullscreen(fullscreenElement);
+    hideElement(document.getElementById('info-icon'));
+    hideElement(document.getElementById('audio-icon'));
 }
 
 
@@ -271,4 +291,58 @@ function exitFullscreen() {
     } else if (document.webkitExitFullscreen) {
         document.webkitExitFullscreen();
     }
+}
+
+
+function addGameOverContainer() {
+    document.getElementById('fullscreen').innerHTML += `<div id="gameOver"><button onclick="startAgain()" id="gameOverBtn">START AGAIN</button></div>`;
+}
+
+
+function displayElements() {
+    showElement(document.getElementById('headline'));
+    hideElement(document.getElementById('overlay'));
+    hideElement(document.getElementById('fullscreenIcon'));
+    document.getElementById('headline').classList.remove('headline-2');
+    checkFullscreen();
+    document.getElementById('headline').classList.remove('fadeout');
+}
+
+
+function checkFullscreen() {
+    if (isFullscreen()) {
+        document.getElementById('headline').classList.add('gameOverFullscreen');
+        document.getElementById('gameOver').style.alignItems = "unset";
+    } else {
+        document.getElementById('headline').classList.add('game-over-animation');
+    }
+}
+
+
+function gameOver(result) {
+    if (!document.getElementById('gameOver')) {
+        // this.character.pauseAudios();
+        addGameOverContainer();
+        displayElements();
+        displayResult(result);
+    }
+}
+
+
+function displayResult(result) {
+    if (result == 'youLost') {
+        youLost();
+    } else {
+        youWon();
+    }
+}
+
+
+function youLost() {
+    document.getElementById('headline').innerHTML = 'You Lost';
+}
+
+
+function youWon() {
+    document.getElementById('headline').innerHTML = 'YOU WON!';
 }

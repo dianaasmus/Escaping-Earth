@@ -7,6 +7,7 @@ class Level {
     positions;
     level_end_x;
 
+    
     constructor(enemies, endboss, lives, ammunition, backgrounds, positions) {
         this.enemies = enemies;
         this.endboss = endboss;

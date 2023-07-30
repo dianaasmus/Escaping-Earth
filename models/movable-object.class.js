@@ -16,7 +16,7 @@ class MovableObject extends DrawableObject {
 
 
     noPauseNoGameOver() {
-        return !document.getElementById('innerInfoContainer') && !document.getElementById('gameOver');
+        return !document.getElementById('innerInfoContainer') && !document.getElementById('gameOver') && !this.world.gameIsOver;
     }
 
 
