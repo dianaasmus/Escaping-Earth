@@ -184,7 +184,7 @@ class World {
     isCollidingEnemies() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
-                if (this.character.isAboveGround() && this.character.y == 320) {
+                if (this.character.isAboveGround() && this.character.y == 250) {
                     this.character.crushing_zombie_sound.play();
                     this.killZombie(enemy);
                 } else if (!enemy.isDead) {
@@ -315,7 +315,7 @@ class World {
         this.level.enemies[collidedObjectIndex].isDead = true;
         this.level.enemies[collidedObjectIndex].height = 40;
         this.level.enemies[collidedObjectIndex].width = 70;
-        this.level.enemies[collidedObjectIndex].y = 430;
+        this.level.enemies[collidedObjectIndex].y = 360;
         this.level.enemies[collidedObjectIndex].loadImage('img/enemies/dead.png');
     }
 

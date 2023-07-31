@@ -1,5 +1,5 @@
 class Lives extends CollectableObject {
-    y = 380;
+    y = 310;
     shift = -1;
     minY = this.y - 10; 
     maxY = this.y + 10; 

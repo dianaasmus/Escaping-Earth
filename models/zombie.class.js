@@ -1,7 +1,7 @@
 class Zombie extends MovableObject {
     height = 100;
     width = 70;
-    y = 370;
+    y = 300;
     isDead = false;
 
 

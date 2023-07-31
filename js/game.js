@@ -37,7 +37,7 @@ function writeText(textContainer, textToWrite, index, speed) {
 function startTextEffect() {
     const textContainer = document.getElementById("referText");
     const textToWrite = "Click here for the game description and game instructions.";
-    const speed = 50;
+    const speed = 90;
     let index = 0;
 
     writeText(textContainer, textToWrite, index, speed);
@@ -69,7 +69,7 @@ function addReferTextAudio() {
     const textContainer = document.getElementById("referText");
     textContainer.innerHTML = '';
     const textToWrite = "Click here to turn the background music on or off.";
-    const speed = 50;
+    const speed = 90;
     let index = 0;
 
     styleReferContainer(textContainer);

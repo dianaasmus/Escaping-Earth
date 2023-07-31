@@ -1,7 +1,7 @@
 class RunningZombie extends MovableObject {
     height = 100;
     width = 70;
-    y = 370;
+    y = 300;
     speed = 1.5;
     isDead = false;
 

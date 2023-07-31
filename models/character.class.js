@@ -206,7 +206,7 @@ class Character extends MovableObject {
     isDyingSettings() {
         this.height = 50;
         this.width = 70;
-        this.y = 420;
+        this.y = 350;
         this.setGameOver();
         this.imageLength = 4;
         this.playOnce(this.IMAGES_DYING, this.imageLength);

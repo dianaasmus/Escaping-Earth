@@ -53,7 +53,7 @@ class MovableObject extends DrawableObject {
 
 
     applyGravity() {
-        this.y = 290;
+        this.y = 220;
         this.setStoppableInterval(this.gravity, 1000 / 25);
     }
 
@@ -67,7 +67,7 @@ class MovableObject extends DrawableObject {
 
 
     isAboveGround() {
-        return this.y < 390;
+        return this.y < 320;
     }
 
 
