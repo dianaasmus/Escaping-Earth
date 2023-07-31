@@ -108,7 +108,7 @@ class Character extends MovableObject {
             if (this.world.keyboard.KEY_RIGHT && this.x < this.world.level.level_end_x && !this.world.gameIsOver) {
                 this.moveRightAndAudio();
             }
-            if (this.world.keyboard.KEY_LEFT && this.x > 125 && !this.world.gameIsOver) {
+            if (this.world.keyboard.KEY_LEFT && this.x > 265 && !this.world.gameIsOver) {
                 this.moveLeftAndAudio();
             }
             if (this.world.keyboard.KEY_TAB && !this.world.gameIsOver) {
@@ -117,7 +117,7 @@ class Character extends MovableObject {
             if (this.world.keyboard.KEY_UP && !this.world.gameIsOver) {
                 this.jumpAudio();
             }
-            this.world.camera_x = -this.x + 122;
+            this.world.camera_x = -this.x + 200;
         }
     }
 

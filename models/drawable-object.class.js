@@ -1,6 +1,6 @@
 class DrawableObject {
     img;
-    x = 150;
+    x = 200;
     currentImage = 0;
     imageCache = {};
     intervalIDs = [];
