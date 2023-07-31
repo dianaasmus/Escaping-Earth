@@ -186,7 +186,7 @@ class Character extends MovableObject {
                 this.isHurtingSettings();
             } else if (this.isAboveGround() && !this.world.gameIsOver) {
                 this.isJumpingSettings();
-            } else if (this.keyLeftOrRightAndNotDead()) {
+            } else if (this.world.keyboard.KEY_RIGHT && !this.world.gameIsOver || this.world.keyboard.KEY_LEFT && !this.world.gameIsOver) {
                 this.isWalkingSettings();
             } else {
                 this.isStandingSettings();

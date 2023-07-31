@@ -38,8 +38,8 @@ class World {
 
     checkGameOver() {
         if (this.noAmmunitionButEndboss()) {
-            gameOver('youLost');
             this.gameIsOver = true;
+            gameOver('youLost');
         }
     }
 
@@ -238,8 +238,9 @@ class World {
 
     handleCharacterEndbossCollision(endboss) {
         if (this.character.isColliding(endboss)) {
-            this.character.hit();
+            this.character.lives = 0;
             this.livesStatusBar.setPercentage(this.character.lives);
+            this.character.isDyingSettings();
         }
     }
 
@@ -379,12 +380,20 @@ class World {
                 this.setShot();
             }
         } else if (this.noBatteryNoEndboss()) {
-            setTimeout(() => {
-                gameOver('youWon');
-                this.gameIsOver = true;
-            }, 1000);
+            this.youWonTimeout();
             this.character.batteryAll = 10;
         }
+    }
+
+
+    youWonTimeout() {
+        setTimeout(() => {
+            this.gameIsOver = true;
+            if (this.character.running_sound) {
+                this.character.pauseAudios();
+            }
+            gameOver('youWon');
+        }, 500);
     }
 
 
