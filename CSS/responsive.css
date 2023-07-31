@@ -254,7 +254,7 @@
     }
 }
 
-@media screen and (orientation: portrait) {
+@media screen and (max-width: 650px) {
 
     #startScreen {
         display: none !important;

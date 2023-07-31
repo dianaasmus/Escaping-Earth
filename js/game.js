@@ -5,6 +5,7 @@ let music = new Audio('audio/background-music-trimm.mp3');
 music.volume = 0.25;
 music.loop = true;
 let startBtnPressed = false;
+let referAudio = false;
 
 
 window.addEventListener('load', function () {
@@ -15,6 +16,68 @@ window.addEventListener('load', function () {
 
 function init() {
     setMobileDisplay();
+    addReferContainer();
+    startTextEffect();
+}
+
+
+function writeText(textContainer, textToWrite, index, speed) {
+    if (index < textToWrite.length) {
+        textContainer.textContent += textToWrite.charAt(index);
+        index++;
+        setTimeout(function () {
+            writeText(textContainer, textToWrite, index, speed);
+        }, speed);
+    }
+}
+
+
+function startTextEffect() {
+    const textContainer = document.getElementById("referText");
+    const textToWrite = "Click here for the game description and game instructions.";
+    const speed = 50;
+    let index = 0;
+
+    writeText(textContainer, textToWrite, index, speed);
+}
+
+
+function addReferContainer() {
+    document.body.innerHTML += `
+    <div id="referContainer" onclick="next()">
+        <div id="referText"></div>
+        <img src="img/start-screen/refer-arrow.png" id="referArrow">
+    </div>
+    `;
+}
+
+
+function next() {
+    if (referAudio == false) {
+        addReferTextAudio();
+    } else {
+        document.getElementById('referContainer').classList.add('d-none');
+    }
+}
+
+
+function addReferTextAudio() {
+    referAudio = true;
+
+    const textContainer = document.getElementById("referText");
+    textContainer.innerHTML = '';
+    const textToWrite = "Click here to turn the background music on or off.";
+    const speed = 50;
+    let index = 0;
+
+    styleReferContainer(textContainer);
+    writeText(textContainer, textToWrite, index, speed);
+}
+
+
+function styleReferContainer(textContainer) {
+    textContainer.classList.add('referTextAudio');
+    document.getElementById('referArrow').classList.add('refer-arrow-Audio');
 }
 
 

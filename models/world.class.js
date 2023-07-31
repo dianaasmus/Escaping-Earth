@@ -38,7 +38,7 @@ class World {
 
     checkGameOver() {
         if (this.noAmmunitionButEndboss()) {
-            this.gameOver('youLost');
+            gameOver('youLost');
             this.gameIsOver = true;
         }
     }
