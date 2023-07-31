@@ -215,7 +215,7 @@ html::-webkit-scrollbar {
     gap: 20px;
 }
 
-#info-icon {
+#infoIcon {
     background-image: url(../img/start-screen/info-icon.png);
     background-size: 37px;
     background-repeat: no-repeat;
@@ -227,7 +227,7 @@ html::-webkit-scrollbar {
     z-index: 11;
 }
 
-#audio-icon {
+#audioIcon {
     background-image: url(../img/start-screen/remove-audio.png);
     background-repeat: no-repeat;
     height: 40px;
@@ -238,8 +238,8 @@ html::-webkit-scrollbar {
     cursor: pointer;
 }
 
-#info-icon:hover,
-#audio-icon:hover,
+#infoIcon:hover,
+#audioIcon:hover,
 #fullscreenIcon:hover {
     transform: scale(1.1);
 }

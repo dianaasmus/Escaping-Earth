@@ -27,7 +27,7 @@ class Endboss extends MovableObject {
         super();
         this.id = id;
         this.loadImage(this.IMAGES_WALKING[0]);
-        this.x = 2860 - 300 * Math.random();
+        this.x = 3760 - 300 * Math.random(); //2860
         this.speed = 8 + Math.random() * 15;
         this.loadImages(this.IMAGES_WALKING);
     }

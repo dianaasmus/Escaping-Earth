@@ -13,7 +13,7 @@ class World {
     collectableObject = new CollectableObject();
     movableObject = new MovableObject();
     background_music = new Audio('audio/music.mp3');
-    hasPassed1500 = false;
+    hasPassed2900 = false;
     intervalIDs = [];
     gameIsOver = false;
 
@@ -437,8 +437,8 @@ class World {
 
 
     checkCharacter() {
-        if (this.character.x >= 1500 && !this.hasPassed1500) {
-            this.hasPassed1500 = true;
+        if (this.character.x >= 2900 && !this.hasPassed2900) {
+            this.hasPassed2900 = true;
             this.level.endboss.forEach((endboss) => {
                 endboss.animate();
             });

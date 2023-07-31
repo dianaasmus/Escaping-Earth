@@ -23,10 +23,12 @@ function init() {
 }
 
 
-function writeText(textContainer, textToWrite, index, speed) {
+function writeText(textContainer, textToWrite, index) {
+    const speed = 25;
     if (index < textToWrite.length) {
         textContainer.textContent += textToWrite.charAt(index);
         index++;
+
         setTimeout(function () {
             writeText(textContainer, textToWrite, index, speed);
         }, speed);
@@ -37,10 +39,9 @@ function writeText(textContainer, textToWrite, index, speed) {
 function startTextEffect() {
     const textContainer = document.getElementById("referText");
     const textToWrite = "Click here for the game description and game instructions.";
-    const speed = 90;
     let index = 0;
 
-    writeText(textContainer, textToWrite, index, speed);
+    writeText(textContainer, textToWrite, index);
 }
 
 
@@ -69,11 +70,10 @@ function addReferTextAudio() {
     const textContainer = document.getElementById("referText");
     textContainer.innerHTML = '';
     const textToWrite = "Click here to turn the background music on or off.";
-    const speed = 90;
     let index = 0;
 
     styleReferContainer(textContainer);
-    writeText(textContainer, textToWrite, index, speed);
+    writeText(textContainer, textToWrite, index);
 }
 
 
@@ -217,7 +217,7 @@ function createGameInfo() {
 
 
 function toggleAudio() {
-    let audioIcon = document.getElementById('audio-icon');
+    let audioIcon = document.getElementById('audioIcon');
     if (audioIsPlaying(audioIcon)) {
         audioIcon.style.backgroundImage = "url('img/start-screen/remove-audio.png')";
         music.pause();
@@ -333,15 +333,15 @@ function fullscreen() {
 
 function removeFullscreenSettings() {
     exitFullscreen();
-    showElement(document.getElementById('info-icon'));
-    showElement(document.getElementById('audio-icon'));
+    showElement(document.getElementById('infoIcon'));
+    showElement(document.getElementById('audioIcon'));
 }
 
 
 function addFullscreenSettings(fullscreenElement) {
     enterFullscreen(fullscreenElement);
-    hideElement(document.getElementById('info-icon'));
-    hideElement(document.getElementById('audio-icon'));
+    hideElement(document.getElementById('infoIcon'));
+    hideElement(document.getElementById('audioIcon'));
 }
 
 
@@ -401,6 +401,8 @@ function checkFullscreen() {
 
 function gameOver(result) {
     if (!document.getElementById('gameOver')) {
+        document.getElementById('infoIcon').disabled = true;
+        document.getElementById('audioIcon').disabled = true;
         addGameOverContainer();
         displayElements();
         displayResult(result);
