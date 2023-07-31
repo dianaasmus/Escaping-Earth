@@ -3,6 +3,7 @@ class Keyboard {
     KEY_RIGHT = false;
     KEY_UP = false;
     KEY_TAB = false;
+    world;
 
 
     constructor() {
@@ -10,7 +11,7 @@ class Keyboard {
         this.isKeyUp();
     }
 
-    
+
     isKeyDown() {
         window.addEventListener("keydown", (e) => {
             if (e.keyCode == 39) {
@@ -45,7 +46,7 @@ class Keyboard {
             }
         });
     }
-    
+
 
     bindBtnsPressEvents() {
         this.jumpBtn();

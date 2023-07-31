@@ -16,8 +16,10 @@ window.addEventListener('load', function () {
 
 function init() {
     setMobileDisplay();
-    addReferContainer();
-    startTextEffect();
+    if (document.getElementById('circle').style.display = 'none') {
+        addReferContainer();
+        startTextEffect();
+    }
 }
 
 

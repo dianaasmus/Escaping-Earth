@@ -79,7 +79,6 @@ class Character extends MovableObject {
         this.LoadingImages();
         this.applyGravity();
         this.animate();
-
     }
 
 
@@ -96,8 +95,8 @@ class Character extends MovableObject {
 
     animate() {
         this.addAudioSettings();
-        this.setStoppableInterval(this.addAudios, 1000 / 60);
         this.setStoppableInterval(this.addAnimations, 100);
+        this.setStoppableInterval(this.addAudios, 1000 / 60);
     }
 
 
@@ -106,16 +105,16 @@ class Character extends MovableObject {
             if (!this.world.keyboard.KEY_RIGHT && !this.world.keyboard.KEY_LEFT) {
                 this.pauseAudios();
             }
-            if (this.world.keyboard.KEY_RIGHT && this.x < this.world.level.level_end_x) {
+            if (this.world.keyboard.KEY_RIGHT && this.x < this.world.level.level_end_x && !this.world.gameIsOver) {
                 this.moveRightAndAudio();
             }
-            if (this.world.keyboard.KEY_LEFT && this.x > 125) {
+            if (this.world.keyboard.KEY_LEFT && this.x > 125 && !this.world.gameIsOver) {
                 this.moveLeftAndAudio();
             }
-            if (this.world.keyboard.KEY_TAB) {
+            if (this.world.keyboard.KEY_TAB && !this.world.gameIsOver) {
                 this.shootAudio();
             }
-            if (this.world.keyboard.KEY_UP) {
+            if (this.world.keyboard.KEY_UP && !this.world.gameIsOver) {
                 this.jumpAudio();
             }
             this.world.camera_x = -this.x + 122;
@@ -183,19 +182,24 @@ class Character extends MovableObject {
         if (this.noPauseNoGameOver()) {
             if (this.isDead()) {
                 this.isDyingSettings();
-            } else if (this.isHurt()) {
+            } else if (this.isHurt() && !this.world.gameIsOver) {
                 this.isHurtingSettings();
-            } else if (this.isAboveGround()) {
+            } else if (this.isAboveGround() && !this.world.gameIsOver) {
                 this.isJumpingSettings();
-            } else if (this.world.keyboard.KEY_RIGHT || this.world.keyboard.KEY_LEFT) {
+            } else if (this.keyLeftOrRightAndNotDead()) {
                 this.isWalkingSettings();
             } else {
                 this.isStandingSettings();
             }
-            if (this.world.keyboard.KEY_UP && !this.isAboveGround()) {
+            if (this.world.keyboard.KEY_UP && !this.isAboveGround() && !this.world.gameIsOver) {
                 this.speedY = 40;
             }
         }
+    }
+
+
+    keyLeftOrRightAndNotDead() {
+        return this.world.keyboard.KEY_RIGHT && !this.world.gameIsOver || this.world.keyboard.KEY_LEFT && !this.world.gameIsOver;
     }
 
 
@@ -213,6 +217,7 @@ class Character extends MovableObject {
         if (this.state !== 'DYING') {
             this.state = 'DYING';
             this.currentImage = 0;
+            this.world.gameIsOver = true;
             setTimeout(() => {
                 gameOver('youLost');
             }, 1000);

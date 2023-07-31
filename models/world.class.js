@@ -77,7 +77,7 @@ class World {
         innerArrayCounter++;
 
         if (innerArrayCounter >= background.length) {
-            innerArrayCounter = 0; 
+            innerArrayCounter = 0;
         }
 
         this.backgroundObjects.push(new BackgroundObject(building, position));
@@ -87,6 +87,7 @@ class World {
 
     setWorld() {
         this.character.world = this;
+        this.keyboard.world = this;
     }
 
 
@@ -379,7 +380,8 @@ class World {
             }
         } else if (this.noBatteryNoEndboss()) {
             setTimeout(() => {
-                gameOver('youWon')
+                gameOver('youWon');
+                this.gameIsOver = true;
             }, 1000);
             this.character.batteryAll = 10;
         }
@@ -396,7 +398,7 @@ class World {
 
 
     setShot() {
-        if (this.character.noPauseNoGameOver()) {
+        if (this.character.noPauseNoGameOver() && !this.gameIsOver) {
             if (this.character.otherDirection) {
                 let shootStart = this.character.x - 50;
                 this.createShot(shootStart);
