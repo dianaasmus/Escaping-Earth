@@ -6,6 +6,7 @@ class DrawableObject {
     intervalIDs = [];
     otherDirection = false;
 
+    
     offset = {
         top: 10,
         right: 20,

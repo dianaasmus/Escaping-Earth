@@ -121,9 +121,9 @@ class World {
     setWorld() {
         this.character.world = this;
         this.keyboard.world = this;
-        this.backgroundObjects.forEach(background => {
-            background.world = this;
-        });
+        // this.backgroundObjects.forEach(background => {
+        //     background.world = this;
+        // });
     }
 
 
@@ -317,47 +317,6 @@ class World {
             });
         }
     }
-
-
-
-
-
-    /**
-     * Handles killing an enemy, updating its state to "dead" and removing it after a delay.
-     */
-    killZombie() {
-        const collidedObjectIndex = this.level.enemies.findIndex((enemy) => {
-            return this.character.isColliding(enemy);
-        });
-        this.level.enemies[collidedObjectIndex].showDeadEnemy();
-        this.spliceEnemy(collidedObjectIndex);
-    }
-
-
-    /**
-     * Splices the dead enemy from the enemies array and removes it from the world after a delay.
-     * @param {number} collidedObjectIndex - The index of the collided enemy.
-     */
-    spliceEnemy(collidedObjectIndex) {
-        const deadEnemies = [this.level.enemies[collidedObjectIndex]];
-
-        setTimeout(() => {
-            this.removeDeadEnemies(deadEnemies);
-        }, 1000);
-    }
-
-
-    /**
-     * Removes dead enemies from the world's enemies array.
-     * @param {Array} deadEnemies - An array of dead enemies to be removed.
-     */
-    removeDeadEnemies(deadEnemies) {
-        this.level.enemies = this.level.enemies.filter(enemy => !deadEnemies.includes(enemy));
-    }
-
-
-
-    
 
 
     /**

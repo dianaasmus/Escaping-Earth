@@ -188,13 +188,47 @@ class MovableObject extends DrawableObject {
             if (this.isColliding(enemy)) {
                 if (this.isAboveGround() && this.y == 250) {
                     this.crushing_zombie_sound.play();
-                    this.world.killZombie(enemy);
+                    this.killZombie(enemy);
                 } else if (!enemy.isDead) {
                     this.hit();
                 }
                 this.world.livesStatusBar.setPercentage(this.lives);
             }
         });
+    }
+
+
+    /**
+     * Handles killing an enemy, updating its state to "dead" and removing it after a delay.
+     */
+    killZombie() {
+        const collidedObjectIndex = this.world.level.enemies.findIndex((enemy) => {
+            return this.isColliding(enemy);
+        });
+        this.world.level.enemies[collidedObjectIndex].showDeadEnemy();
+        this.spliceEnemy(collidedObjectIndex);
+    }
+
+
+    /**
+     * Splices the dead enemy from the enemies array and removes it from the world after a delay.
+     * @param {number} collidedObjectIndex - The index of the collided enemy.
+     */
+    spliceEnemy(collidedObjectIndex) {
+        const deadEnemies = [this.world.level.enemies[collidedObjectIndex]];
+
+        setTimeout(() => {
+            this.removeDeadEnemies(deadEnemies);
+        }, 1000);
+    }
+
+
+    /**
+     * Removes dead enemies from the world's enemies array.
+     * @param {Array} deadEnemies - An array of dead enemies to be removed.
+     */
+    removeDeadEnemies(deadEnemies) {
+        this.world.level.enemies = this.world.level.enemies.filter(enemy => !deadEnemies.includes(enemy));
     }
 
 
@@ -311,6 +345,11 @@ class MovableObject extends DrawableObject {
     }
 
 
+    /**
+     * Checks the battery for an endboss and reduces its health. If the endboss health reaches zero, removes the endboss from the world.
+     * @param {string} battery - The name of the battery property associated with the endboss.
+     * @param {number} endbossIndex - The index of the endboss that was hit.
+     */
     checkbattery(battery, endbossIndex) {
         if (!battery) {
             return;
@@ -351,7 +390,7 @@ class MovableObject extends DrawableObject {
             this.world.level.endboss.splice(endbossIndex, 1);
         }
     }
-    
+
 
     /**
      * Sets the shot if certain conditions are met.
