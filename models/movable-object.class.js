@@ -15,11 +15,18 @@ class MovableObject extends DrawableObject {
     batteryAll = 10;
 
 
+    /**
+     * Checks if the game is paused and the game-over window is not displayed.
+     * @returns {boolean} True if the game is not paused and the game-over window is not displayed, otherwise False.
+     */
     noPauseNoGameOver() {
         return !document.getElementById('innerInfoContainer') && !document.getElementById('gameOver');
     }
 
 
+    /**
+     * Moves the object to the right if the game is not paused and the game-over window is not displayed.
+     */
     moveRight() {
         if (this.noPauseNoGameOver()) {
             this.x += this.speed;
@@ -27,6 +34,9 @@ class MovableObject extends DrawableObject {
     }
 
 
+    /**
+     * Moves the object to the left if the game is not paused and the game-over window is not displayed.
+     */
     moveLeft() {
         if (!document.getElementById('innerInfoContainer') && !document.getElementById('gameOver')) {
             this.x -= this.speed;
@@ -34,6 +44,11 @@ class MovableObject extends DrawableObject {
     }
 
 
+    /**
+     * Checks if this movable object is colliding with another movable object.
+     * @param {MovableObject} movableObject - The other movable object to check for collision with.
+     * @returns {boolean} True if a collision is happening, otherwise False.
+     */
     isColliding(movableObject) {
         return (
             this.x + this.width - this.offset.right > movableObject.x + movableObject.offset.left &&
@@ -44,6 +59,10 @@ class MovableObject extends DrawableObject {
     }
 
 
+    /**
+     * Plays the animation of the movable object based on the given images.
+     * @param {string[]} images - An array of image paths to be used for the animation.
+     */
     playAnimation(images) {
         let i = this.currentImage % images.length;
         let path = images[i];
@@ -52,12 +71,18 @@ class MovableObject extends DrawableObject {
     }
 
 
+    /**
+     * Applies gravity to the movable object, causing it to fall.
+     */
     applyGravity() {
         this.y = 220;
         this.setStoppableInterval(this.gravity, 1000 / 25);
     }
 
 
+    /**
+     * Calculates the gravity of the movable object and updates its vertical position.
+     */
     gravity() {
         if (this.isAboveGround() || this.speedY > 0) {
             this.y -= this.speedY;
@@ -66,11 +91,18 @@ class MovableObject extends DrawableObject {
     }
 
 
+    /**
+     * Checks if the movable object is above the ground.
+     * @returns {boolean} True if the movable object is above the ground, otherwise False.
+     */
     isAboveGround() {
         return this.y < 320;
     }
 
 
+    /**
+     * Reduces the lives of the movable object after being hit.
+     */
     hit() {
         this.lives -= 1;
         if (this.lives < 0) {
@@ -81,6 +113,10 @@ class MovableObject extends DrawableObject {
     }
 
 
+    /**
+     * Performs an action when the movable object is hit by another object.
+     * @param {string} action - The action to be performed (e.g., 'collectAmmunition', 'hitEndboss', 'collectLives', 'hitEnemy').
+     */
     hittedObject(action) {
         switch (action) {
             case 'collectAmmunition':
@@ -99,24 +135,45 @@ class MovableObject extends DrawableObject {
     }
 
 
+    /**
+     * Increments a specific property of the movable object and limits the value between a minimum and a maximum.
+     * @param {string} property - The name of the property to be incremented.
+     * @param {number} increment - The increment value.
+     * @param {number} min - The minimum value the property can have.
+     * @param {number} max - The maximum value the property can have.
+     */
     incrementProperty(property, increment, min, max) {
         this[property] += increment;
         this[property] = Math.min(Math.max(this[property], min), max);
     }
 
 
+    /**
+     * Decrements a specific property of the movable object and limits the value to a minimum.
+     * @param {string} property - The name of the property to be decremented.
+     * @param {number} decrement - The decrement value.
+     * @param {number} min - The minimum value the property can have.
+     */
     decrementProperty(property, decrement, min) {
         this[property] -= decrement;
         this[property] = Math.max(this[property], min);
     }
 
 
+    /**
+     * Checks if the movable object is dead (has no lives left).
+     * @returns {boolean} True if the movable object is dead, otherwise False.
+     */
     isDead() {
         return this.lives == 0;
     }
 
 
-    isHurt() { 
+    /**
+     * Checks if the movable object is hurt (if it was hit in the last 1 second).
+     * @returns {boolean} True if the movable object is hurt, otherwise False.
+     */
+    isHurt() {
         let timepassed = new Date().getTime() - this.lastHit;
         timepassed = timepassed / 1000;
         return timepassed < 1;

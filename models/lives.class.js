@@ -13,7 +13,11 @@ class Lives extends CollectableObject {
         color: 'transparent' 
     }
 
-    
+  
+    /**
+     * Lives class constructor.
+     * Loads the image for the lives object, sets the random X position and starts the animation.
+     */
     constructor() {
         super().loadImage('img/lives/14.png');
         this.x = 200 + Math.random() * 2060;
@@ -21,6 +25,9 @@ class Lives extends CollectableObject {
     }
 
 
+    /**
+     * Animates the vertical movement of the life object.
+     */
     floatingObject() {  
         this.y += this.shift;
         if (this.y <= this.minY || this.y >= this.maxY) {

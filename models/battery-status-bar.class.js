@@ -12,6 +12,10 @@ class BatteryStatusBar extends DrawableObject {
     ];
 
 
+    /**
+     * Constructor of the BatteryStatusBar class.
+     * Initializes the battery status bar with default values.
+     */
     constructor() {
         super();
         this.loadImages(this.IMAGES_BATTERY);
@@ -23,6 +27,11 @@ class BatteryStatusBar extends DrawableObject {
     }
 
 
+    /**
+     * Sets the percentage for the battery status bar.
+     * Updates the displayed image based on the percentage.
+     * @param {number} percentage - The new percentage for the battery.
+     */
     setPercentage(percentage) {
         this.percentage = percentage;
         let path = this.IMAGES_BATTERY[this.resolveImageIndex()];

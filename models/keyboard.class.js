@@ -6,12 +6,20 @@ class Keyboard {
     world;
 
 
+    /**
+     * Constructor of the Keyboard class.
+     * Initializes the keyboard controls and binds the event listeners for keyboard and touch events.
+     */
     constructor() {
         this.isKeyDown();
         this.isKeyUp();
     }
 
 
+    /**
+     * Event listener for key presses.
+     * Sets the corresponding flags based on the pressed keys.
+     */
     isKeyDown() {
         window.addEventListener("keydown", (e) => {
             if (e.keyCode == 39) {
@@ -30,6 +38,10 @@ class Keyboard {
     }
 
 
+    /**
+     * Event listener for keys released.
+     * Resets the corresponding flags when the keys are released.
+     */
     isKeyUp() {
         window.addEventListener("keyup", (e) => {
             if (e.keyCode == 39) {
@@ -48,6 +60,9 @@ class Keyboard {
     }
 
 
+    /**
+     * Binds the event listeners for the button buttons in the game.
+     */
     bindBtnsPressEvents() {
         this.jumpBtn();
         this.shootBtn();
@@ -56,6 +71,10 @@ class Keyboard {
     }
 
 
+    /**
+     * Event listener for the jump button touch event.
+     * Sets the corresponding flag based on the button touch.
+     */
     jumpBtn() {
         document.getElementById('jumpBtn').addEventListener('touchstart', (e) => {
             e.preventDefault();
@@ -68,6 +87,10 @@ class Keyboard {
     }
 
 
+    /**
+     * Event listener for the shoot button touch event.
+     * Sets the corresponding flag based on the touch of the button.
+     */
     shootBtn() {
         document.getElementById('shootBtn').addEventListener('touchstart', (e) => {
             e.preventDefault();
@@ -80,6 +103,10 @@ class Keyboard {
     }
 
 
+    /**
+     * Event listener for the left button touch event.
+     * Sets the corresponding flag based on the touch of the button.
+     */
     leftBtn() {
         document.getElementById('leftBtn').addEventListener('touchstart', (e) => {
             e.preventDefault();
@@ -92,6 +119,10 @@ class Keyboard {
     }
 
 
+    /**
+     * Event listener for the right button touch event.
+     * Sets the corresponding flag based on the touch of the button.
+     */
     rightBtn() {
         document.getElementById('rightBtn').addEventListener('touchstart', (e) => {
             e.preventDefault();

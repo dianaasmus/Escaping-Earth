@@ -14,7 +14,6 @@ class RunningZombie extends MovableObject {
         color: 'transparent'
     }
 
-
     IMAGES_WALKING = [
         'img/enemies/zombieRun1.png',
         'img/enemies/zombieRun2.png',
@@ -25,7 +24,9 @@ class RunningZombie extends MovableObject {
         'img/enemies/zombieRun7.png',
     ];
 
-
+    /**
+     * Creates an instance of RunningZombie.
+     */
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
         this.x = 400 + Math.random() * 3260;
@@ -34,19 +35,26 @@ class RunningZombie extends MovableObject {
     }
 
 
+    /**
+     * Starts the zombie's animation.
+     */
     animate() {
         this.setStoppableInterval(this.moveLeftRunningZombie, 1000 / 60);
         this.setStoppableInterval(this.playAnimationRunningZombie, 100);
     }
 
-
+    /**
+     * Moves the zombie to the left as long as it is not dead.
+     */
     moveLeftRunningZombie() {
         if (!this.isDead) {
             this.moveLeft();
         }
     }
 
-
+    /**
+     * Plays the zombie animation as long as it is not dead.
+     */
     playAnimationRunningZombie() {
         if (!this.isDead) {
             this.playAnimation(this.IMAGES_WALKING);

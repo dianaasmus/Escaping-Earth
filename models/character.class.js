@@ -73,7 +73,10 @@ class Character extends MovableObject {
     collecting_lives_sound = new Audio('audio/collect.mp3');
     crushing_zombie_sound = new Audio('audio/crushing-zombie.mp3');
 
-
+    /**
+     * Constructor function for initializing the object with various settings.
+     * It calls functions to load images, apply gravity, and start animations.
+     */
     constructor() {
         super();
         this.LoadingImages();
@@ -82,6 +85,9 @@ class Character extends MovableObject {
     }
 
 
+    /**
+     * Loads images into the object by calling different 'loadImage' and 'loadImages' functions.
+     */
     LoadingImages() {
         this.loadImage('img/alien/standing.png');
         this.loadImages(this.IMAGES_WALKING);
@@ -93,6 +99,9 @@ class Character extends MovableObject {
     }
 
 
+    /**
+     * Initiates animations by adding audio settings and setting up stoppable intervals for animations and audios.
+     */
     animate() {
         this.addAudioSettings();
         this.setStoppableInterval(this.addAnimations, 100);
@@ -100,6 +109,10 @@ class Character extends MovableObject {
     }
 
 
+    /**
+     * Adds audio functionality for different game actions, such as movement, shooting, and jumping.
+     * Adjusts camera position based on the object's movement.
+     */
     addAudios() {
         if (this.noPauseNoGameOver()) {
             if (!this.world.keyboard.KEY_RIGHT && !this.world.keyboard.KEY_LEFT) {
@@ -121,7 +134,9 @@ class Character extends MovableObject {
         }
     }
 
-
+    /**
+     * Pause audio playback if any sound is playing.
+     */
     pauseAudios() {
         if (this.isSoundPlaying) {
             this.running_sound.pause();
@@ -130,6 +145,9 @@ class Character extends MovableObject {
     }
 
 
+    /**
+     * Move the object to the right and play the running sound if not already playing.
+     */
     moveRightAndAudio() {
         this.moveRight();
         this.otherDirection = false;
@@ -140,6 +158,9 @@ class Character extends MovableObject {
     }
 
 
+    /**
+     * Move the object to the left and play the running sound if not already playing.
+     */
     moveLeftAndAudio() {
         this.otherDirection = true;
         this.moveLeft();
@@ -150,6 +171,9 @@ class Character extends MovableObject {
     }
 
 
+    /**
+     * Play the shooting sound if not already playing and ammunition is available.
+     */
     shootAudio() {
         if (!this.isSoundPlaying && this.ammunition !== 0) {
             this.shooting_sound.play();
@@ -158,6 +182,9 @@ class Character extends MovableObject {
     }
 
 
+    /**
+     * Play the jumping sound if not already playing.
+     */
     jumpAudio() {
         if (!this.isSoundPlaying) {
             this.jumping_sound.play();
@@ -166,6 +193,9 @@ class Character extends MovableObject {
     }
 
 
+    /**
+     * Adds audio settings for various sounds and initializes settings for audio playback.
+     */
     addAudioSettings() {
         this.isSoundPlaying = false;
         this.running_sound.loop = true;
@@ -178,6 +208,9 @@ class Character extends MovableObject {
     }
 
 
+    /**
+     * Adds animations for the object based on its state and game conditions.
+     */
     addAnimations() {
         if (this.noPauseNoGameOver()) {
             if (this.isDead()) {
@@ -198,11 +231,20 @@ class Character extends MovableObject {
     }
 
 
+    /**
+     * Checks if the object is moving left or right and not in a dead state.
+     * @function
+     * @returns {boolean}
+     */
     keyLeftOrRightAndNotDead() {
         return this.world.keyboard.KEY_RIGHT && !this.world.gameIsOver || this.world.keyboard.KEY_LEFT && !this.world.gameIsOver;
     }
 
-
+    /**
+     * Sets the settings for the 'dying' state of the object, triggered upon death.
+     * Adjusts the object's height, width, and position, sets the 'DYING' state, and initiates the game over process.
+     * Plays the dying animation once.
+     */
     isDyingSettings() {
         this.height = 50;
         this.width = 70;
@@ -213,6 +255,10 @@ class Character extends MovableObject {
     }
 
 
+    /**
+     * Sets the game over state and schedules the game over screen after a delay.
+     * Executes only if the object is not already in the 'DYING' state.
+     */
     setGameOver() {
         if (this.state !== 'DYING') {
             this.state = 'DYING';
@@ -225,6 +271,10 @@ class Character extends MovableObject {
     }
 
 
+    /**
+     * Sets the settings for the 'standing' state of the object.
+     * Adjusts the object's width and height and plays the standing animation.
+     */
     isStandingSettings() {
         this.width = 50;
         this.height = 80;
@@ -232,6 +282,11 @@ class Character extends MovableObject {
     }
 
 
+    /**
+     * Sets the settings for the 'hurt' state of the object, triggered upon getting hurt.
+     * Executes only if the object is not already in the 'HURT' state.
+     * Adjusts the object's current image and plays the hurting animation once.
+     */
     isHurtingSettings() {
         if (this.state !== 'HURT') {
             this.state = 'HURT';
@@ -242,6 +297,11 @@ class Character extends MovableObject {
     }
 
 
+    /**
+     * Sets the settings for the 'jumping' state of the object, triggered upon jumping.
+     * Adjusts the object's width and sets the 'JUMPING' state if not already in that state.
+     * Initiates the jumping animation, playing it once.
+     */
     isJumpingSettings() {
         this.width = 50;
         if (this.state !== 'JUMPING') {
@@ -253,6 +313,10 @@ class Character extends MovableObject {
     }
 
 
+    /**
+     * Sets the settings for the 'walking' state of the object, triggered upon walking.
+     * Adjusts the object's width, sets the 'WALKING' state, and plays the walking animation.
+     */
     isWalkingSettings() {
         this.width = 40;
         this.state = 'WALKING';
@@ -260,6 +324,11 @@ class Character extends MovableObject {
     }
 
 
+    /**
+     * Plays the given animation images once if the current image count is less than or equal to the specified image length.
+     * @param {Array<string>} images - An array of image paths representing the animation frames.
+     * @param {number} imageLength - The length of the animation (number of frames).
+     */
     playOnce(images, imageLength) {
         if (this.currentImage <= imageLength) {
             this.playAnimation(images);

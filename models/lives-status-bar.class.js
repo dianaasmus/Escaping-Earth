@@ -12,6 +12,10 @@ class LivesStatusBar extends DrawableObject {
     ];
 
 
+    /**
+     * Constructor of the LivesStatusBar class.
+     * Loads the images for the lives display and adds the dimensions.
+     */
     constructor() {
         super();
         this.loadImages(this.IMAGES_LIVES);
@@ -20,6 +24,10 @@ class LivesStatusBar extends DrawableObject {
     }
 
 
+    /**
+     * Adds the dimensions of the life display.
+     * The position, width and height are set.
+     */
     addDimensions() {
         this.x = 30;
         this.y = 30;
@@ -28,6 +36,10 @@ class LivesStatusBar extends DrawableObject {
     }
 
 
+    /**
+     * Sets the percentage of the life indicator.
+     * @param {number} percentage - The percentage of the life indicator.
+     */
     setPercentage(percentage) {
         this.percentage = percentage;
         let path = this.IMAGES_LIVES[this.resolveImageIndex()];

@@ -7,15 +7,23 @@ class Ammunition extends CollectableObject {
     maxY = this.y + 10;
 
 
+    /**
+     * The offset values for collision detection of the ammunition object.
+     * @type {{top: number, right: number, bottom: number, left: number, color: string}}
+     */
     offset = {
-        top : 15,
-        right : 15,
+        top: 15,
+        right: 15,
         bottom: 15,
         left: 15,
         color: 'transparent'
     }
 
 
+    /**
+     * Constructs an instance of Ammunition.
+     * Initializes the ammunition object with default values and behavior.
+     */
     constructor() {
         super().loadImage('img/ammunition/13.png');
         this.x = 200 + Math.random() * 2060;
@@ -23,6 +31,10 @@ class Ammunition extends CollectableObject {
     }
 
 
+    /**
+     * Floats the ammunition object up and down by updating its y-coordinate.
+     * Changes the floating direction when the object reaches the minY or maxY values.
+     */
     floatingObject() {
         this.y += this.shift;
         if (this.objectIsInRange()) {
@@ -30,7 +42,11 @@ class Ammunition extends CollectableObject {
         }
     }
 
-    
+
+    /**
+     * Checks if the ammunition object's y-coordinate is within the minY and maxY range.
+     * @returns {boolean} - True if the object is within the range, otherwise false.
+     */
     objectIsInRange() {
         return this.y <= this.minY || this.y >= this.maxY;
     }

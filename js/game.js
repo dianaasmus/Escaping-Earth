@@ -6,36 +6,46 @@ music.volume = 0.25;
 music.loop = true;
 let startBtnPressed = false;
 let referAudio = false;
+let introduction = false;
 
 
+/**
+ * Adds an event listener to the window's load event and hides the loading screen.
+ */
 window.addEventListener('load', function () {
     let loadingScreen = document.getElementById('circle');
     loadingScreen.style.display = 'none';
 });
 
 
+/**
+ * Initializes the application.
+ * Sets the mobile display and conditionally adds the refer container and starts the text effect.
+ */
 function init() {
     setMobileDisplay();
-    if (document.getElementById('circle').style.display = 'none') {
+    value = localStorage.getItem('introduction');
+    firstIntroduction();
+}
+
+
+/**
+ * Performs the first introduction process based on specific conditions.
+ * This function sets a flag in local storage to indicate that the introduction has been completed.
+ */
+function firstIntroduction() {
+    if (document.getElementById('circle').style.display = 'none' && !value) {
+        localStorage.setItem('introduction', JSON.stringify('true'));
+        introduction = true;
         addReferContainer();
         startTextEffect();
     }
 }
 
 
-function writeText(textContainer, textToWrite, index) {
-    const speed = 25;
-    if (index < textToWrite.length) {
-        textContainer.textContent += textToWrite.charAt(index);
-        index++;
-
-        setTimeout(function () {
-            writeText(textContainer, textToWrite, index, speed);
-        }, speed);
-    }
-}
-
-
+/**
+ * Starts the text effect by writing the predefined text in the designated container.
+ */
 function startTextEffect() {
     const textContainer = document.getElementById("referText");
     const textToWrite = "Click here for the game description and game instructions.";
@@ -45,16 +55,11 @@ function startTextEffect() {
 }
 
 
-function addReferContainer() {
-    document.body.innerHTML += `
-    <div id="referContainer" onclick="next()">
-        <div id="referText"></div>
-        <img src="img/start-screen/refer-arrow.png" id="referArrow">
-    </div>
-    `;
-}
-
-
+/**
+ * Handles the next action based on the state of the referAudio variable.
+ * If referAudio is false, it calls the addReferTextAudio() function.
+ * Otherwise, it hides the referContainer element.
+ */
 function next() {
     if (referAudio == false) {
         addReferTextAudio();
@@ -64,6 +69,9 @@ function next() {
 }
 
 
+/**
+ * Sets referAudio to true and initiates the process of adding refer text audio to the refer container.
+ */
 function addReferTextAudio() {
     referAudio = true;
 
@@ -77,12 +85,9 @@ function addReferTextAudio() {
 }
 
 
-function styleReferContainer(textContainer) {
-    textContainer.classList.add('referTextAudio');
-    document.getElementById('referArrow').classList.add('refer-arrow-Audio');
-}
-
-
+/**
+ * Initiates the start of the game by performing necessary actions such as loading the game elements and setting up the game.
+ */
 function startBtn() {
     addLoadingCircle();
     startBtn.disabled = true;
@@ -94,24 +99,27 @@ function startBtn() {
 }
 
 
-function addLoadingCircle() {
-    document.getElementById('circle').style.display = "flex";
-    document.getElementById('circle').classList.add('canvas-circle');
-}
-
-
+/**
+ * Initializes the game by calling functions to set up the game level and starting the game.
+ */
 function initGame() {
     initLevel();
     startGame();
 }
 
 
+/**
+ * Hides specific elements from the view.
+ */
 function hideElements() {
     hideElement(document.getElementById('start-img'));
     hideElement(document.getElementById('startBtn'));
 }
 
 
+/**
+ * Starts the game by creating a new instance of the World class and removing the loading circle from the view.
+ */
 function startGame() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
@@ -119,21 +127,9 @@ function startGame() {
 }
 
 
-function removeLoadingCircle() {
-    setTimeout(() => {
-        document.getElementById('circle').style.display = "none";
-    }, 1000);
-}
-
-
-function removeAnimation() {
-    setTimeout(() => {
-        headline.classList.remove('animation');
-        headline.classList.add('headline-2');
-    }, 500);
-}
-
-
+/**
+ * Toggles the display of the inner info container based on its current state.
+ */
 function toggleInfo() {
     const startBtn = document.getElementById('startBtn');
     const innerInfoContainer = document.getElementById("innerInfoContainer");
@@ -148,6 +144,12 @@ function toggleInfo() {
 }
 
 
+/**
+ * Removes the inner info container and updates the view accordingly.
+ * @param {HTMLElement} innerInfoContainer - The inner info container element to remove.
+ * @param {HTMLElement} startBtn - The start button element.
+ * @param {HTMLElement} gameBtns - The game buttons element.
+ */
 function removeInnerInfoContainer(innerInfoContainer, startBtn, gameBtns) {
     innerInfoContainer.remove();
 
@@ -159,6 +161,12 @@ function removeInnerInfoContainer(innerInfoContainer, startBtn, gameBtns) {
 }
 
 
+/**
+ * Adds the inner info container and updates the view accordingly.
+ * @param {HTMLElement} startBtn - The start button element.
+ * @param {HTMLElement} infoContainer - The main info container element.
+ * @param {HTMLElement} gameBtns - The game buttons element.
+ */
 function addInnerInfoContainer(startBtn, infoContainer, gameBtns) {
     startBtn.classList.add('d-none');
     infoContainer.innerHTML += createGameInfo();
@@ -173,49 +181,9 @@ function addInnerInfoContainer(startBtn, infoContainer, gameBtns) {
 }
 
 
-function createGameInfo() {
-    return `
-    <div id="innerInfoContainer">
-        <p id="pause" class="d-none">- pause - </p>
-        <div id="info-content">
-            <div id="gameSettings" class="d-none">
-                <div class="column">                
-                    <div class="align">
-                        <img src="img/start-screen/arrow.png" class="key-icons">
-                        <p>JUMP</p>
-                    </div>
-                    <div class="align">
-                        <img src="img/start-screen/arrow-left.png" class="key-icons">
-                        <p>LEFT</p>
-                    </div>
-                    <div class="align">
-                        <img src="img/start-screen/arrow-right.png" class="key-icons">
-                        <p>RIGHT</p>
-                    </div>
-                    <div class="align">
-                        <div class="key-icon"></div>
-                        <p>SHOOT</p>
-                    </div>
-                </div>
-                <div class="column">
-                    <div class="align">
-                        <img src="img/lives/14.png" class="collect-icons">
-                        <p>LIVES</p>
-                    </div>
-                    <div class="align">
-                        <img src="img/ammunition/13.png" class="collect-icons">
-                        <p>AMMUNITION</p>
-                    </div>
-                </div>
-            </div>
-                <p id="gameDescription">It is June 3245 when, suddenly, an extraterrestrial being crashes its UFO over Earth. Trapped in a world full of zombies and robots, 'June-3245' strives to fight for survival and escape from the planet. Help him defeat his enemies and reach his UFO.</p>
-        </div>
-            <img onclick="nextSite()" src="img/start-screen/arrow.png" id="arrow">
-    </div>
-`;
-}
-
-
+/**
+ * Toggles the background music on/off by pausing or playing the audio.
+ */
 function toggleAudio() {
     let audioIcon = document.getElementById('audioIcon');
     if (audioIsPlaying(audioIcon)) {
@@ -228,11 +196,9 @@ function toggleAudio() {
 }
 
 
-function audioIsPlaying(audioIcon) {
-    return audioIcon.style.backgroundImage.includes('img/start-screen/add-audio.png');
-}
-
-
+/**
+ * Switches between displaying game settings and the game description when the next arrow is clicked.
+ */
 function nextSite() {
     const gameSettings = document.getElementById("gameSettings");
     const gameDescription = document.getElementById('gameDescription');
@@ -246,11 +212,12 @@ function nextSite() {
 }
 
 
-function hidingGameSetting(gameSettings) {
-    return gameSettings.classList.contains('d-none');
-}
-
-
+/**
+ * Shows the game settings by removing the 'd-none' class and hides the game description.
+ * @param {HTMLElement} gameSettings - The game settings element.
+ * @param {HTMLElement} gameDescription - The game description element.
+ * @param {HTMLElement} arrow - The arrow element.
+ */
 function showGameSettings(gameSettings, gameDescription, arrow) {
     showElement(gameSettings);
     hideElement(gameDescription);
@@ -258,6 +225,12 @@ function showGameSettings(gameSettings, gameDescription, arrow) {
 }
 
 
+/**
+ * Shows the game description by removing the 'd-none' class and hides the game settings.
+ * @param {HTMLElement} gameSettings - The game settings element.
+ * @param {HTMLElement} gameDescription - The game description element.
+ * @param {HTMLElement} arrow - The arrow element.
+ */
 function showGameDescription(gameSettings, gameDescription, arrow) {
     hideElement(gameSettings);
     showElement(gameDescription);
@@ -265,22 +238,10 @@ function showGameDescription(gameSettings, gameDescription, arrow) {
 }
 
 
-function applyInfoContainerStyle() {
-    const infoContainer = document.getElementById("innerInfoContainer");
-    infoContainer.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
-}
 
-
-function showElement(element) {
-    element.classList.remove('d-none');
-}
-
-
-function hideElement(element) {
-    element.classList.add('d-none');
-}
-
-
+/**
+ * Starts the game again by resetting certain elements and initializing the game.
+ */
 function startAgain() {
     let headline = document.getElementById('headline');
     removeGameOver();
@@ -291,10 +252,14 @@ function startAgain() {
         startAgainMobil(headline);
     }
 
+    enableBtns();
     initGame();
 }
 
 
+/**
+ * Removes the game over animation and related elements when the game is over.
+ */
 function removeGameOver() {
     headline.classList.remove('game-over-animation');
     document.getElementById('gameOver').remove();
@@ -303,6 +268,9 @@ function removeGameOver() {
 }
 
 
+/**
+ * Starts the game again on desktop devices, handling different scenarios based on the device's height.
+ */
 function startAgainDesktop() {
     if (window.matchMedia("(max-height: 800px)").matches) {
         headline.classList.add('fadeout');
@@ -315,12 +283,18 @@ function startAgainDesktop() {
 }
 
 
+/**
+ * Starts the game again on mobile devices, hiding the headline with a fadeout effect.
+ */
 function startAgainMobil() {
     headline.classList.add('fadeout');
     hideElement(headline);
 }
 
 
+/**
+ * Toggles fullscreen mode for the game.
+ */
 function fullscreen() {
     const fullscreenElement = document.getElementById('fullscreen');
     if (isFullscreen()) {
@@ -331,6 +305,9 @@ function fullscreen() {
 }
 
 
+/**
+ * Removes fullscreen settings and exits fullscreen mode.
+ */
 function removeFullscreenSettings() {
     exitFullscreen();
     showElement(document.getElementById('infoIcon'));
@@ -338,6 +315,10 @@ function removeFullscreenSettings() {
 }
 
 
+/**
+ * Adds fullscreen settings and enters fullscreen mode.
+ * @param {HTMLElement} fullscreenElement - The element to be displayed in fullscreen mode.
+ */
 function addFullscreenSettings(fullscreenElement) {
     enterFullscreen(fullscreenElement);
     hideElement(document.getElementById('infoIcon'));
@@ -345,15 +326,10 @@ function addFullscreenSettings(fullscreenElement) {
 }
 
 
-function isFullscreen() {
-    return (
-        document.fullscreenElement ||
-        document.webkitFullscreenElement ||
-        document.msFullscreenElement
-    );
-}
-
-
+/**
+ * Enters fullscreen mode for the specified element.
+ * @param {HTMLElement} element - The element to be displayed in fullscreen mode.
+ */
 function enterFullscreen(element) {
     if (element.requestFullscreen) {
         element.requestFullscreen();
@@ -365,6 +341,9 @@ function enterFullscreen(element) {
 }
 
 
+/**
+ * Exits fullscreen mode.
+ */
 function exitFullscreen() {
     if (document.exitFullscreen) {
         document.exitFullscreen();
@@ -374,11 +353,9 @@ function exitFullscreen() {
 }
 
 
-function addGameOverContainer() {
-    document.getElementById('fullscreen').innerHTML += `<div id="gameOver"><button onclick="startAgain()" id="gameOverBtn">START AGAIN</button></div>`;
-}
-
-
+/**
+ * Displays specific elements after the game is over.
+ */
 function displayElements() {
     showElement(document.getElementById('headline'));
     hideElement(document.getElementById('overlay'));
@@ -389,16 +366,10 @@ function displayElements() {
 }
 
 
-function checkFullscreen() {
-    if (isFullscreen()) {
-        document.getElementById('headline').classList.add('gameOverFullscreen');
-        document.getElementById('gameOver').style.alignItems = "unset";
-    } else {
-        document.getElementById('headline').classList.add('game-over-animation');
-    }
-}
-
-
+/**
+ * Handles the game over event and displays the result based on the outcome.
+ * @param {string} result - The result of the game ('youLost' or 'youWon').
+ */
 function gameOver(result) {
     if (!document.getElementById('gameOver')) {
         document.getElementById('infoIcon').disabled = true;
@@ -410,20 +381,15 @@ function gameOver(result) {
 }
 
 
+/**
+ * Displays the appropriate result based on the outcome of the game.
+ * Calls the function for "youLost" or "youWon" scenario accordingly.
+ * @param {string} result - The result of the game ('youLost' or 'youWon').
+ */
 function displayResult(result) {
     if (result == 'youLost') {
         youLost();
     } else {
         youWon();
     }
-}
-
-
-function youLost() {
-    document.getElementById('headline').innerHTML = 'You Lost';
-}
-
-
-function youWon() {
-    document.getElementById('headline').innerHTML = 'YOU WON!';
 }

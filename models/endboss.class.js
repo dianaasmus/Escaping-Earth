@@ -3,15 +3,13 @@ class Endboss extends MovableObject {
     width = 120;
     y = 200;
 
-
     offset = {
-        top : 10,
-        right : 40,
+        top: 10,
+        right: 40,
         bottom: 10,
         left: 40,
         color: 'transparent'
     }
-
 
     IMAGES_WALKING = [
         'img/endboss/walk/walk-1.png',
@@ -22,22 +20,30 @@ class Endboss extends MovableObject {
         'img/endboss/walk/walk-6.png'
     ];
 
-
+    /**
+     * Constructor of the Endboss class.
+     * Initializes the end boss with the specified ID, position, speed, and images.
+     * @param {number} id - The ID of the end boss.
+     */
     constructor(id) {
         super();
         this.id = id;
         this.loadImage(this.IMAGES_WALKING[0]);
-        this.x = 3760 - 300 * Math.random(); //2860
+        this.x = 3760 - 300 * Math.random();
         this.speed = 8 + Math.random() * 15;
         this.loadImages(this.IMAGES_WALKING);
     }
 
-
+    /**
+     * Starts the animation of the end boss.
+     */
     animate() {
         this.setStoppableInterval(this.moveEndboss, 200);
     }
 
-    
+    /**
+     * Moves the end boss to the left and plays the walking animation.
+     */
     moveEndboss() {
         this.moveLeft();
         this.playAnimation(this.IMAGES_WALKING);
