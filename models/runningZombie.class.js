@@ -36,6 +36,18 @@ class RunningZombie extends MovableObject {
 
 
     /**
+     * Updates the enemy state to indicate that it is dead and shows its dead image.
+     */
+    showDeadEnemy() {
+        this.isDead = true;
+        this.height = 40;
+        this.width = 70;
+        this.y = 360;
+        this.loadImage('img/enemies/dead.png');
+    }
+
+
+    /**
      * Starts the zombie's animation.
      */
     animate() {

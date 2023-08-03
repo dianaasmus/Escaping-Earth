@@ -75,7 +75,6 @@ class Character extends MovableObject {
 
     /**
      * Constructor function for initializing the object with various settings.
-     * It calls functions to load images, apply gravity, and start animations.
      */
     constructor() {
         super();
@@ -111,7 +110,6 @@ class Character extends MovableObject {
 
     /**
      * Adds audio functionality for different game actions, such as movement, shooting, and jumping.
-     * Adjusts camera position based on the object's movement.
      */
     addAudios() {
         if (this.noPauseNoGameOver()) {
@@ -233,7 +231,6 @@ class Character extends MovableObject {
 
     /**
      * Checks if the object is moving left or right and not in a dead state.
-     * @function
      * @returns {boolean}
      */
     keyLeftOrRightAndNotDead() {
@@ -242,8 +239,6 @@ class Character extends MovableObject {
 
     /**
      * Sets the settings for the 'dying' state of the object, triggered upon death.
-     * Adjusts the object's height, width, and position, sets the 'DYING' state, and initiates the game over process.
-     * Plays the dying animation once.
      */
     isDyingSettings() {
         this.height = 50;
@@ -257,7 +252,6 @@ class Character extends MovableObject {
 
     /**
      * Sets the game over state and schedules the game over screen after a delay.
-     * Executes only if the object is not already in the 'DYING' state.
      */
     setGameOver() {
         if (this.state !== 'DYING') {
@@ -273,7 +267,6 @@ class Character extends MovableObject {
 
     /**
      * Sets the settings for the 'standing' state of the object.
-     * Adjusts the object's width and height and plays the standing animation.
      */
     isStandingSettings() {
         this.width = 50;
@@ -284,8 +277,6 @@ class Character extends MovableObject {
 
     /**
      * Sets the settings for the 'hurt' state of the object, triggered upon getting hurt.
-     * Executes only if the object is not already in the 'HURT' state.
-     * Adjusts the object's current image and plays the hurting animation once.
      */
     isHurtingSettings() {
         if (this.state !== 'HURT') {
@@ -299,8 +290,6 @@ class Character extends MovableObject {
 
     /**
      * Sets the settings for the 'jumping' state of the object, triggered upon jumping.
-     * Adjusts the object's width and sets the 'JUMPING' state if not already in that state.
-     * Initiates the jumping animation, playing it once.
      */
     isJumpingSettings() {
         this.width = 50;
@@ -315,7 +304,6 @@ class Character extends MovableObject {
 
     /**
      * Sets the settings for the 'walking' state of the object, triggered upon walking.
-     * Adjusts the object's width, sets the 'WALKING' state, and plays the walking animation.
      */
     isWalkingSettings() {
         this.width = 40;
@@ -332,6 +320,93 @@ class Character extends MovableObject {
     playOnce(images, imageLength) {
         if (this.currentImage <= imageLength) {
             this.playAnimation(images);
+        }
+    }
+
+
+    /**
+     * Handles character-endboss collision.
+     * @param {Endboss} endboss - The endboss object to check collision with.
+     */
+    handleCharacterEndbossCollision(endboss) {
+        if (this.isColliding(endboss)) {
+            this.lives = 0;
+            this.world.livesStatusBar.setPercentage(this.lives);
+            this.isDyingSettings();
+        }
+    }
+
+
+    /**
+     * Checks for collisions with ammunition objects in the world and performs actions accordingly.
+     */
+    isCollidingAmmunition() {
+        this.world.level.ammunition.forEach((ammunition) => {
+            if (this.isColliding(ammunition)) {
+                this.collecting_ammunition_sound.play();
+                this.hittedObject('collectAmmunition');
+                this.world.ammunitionStatusBar.setPercentage(this.ammunition);
+                this.getAmmunitionIndex(ammunition);
+            }
+        });
+    }
+
+
+    /**
+     * Gets the index of the collided ammunition object and removes it from the world.
+     */
+    getAmmunitionIndex() {
+        const collidedObjectIndex = this.world.level.ammunition.findIndex((ammunition) => {
+            return this.isColliding(ammunition);
+        });
+        this.removeAmmunition(collidedObjectIndex);
+    }
+
+
+    /**
+     * Removes the ammunition object from the world's ammunition array.
+     * @param {number} collidedObjectIndex - The index of the collided ammunition object.
+     */
+    removeAmmunition(collidedObjectIndex) {
+        if (collidedObjectIndex !== -1) {
+            this.world.level.ammunition.splice(collidedObjectIndex, 1);
+        }
+    }
+
+
+    /**
+     * Checks for collisions with lives objects in the world and performs actions accordingly.
+     */
+    isCollidingLives() {
+        this.world.level.lives.forEach((lives) => {
+            if (this.isColliding(lives)) {
+                this.collecting_lives_sound.play();
+                this.hittedObject('collectLives');
+                this.world.livesStatusBar.setPercentage(this.lives);
+                this.getLivesIndex(lives);
+            }
+        });
+    }
+
+
+    /**
+     * Gets the index of the collided lives object and removes it from the world.
+     */
+    getLivesIndex() {
+        const collidedObjectIndex = this.world.level.lives.findIndex((lives) => {
+            return this.isColliding(lives);
+        });
+        this.removeLives(collidedObjectIndex);
+    }
+
+
+    /**
+     * Removes the lives object from the world's lives array.
+     * @param {number} collidedObjectIndex - The index of the collided lives object.
+     */
+    removeLives(collidedObjectIndex) {
+        if (collidedObjectIndex !== -1) {
+            this.world.level.lives.splice(collidedObjectIndex, 1);
         }
     }
 }

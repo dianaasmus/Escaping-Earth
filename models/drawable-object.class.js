@@ -14,6 +14,7 @@ class DrawableObject {
         color: 'transparent'
     }
 
+
     /**
      * Loads an image from a given path.
      * @param {string} path - The file path of the image.
@@ -22,6 +23,7 @@ class DrawableObject {
         this.img = new Image();
         this.img.src = path;
     }
+
 
     /**
      * Loads a list of images from an array and stores them in the image cache.
@@ -35,6 +37,7 @@ class DrawableObject {
         });
     }
 
+
     /**
      * Checks if the object should be drawn with a frame based on the instance class.
      * @returns {boolean} - Returns true if the object should be drawn with a frame, otherwise false.
@@ -43,6 +46,7 @@ class DrawableObject {
         const allowedClasses = [Character, Zombie, RunningZombie, Endboss, Lives, Ammunition];
         return allowedClasses.some(cls => this instanceof cls);
     }
+
 
     /**
      * Draws the frame and offset of the object if necessary.
@@ -57,6 +61,7 @@ class DrawableObject {
         }
     }
 
+
     /**
      * Draws the offset frame of the object.
      * @param {CanvasRenderingContext2D} ctx - The 2D context of the canvas.
@@ -70,6 +75,7 @@ class DrawableObject {
         ctx.stroke();
     }
 
+
     /**
      * Draws a transparent frame around the object.
      * @param {CanvasRenderingContext2D} ctx - The 2D context of the canvas.
@@ -82,6 +88,7 @@ class DrawableObject {
         ctx.stroke();
     }
 
+
     /**
      * Draws the image of the object.
      * @param {CanvasRenderingContext2D} ctx - The 2D context of the canvas.
@@ -89,6 +96,7 @@ class DrawableObject {
     draw(ctx) {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
+
 
     /**
      * Calculates the image index based on the percentage and the array of images.
@@ -110,6 +118,7 @@ class DrawableObject {
         }
     }
 
+
     /**
      * Sets an interval that can be stopped.
      * @param {Function} fn - The function to be executed in the interval.
@@ -119,6 +128,7 @@ class DrawableObject {
         let id = setInterval(fn.bind(this), time);
         this.intervalIDs.push(id);
     }
+
 
     /**
      * Stops all intervals of the object.

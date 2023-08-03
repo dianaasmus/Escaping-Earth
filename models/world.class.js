@@ -121,6 +121,9 @@ class World {
     setWorld() {
         this.character.world = this;
         this.keyboard.world = this;
+        this.backgroundObjects.forEach(background => {
+            background.world = this;
+        });
     }
 
 
@@ -238,11 +241,11 @@ class World {
      * The main game loop that runs various collision checks and game states.
      */
     run() {
-        this.isCollidingEnemies();
-        this.isCollidingEndboss();
-        this.isCollidingLives();
-        this.isCollidingAmmunition();
-        this.isCollidingLaser();
+        this.character.isCollidingEnemies();
+        this.character.isCollidingEndboss();
+        this.character.isCollidingLives();
+        this.character.isCollidingAmmunition();
+        this.character.isCollidingLaser();
         this.checkShootObjects();
         this.checkCharacter();
         if (this.gameIsOver == false) {
@@ -252,231 +255,13 @@ class World {
 
 
     /**
-     * Checks for collisions between the character and enemies, handles the collisions accordingly, and updates the lives status bar.
+     * Checks if there is available ammunition and shoots when the "TAB" key is pressed.
+     * Otherwise, checks for game-winning conditions and triggers the victory condition if met.
      */
-    isCollidingEnemies() {
-        this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy)) {
-                if (this.character.isAboveGround() && this.character.y == 250) {
-                    this.character.crushing_zombie_sound.play();
-                    this.killZombie(enemy);
-                } else if (!enemy.isDead) {
-                    this.character.hit();
-                }
-                this.livesStatusBar.setPercentage(this.character.lives);
-            }
-        });
-    }
-
-
-    /**
-     * Checks for collisions between lasers (shooting objects) and enemies, and handles the collisions by removing the enemy and the laser.
-     */
-    isCollidingLaser() {
-        this.shootingObject.forEach((shot) => {
-            this.level.enemies.forEach((enemy) => {
-                if (shot.isColliding(enemy)) {
-                    this.handleCollision(shot, enemy);
-                }
-            });
-        });
-    }
-
-
-    /**
-     * Handles the collision between a laser and an enemy by removing both the enemy and the laser.
-     * @param {ShootingObject} shot - The laser (shooting object) colliding with the enemy.
-     * @param {Enemy} enemy - The enemy being hit by the laser.
-     */
-    handleCollision(shot, enemy) {
-        const enemyIndex = this.level.enemies.findIndex((e) => e === enemy);
-        const shotIndex = this.shootingObject.findIndex((s) => s === shot);
-        this.removeObject(this.level.enemies, enemyIndex);
-        this.removeObject(this.shootingObject, shotIndex);
-    }
-
-    // removeObject(object, enemy, objectId) {
-    //     if (objectId) {
-    //         // object.splice(objectId, 1);
-    //         enemyId = enemy.id === objectId;
-    //         object.splice(enemyId, 1);
-    //     }
-    // }
-
-    removeEnemyById(indexToRemove) {
-        // Suche den Index des Elements mit der 'idToRemove'
-
-        // Wenn das Element mit der 'idToRemove' gefunden wurde (Index ist nicht -1), entferne es mit splice
-        if (indexToRemove !== -1) {
-            this.level.enemies.splice(indexToRemove, 1);
-        }
-
-        return this.level.enemies;
-    }
-
-    isCollidingEndboss() {
-        this.level.endboss.forEach((endboss) => {
-            this.handleCharacterEndbossCollision(endboss);
-            this.isCollidingWithLaser(endboss);
-        });
-    }
-
-
-    handleCharacterEndbossCollision(endboss) {
-        if (this.character.isColliding(endboss)) {
-            this.character.lives = 0;
-            this.livesStatusBar.setPercentage(this.character.lives);
-            this.character.isDyingSettings();
-        }
-    }
-
-
-    isCollidingWithLaser(endboss) {
-        this.shootingObject.forEach((shot) => {
-            if (shot.isColliding(endboss)) {
-                this.handleCollisionEndboss(shot, endboss);
-            }
-        });
-    }
-
-
-    handleCollisionEndboss(shot, endboss) {
-        const endbossIndex = this.level.endboss.findIndex((e) => e === endboss);
-        const shotIndex = this.shootingObject.findIndex((s) => s === shot);
-        this.hitEndboss(endbossIndex);
-        this.removeObject(this.shootingObject, shotIndex);
-    }
-
-
-    hitEndboss(endbossIndex) {
-        const endboss = this.level.endboss[endbossIndex];
-        const battery = this.getBatteryForEndboss(endboss.id);
-
-        if (!battery) {
-            return;
-        }
-        this.character[battery] -= 1;
-        if (this.character[battery] === 0) {
-            this.removeEndboss(endbossIndex, endboss.id);
-        }
-
-        this.character.batteryAll -= 1;
-        this.batteryStatusBar.setPercentage(this.character.batteryAll);
-    }
-
-
-    getBatteryForEndboss(endbossId) {
-        switch (endbossId) {
-            case 1:
-                return 'batteryOne';
-            case 2:
-                return 'batteryTwo';
-            case 3:
-                return 'batteryThree';
-            default:
-                return null;
-        }
-    }
-
-
-    removeEndboss(endbossIndex) {
-        if (endbossIndex !== -1) {
-            this.level.endboss.splice(endbossIndex, 1);
-        }
-    }
-
-
-    killZombie() {
-        const collidedObjectIndex = this.level.enemies.findIndex((enemy) => {
-            return this.character.isColliding(enemy);
-        });
-        this.showDeadEnemy(collidedObjectIndex);
-        this.removeEnemyById(collidedObjectIndex);
-    }
-
-    
-    removeEnemyById(collidedObjectIndex) {
-        const deadEnemies = [this.level.enemies[collidedObjectIndex]];
-
-        setTimeout(() => {
-            this.removeDeadEnemies(deadEnemies);
-        }, 1000);
-    }
-
-
-    removeDeadEnemies(deadEnemies) {
-        this.level.enemies = this.level.enemies.filter(enemy => !deadEnemies.includes(enemy));
-    
-    }
-
-
-    showDeadEnemy(collidedObjectIndex) {
-        this.level.enemies[collidedObjectIndex].isDead = true;
-        this.level.enemies[collidedObjectIndex].height = 40;
-        this.level.enemies[collidedObjectIndex].width = 70;
-        this.level.enemies[collidedObjectIndex].y = 360;
-        this.level.enemies[collidedObjectIndex].loadImage('img/enemies/dead.png');
-    }
-
-
-    isCollidingAmmunition() {
-        this.level.ammunition.forEach((ammunition) => {
-            if (this.character.isColliding(ammunition)) {
-                this.character.collecting_ammunition_sound.play();
-                this.character.hittedObject('collectAmmunition');
-                this.ammunitionStatusBar.setPercentage(this.character.ammunition);
-                this.getAmmunitionIndex(ammunition);
-            }
-        });
-    }
-
-
-    getAmmunitionIndex() {
-        const collidedObjectIndex = this.level.ammunition.findIndex((ammunition) => {
-            return this.character.isColliding(ammunition);
-        });
-        this.removeAmmunition(collidedObjectIndex);
-    }
-
-
-    removeAmmunition(collidedObjectIndex) {
-        if (collidedObjectIndex !== -1) {
-            this.level.ammunition.splice(collidedObjectIndex, 1);
-        }
-    }
-
-
-    isCollidingLives() {
-        this.level.lives.forEach((lives) => {
-            if (this.character.isColliding(lives)) {
-                this.character.collecting_lives_sound.play();
-                this.character.hittedObject('collectLives');
-                this.livesStatusBar.setPercentage(this.character.lives);
-                this.getLivesIndex(lives);
-            }
-        });
-    }
-
-
-    getLivesIndex() {
-        const collidedObjectIndex = this.level.lives.findIndex((lives) => {
-            return this.character.isColliding(lives);
-        });
-        this.removeLives(collidedObjectIndex);
-    }
-
-
-    removeLives(collidedObjectIndex) {
-        if (collidedObjectIndex !== -1) {
-            this.level.lives.splice(collidedObjectIndex, 1);
-        }
-    }
-
-
     checkShootObjects() {
         if (this.availableAmmunition()) {
             if (this.keyboard.KEY_TAB) {
-                this.setShot();
+                this.character.setShot();
             }
         } else if (this.noBatteryNoEndboss()) {
             this.youWonTimeout();
@@ -485,6 +270,31 @@ class World {
     }
 
 
+    /**
+     * Checks if there is available ammunition for the character.
+     * @returns {boolean} True if there is available ammunition; otherwise, false.
+     */
+    availableAmmunition() {
+        return this.character.ammunition > 0;
+    }
+
+
+    /**
+     * Checks if there is no battery remaining and no endbosses remaining in the level, and the game over element is not present.
+     * @returns {boolean} True if there is no battery and no endbosses remaining and the game over element is not present; otherwise, false.
+     */
+    noBatteryNoEndboss() {
+        const batteryIsDepleted = this.character.batteryAll === 0;
+        const noEndBossRemaining = this.level.endboss.length === 0;
+        const gameOverElementNotPresent = !document.getElementById('gameOver');
+
+        return batteryIsDepleted && noEndBossRemaining && gameOverElementNotPresent;
+    }
+
+
+    /**
+     * Sets a timeout that triggers a game victory.
+     */
     youWonTimeout() {
         setTimeout(() => {
             this.gameIsOver = true;
@@ -496,28 +306,64 @@ class World {
     }
 
 
-    noBatteryNoEndboss() {
-        const batteryIsDepleted = this.character.batteryAll === 0;
-        const noEndBossRemaining = this.level.endboss.length === 0;
-        const gameOverElementNotPresent = !document.getElementById('gameOver');
-
-        return batteryIsDepleted && noEndBossRemaining && gameOverElementNotPresent;
-    }
-
-
-    setShot() {
-        if (this.character.noPauseNoGameOver() && !this.gameIsOver) {
-            if (this.character.otherDirection) {
-                let shootStart = this.character.x - 50;
-                this.createShot(shootStart);
-            } else {
-                let shootStart = this.character.x + 50;
-                this.createShot(shootStart);
-            }
+    /**
+     * Checks the character's position and triggers animations for endbosses when the character has passed a certain position.
+     */
+    checkCharacter() {
+        if (this.character.x >= 2900 && !this.hasPassed2900) {
+            this.hasPassed2900 = true;
+            this.level.endboss.forEach((endboss) => {
+                endboss.animate();
+            });
         }
     }
 
 
+
+
+
+    /**
+     * Handles killing an enemy, updating its state to "dead" and removing it after a delay.
+     */
+    killZombie() {
+        const collidedObjectIndex = this.level.enemies.findIndex((enemy) => {
+            return this.character.isColliding(enemy);
+        });
+        this.level.enemies[collidedObjectIndex].showDeadEnemy();
+        this.spliceEnemy(collidedObjectIndex);
+    }
+
+
+    /**
+     * Splices the dead enemy from the enemies array and removes it from the world after a delay.
+     * @param {number} collidedObjectIndex - The index of the collided enemy.
+     */
+    spliceEnemy(collidedObjectIndex) {
+        const deadEnemies = [this.level.enemies[collidedObjectIndex]];
+
+        setTimeout(() => {
+            this.removeDeadEnemies(deadEnemies);
+        }, 1000);
+    }
+
+
+    /**
+     * Removes dead enemies from the world's enemies array.
+     * @param {Array} deadEnemies - An array of dead enemies to be removed.
+     */
+    removeDeadEnemies(deadEnemies) {
+        this.level.enemies = this.level.enemies.filter(enemy => !deadEnemies.includes(enemy));
+    }
+
+
+
+    
+
+
+    /**
+     * Creates a shooting object (laser) and adds it to the world's shootingObject array.
+     * @param {number} shootStart - The starting x-coordinate for the shooting object (laser).
+     */
     createShot(shootStart) {
         let shootingWidth = 60;
         let laser = new ShootingObject(shootStart, this.character.y, this.character.otherDirection);
@@ -527,20 +373,5 @@ class World {
         this.shootingObject.push(laser);
         this.character.hittedObject('hitEnemy');
         this.ammunitionStatusBar.setPercentage(this.character.ammunition);
-    }
-
-
-    availableAmmunition() {
-        return this.character.ammunition > 0
-    }
-
-
-    checkCharacter() {
-        if (this.character.x >= 2900 && !this.hasPassed2900) {
-            this.hasPassed2900 = true;
-            this.level.endboss.forEach((endboss) => {
-                endboss.animate();
-            });
-        }
     }
 }

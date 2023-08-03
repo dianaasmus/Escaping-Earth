@@ -178,4 +178,193 @@ class MovableObject extends DrawableObject {
         timepassed = timepassed / 1000;
         return timepassed < 1;
     }
+
+
+    /**
+     * Checks for collisions between the character and enemies, handles the collisions accordingly, and updates the lives status bar.
+     */
+    isCollidingEnemies() {
+        this.world.level.enemies.forEach((enemy) => {
+            if (this.isColliding(enemy)) {
+                if (this.isAboveGround() && this.y == 250) {
+                    this.crushing_zombie_sound.play();
+                    this.world.killZombie(enemy);
+                } else if (!enemy.isDead) {
+                    this.hit();
+                }
+                this.world.livesStatusBar.setPercentage(this.lives);
+            }
+        });
+    }
+
+
+    /**
+     * Checks for collisions between lasers (shooting objects) and enemies, and handles the collisions by removing the enemy and the laser.
+     */
+    isCollidingLaser() {
+        this.world.shootingObject.forEach((shot) => {
+            this.world.level.enemies.forEach((enemy) => {
+                if (shot.isColliding(enemy)) {
+                    this.handleCollision(shot, enemy);
+                }
+            });
+        });
+    }
+
+
+    /**
+     * Handles the collision between a laser and an enemy by removing both the enemy and the laser.
+     * @param {ShootingObject} shot - The laser (shooting object) colliding with the enemy.
+     * @param {Enemy} enemy - The enemy being hit by the laser.
+     */
+    handleCollision(shot, enemy) {
+        const enemyIndex = this.world.level.enemies.findIndex((e) => e === enemy);
+        const shotIndex = this.world.shootingObject.findIndex((s) => s === shot);
+        this.removeEnemy(enemyIndex);
+        this.removeLaser(shotIndex);
+    }
+
+
+    /**
+     * Removes the enemy at the given index from the world's enemies array.
+     * @param {number} collidedObjectIndex - The index of the collided enemy.
+     */
+    removeEnemy(collidedObjectIndex) {
+        if (collidedObjectIndex !== -1) {
+            this.world.level.enemies.splice(collidedObjectIndex, 1);
+        }
+    }
+
+
+    /**
+     * Removes the laser at the given index from the world's shootingObject array.
+     * @param {number} collidedObjectIndex - The index of the collided laser.
+     */
+    removeLaser(collidedObjectIndex) {
+        if (collidedObjectIndex !== -1) {
+            this.world.shootingObject.splice(collidedObjectIndex, 1);
+        }
+    }
+
+
+    /**
+     * Checks for collisions with endboss objects in the world and performs actions accordingly.
+     */
+    isCollidingEndboss() {
+        this.world.level.endboss.forEach((endboss) => {
+            this.handleCharacterEndbossCollision(endboss);
+            this.handleLaserEndbossCollision(endboss);
+        });
+    }
+
+
+    /**
+     * Handles character-endboss collision.
+     * @param {Endboss} endboss - The endboss object to check collision with.
+     */
+    handleCharacterEndbossCollision(endboss) {
+        if (this.isColliding(endboss)) {
+            this.lives = 0;
+            this.world.livesStatusBar.setPercentage(this.lives);
+            this.isDyingSettings();
+        }
+    }
+
+
+    /**
+     * Handles laser-endboss collision.
+     * @param {Endboss} endboss - The endboss object to check collision with.
+     */
+    handleLaserEndbossCollision(endboss) {
+        this.world.shootingObject.forEach((shot) => {
+            if (shot.isColliding(endboss)) {
+                this.handleCollisionEndboss(shot, endboss);
+            }
+        });
+    }
+
+
+    /**
+     * Handles collision between a shot and an endboss. Updates the game state accordingly.
+     * @param {ShootingObject} shot - The shot object that collided with the endboss.
+     * @param {Endboss} endboss - The endboss object that was hit by the shot.
+     */
+    handleCollisionEndboss(shot, endboss) {
+        const endbossIndex = this.world.level.endboss.findIndex((e) => e === endboss);
+        const shotIndex = this.world.shootingObject.findIndex((s) => s === shot);
+        this.hitEndboss(endbossIndex);
+        this.removeLaser(shotIndex);
+    }
+
+
+    /**
+     * Handles the hit on an endboss, reducing its health and removing it from the world if its health reaches zero.
+     * @param {number} endbossIndex - The index of the endboss that was hit.
+     */
+    hitEndboss(endbossIndex) {
+        const endboss = this.world.level.endboss[endbossIndex];
+        const battery = this.getBatteryForEndboss(endboss.id);
+
+        this.checkbattery(battery, endbossIndex);
+        this.batteryAll -= 1;
+        this.world.batteryStatusBar.setPercentage(this.batteryAll);
+    }
+
+
+    checkbattery(battery, endbossIndex) {
+        if (!battery) {
+            return;
+        }
+
+        this[battery] -= 1;
+        if (this[battery] === 0) {
+            this.removeEndboss(endbossIndex);
+        }
+    }
+
+
+    /**
+     * Gets the battery property corresponding to the endboss ID.
+     * @param {number} endbossId - The ID of the endboss.
+     * @returns {string|null} The name of the battery property or null if no corresponding battery property exists.
+     */
+    getBatteryForEndboss(endbossId) {
+        switch (endbossId) {
+            case 1:
+                return 'batteryOne';
+            case 2:
+                return 'batteryTwo';
+            case 3:
+                return 'batteryThree';
+            default:
+                return null;
+        }
+    }
+
+
+    /**
+     * Removes the endboss from the world's endboss array.
+     * @param {number} endbossIndex - The index of the endboss to remove.
+     */
+    removeEndboss(endbossIndex) {
+        if (endbossIndex !== -1) {
+            this.world.level.endboss.splice(endbossIndex, 1);
+        }
+    }
+    
+
+    /**
+     * Sets the shot if certain conditions are met.
+     */
+    setShot() {
+        if (this.noPauseNoGameOver() && !this.world.gameIsOver) {
+            if (this.otherDirection) {
+                let shootStart = this.x - 50;
+                this.world.createShot(shootStart);
+            } else {
+                let shootStart = this.x + 50;
+                this.world.createShot(shootStart);
+            }
+        }
+    }
 }
