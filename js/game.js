@@ -137,9 +137,28 @@ function toggleInfo() {
     const infoContainer = document.getElementById('infoContainer');
 
     if (innerInfoContainer) {
+        fullscreenBtnToggle(true);
         removeInnerInfoContainer(innerInfoContainer, startBtn, gameBtns);
     } else {
+        fullscreenBtnToggle(false);
         addInnerInfoContainer(startBtn, infoContainer, gameBtns);
+    }
+}
+
+
+/**
+ * Toggles the state of a fullscreen button and its associated icon.
+ * @param {boolean} state - The state of the fullscreen button (true for enabled, false for disabled).
+ */
+function fullscreenBtnToggle(state) {
+    const fullscreenBtn = document.getElementById('fullscreenBtn');
+    const fullscreenIcon = document.getElementById('fullscreenIcon');
+
+    fullscreenBtn.disabled = !state;
+    if (state) {
+        fullscreenIcon.classList.remove('disabled-btn');
+    } else {
+        fullscreenIcon.classList.add('disabled-btn');
     }
 }
 

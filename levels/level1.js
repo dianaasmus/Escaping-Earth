@@ -10,9 +10,9 @@ function initLevel() {
     // Create instances of various classes and store them in arrays.
     const livesArray = Array(3).fill().map(() => new Lives());
     const ammunitionArray = Array(3).fill().map(() => new Ammunition());
-    const runningZombieArray = Array(17).fill().map(() => new RunningZombie());
+    const runningZombieArray = Array(17).fill().map((_, index) => new RunningZombie(index + 1));
     const endbossArray = Array(3).fill().map((_, index) => new Endboss(index + 1));
-    const zombieArray = Array(10).fill().map(() => new Zombie());
+    const zombieArray = Array(10).fill().map((_, index) => new Zombie(index + 18));
     const buildings = ['img/background/building-1.png', 'img/background/building-2.png', 'img/background/building-3.png'];
 
     // Create the level1 instance with the entities and backgrounds.

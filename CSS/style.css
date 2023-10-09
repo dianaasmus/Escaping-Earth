@@ -244,6 +244,15 @@ html::-webkit-scrollbar {
     transform: scale(1.1);
 }
 
+#fullscreenBtn {
+    all: unset;
+}
+
+.disabled-btn {
+    filter: brightness(0.5);
+    pointer-events: none;
+}
+
 #infoContainer {
     display: flex;
     justify-content: end;
