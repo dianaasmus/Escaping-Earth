@@ -17,61 +17,61 @@ class Character extends MovableObject {
 
 
     IMAGES_WALKING = [
-        'img/alien/walk/walk1.png',
-        'img/alien/walk/walk2.png',
-        'img/alien/walk/walk3.png'
+        'assets/img/alien/walk/walk1.png',
+        'assets/img/alien/walk/walk2.png',
+        'assets/img/alien/walk/walk3.png'
     ];
 
 
     IMAGES_JUMPING = [
-        'img/alien/jump/jump1.png',
-        'img/alien/jump/jump2.png',
-        'img/alien/jump/jump3.png'
+        'assets/img/alien/jump/jump1.png',
+        'assets/img/alien/jump/jump2.png',
+        'assets/img/alien/jump/jump3.png'
     ];
 
 
     IMAGES_DYING = [
-        'img/alien/dead/dead1.png',
-        'img/alien/dead/dead2.png',
-        'img/alien/dead/dead3.png',
-        'img/alien/dead/dead4.png',
-        'img/alien/dead/dead5.png'
+        'assets/img/alien/dead/dead1.png',
+        'assets/img/alien/dead/dead2.png',
+        'assets/img/alien/dead/dead3.png',
+        'assets/img/alien/dead/dead4.png',
+        'assets/img/alien/dead/dead5.png'
     ];
 
 
     IMAGES_HURT = [
-        'img/alien/hurt/hurt1.png',
-        'img/alien/hurt/hurt2.png',
-        'img/alien/hurt/hurt3.png',
-        'img/alien/hurt/hurt4.png'
+        'assets/img/alien/hurt/hurt1.png',
+        'assets/img/alien/hurt/hurt2.png',
+        'assets/img/alien/hurt/hurt3.png',
+        'assets/img/alien/hurt/hurt4.png'
     ];
 
 
     IMAGES_SHOOTING = [
-        'img/alien/shooting/shoot.png'
+        'assets/img/alien/shooting/shoot.png'
     ];
 
 
     IMAGES_STANDING = [
-        'img/alien/idle/idle1.png',
-        'img/alien/idle/idle1.png',
-        'img/alien/idle/idle1.png',
-        'img/alien/idle/idle1.png',
-        'img/alien/idle/idle1.png',
-        'img/alien/idle/idle1.png',
-        'img/alien/idle/idle1.png',
-        'img/alien/idle/idle2.png',
-        'img/alien/idle/idle3.png',
-        'img/alien/idle/idle2.png'
+        'assets/img/alien/idle/idle1.png',
+        'assets/img/alien/idle/idle1.png',
+        'assets/img/alien/idle/idle1.png',
+        'assets/img/alien/idle/idle1.png',
+        'assets/img/alien/idle/idle1.png',
+        'assets/img/alien/idle/idle1.png',
+        'assets/img/alien/idle/idle1.png',
+        'assets/img/alien/idle/idle2.png',
+        'assets/img/alien/idle/idle3.png',
+        'assets/img/alien/idle/idle2.png'
     ];
 
 
-    running_sound = new Audio('audio/running.mp3');
-    shooting_sound = new Audio('audio/shooting.mp3');
-    jumping_sound = new Audio('audio/jump.mp3');
-    collecting_ammunition_sound = new Audio('audio/collect.mp3');
-    collecting_lives_sound = new Audio('audio/collect.mp3');
-    crushing_zombie_sound = new Audio('audio/crushing-zombie.mp3');
+    running_sound = new Audio('assets/audio/running.mp3');
+    shooting_sound = new Audio('assets/audio/shooting.mp3');
+    jumping_sound = new Audio('assets/audio/jump.mp3');
+    collecting_ammunition_sound = new Audio('assets/audio/collect.mp3');
+    collecting_lives_sound = new Audio('assets/audio/collect.mp3');
+    crushing_zombie_sound = new Audio('assets/audio/crushing-zombie.mp3');
 
     /**
      * Constructor function for initializing the object with various settings.
@@ -88,7 +88,7 @@ class Character extends MovableObject {
      * Loads images into the object by calling different 'loadImage' and 'loadImages' functions.
      */
     LoadingImages() {
-        this.loadImage('img/alien/standing.png');
+        this.loadImage('assets/img/alien/standing.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_STANDING);

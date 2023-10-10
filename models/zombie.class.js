@@ -14,19 +14,19 @@ class Zombie extends MovableObject {
     }
 
     IMAGES_WALKING = [
-        'img/enemies/zombie-walk.png',
-        'img/enemies/zombie-walk2.png',
-        'img/enemies/zombie-walk3.png',
-        'img/enemies/zombie-walk4.png',
-        'img/enemies/zombie-walk5.png',
-        'img/enemies/zombie-walk6.png'
+        'assets/img/enemies/zombie-walk.png',
+        'assets/img/enemies/zombie-walk2.png',
+        'assets/img/enemies/zombie-walk3.png',
+        'assets/img/enemies/zombie-walk4.png',
+        'assets/img/enemies/zombie-walk5.png',
+        'assets/img/enemies/zombie-walk6.png'
     ];
 
     /**
      * Creates an instance of Zombie.
      */
     constructor() {
-        super().loadImage('img/enemies/zombie-walk.png');
+        super().loadImage('assets/img/enemies/zombie-walk.png');
         this.x = 300 + Math.random() * 3260;
         this.speed = 0.15 + Math.random() * 0.5;
         this.loadImages(this.IMAGES_WALKING);
@@ -42,7 +42,7 @@ class Zombie extends MovableObject {
         this.height = 40;
         this.width = 70;
         this.y = 360;
-        this.loadImage('img/enemies/dead.png');
+        this.loadImage('assets/img/enemies/dead.png');
     }
 
     /**

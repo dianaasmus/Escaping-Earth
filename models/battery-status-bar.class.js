@@ -3,12 +3,12 @@ class BatteryStatusBar extends DrawableObject {
     
 
     IMAGES_BATTERY = [
-        'img/battery/battery-0.png',
-        'img/battery/battery-20.png',
-        'img/battery/battery-40.png',
-        'img/battery/battery-60.png',
-        'img/battery/battery-80.png',
-        'img/battery/battery-100.png'
+        'assets/img/battery/battery-0.png',
+        'assets/img/battery/battery-20.png',
+        'assets/img/battery/battery-40.png',
+        'assets/img/battery/battery-60.png',
+        'assets/img/battery/battery-80.png',
+        'assets/img/battery/battery-100.png'
     ];
 
 

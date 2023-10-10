@@ -10,7 +10,7 @@ class World {
     batteryStatusBar = new BatteryStatusBar();
     ammunitionStatusBar = new AmmunitionStatusBar();
     shootingObject = [];
-    background_music = new Audio('audio/music.mp3');
+    background_music = new Audio('assets/audio/music.mp3');
     hasPassed2900 = false;
     intervalIDs = [];
     gameIsOver = false;

@@ -3,12 +3,12 @@ class LivesStatusBar extends DrawableObject {
 
     
     IMAGES_LIVES = [
-        'img/lives/progress-bar/lives-0.png',
-        'img/lives/progress-bar/lives-20.png',
-        'img/lives/progress-bar/lives-40.png',
-        'img/lives/progress-bar/lives-60.png',
-        'img/lives/progress-bar/lives-80.png',
-        'img/lives/progress-bar/lives-100.png'
+        'assets/img/lives/progress-bar/lives-0.png',
+        'assets/img/lives/progress-bar/lives-20.png',
+        'assets/img/lives/progress-bar/lives-40.png',
+        'assets/img/lives/progress-bar/lives-60.png',
+        'assets/img/lives/progress-bar/lives-80.png',
+        'assets/img/lives/progress-bar/lives-100.png'
     ];
 
 

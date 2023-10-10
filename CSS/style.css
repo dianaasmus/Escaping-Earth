@@ -48,7 +48,7 @@
 }
 
 body {
-    background-image: url('../img/background/start-bg.png');
+    background-image: url('../assets/img/background/start-bg.png');
     background-size: cover;
     background-position: bottom;
     background-repeat: no-repeat;
@@ -219,7 +219,7 @@ html::-webkit-scrollbar {
 }
 
 #infoIcon {
-    background-image: url(../img/start-screen/info-icon.png);
+    background-image: url(../assets/img/start-screen/info-icon.png);
     background-size: 37px;
     background-repeat: no-repeat;
     border: none;
@@ -231,7 +231,7 @@ html::-webkit-scrollbar {
 }
 
 #audioIcon {
-    background-image: url(../img/start-screen/remove-audio.png);
+    background-image: url(../assets/img/start-screen/remove-audio.png);
     background-repeat: no-repeat;
     height: 40px;
     width: 40px;
@@ -391,4 +391,30 @@ canvas {
 
 #portraitMobile {
     display: none;
+}
+
+footer {
+    position: absolute;
+    bottom: 30px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 3;
+    color: grey;
+}
+
+footer span, footer a {
+    color: grey;
+    font-family: sans-serif;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: #96c219;
+}
+
+footer img {
+    height: 15px;
+    filter: invert(70%) sepia(2%) saturate(10%) hue-rotate(314deg) brightness(81%) contrast(87%);
 }

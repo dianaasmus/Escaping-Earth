@@ -19,7 +19,7 @@ class Lives extends CollectableObject {
      * Loads the image for the lives object, sets the random X position and starts the animation.
      */
     constructor() {
-        super().loadImage('img/lives/14.png');
+        super().loadImage('assets/img/lives/14.png');
         this.x = 200 + Math.random() * 2060;
         this.setStoppableInterval(this.floatingObject, 1000 / 15);
     }

@@ -24,7 +24,7 @@ function addReferContainer() {
     document.body.innerHTML += `
     <div id="referContainer" onclick="next()">
         <div id="referText"></div>
-        <img src="img/start-screen/refer-arrow.png" id="referArrow">
+        <img src="assets/img/start-screen/refer-arrow.png" id="referArrow">
     </div>
     `;
 }
@@ -82,15 +82,15 @@ function createGameInfo() {
             <div id="gameSettings" class="d-none">
                 <div class="column">                
                     <div class="align">
-                        <img src="img/start-screen/arrow.png" class="key-icons">
+                        <img src="assets/img/start-screen/arrow.png" class="key-icons">
                         <p>JUMP</p>
                     </div>
                     <div class="align">
-                        <img src="img/start-screen/arrow-left.png" class="key-icons">
+                        <img src="assets/img/start-screen/arrow-left.png" class="key-icons">
                         <p>LEFT</p>
                     </div>
                     <div class="align">
-                        <img src="img/start-screen/arrow-right.png" class="key-icons">
+                        <img src="assets/img/start-screen/arrow-right.png" class="key-icons">
                         <p>RIGHT</p>
                     </div>
                     <div class="align">
@@ -100,18 +100,18 @@ function createGameInfo() {
                 </div>
                 <div class="column">
                     <div class="align">
-                        <img src="img/lives/14.png" class="collect-icons">
+                        <img src="assets/img/lives/14.png" class="collect-icons">
                         <p>LIVES</p>
                     </div>
                     <div class="align">
-                        <img src="img/ammunition/13.png" class="collect-icons">
+                        <img src="assets/img/ammunition/13.png" class="collect-icons">
                         <p>AMMUNITION</p>
                     </div>
                 </div>
             </div>
                 <p id="gameDescription">It is June 3245 when, suddenly, an extraterrestrial being crashes its UFO over Earth. Trapped in a world full of zombies and robots, 'June-3245' strives to fight for survival and escape from the planet. Help him defeat his enemies and reach his UFO.</p>
         </div>
-            <img onclick="nextSite()" src="img/start-screen/arrow.png" id="arrow">
+            <img onclick="nextSite()" src="assets/img/start-screen/arrow.png" id="arrow">
     </div>
 `;
 }
@@ -123,7 +123,7 @@ function createGameInfo() {
  * @returns {boolean} - True if the audio is currently playing, otherwise false.
  */
 function audioIsPlaying(audioIcon) {
-    return audioIcon.style.backgroundImage.includes('img/start-screen/add-audio.png');
+    return audioIcon.style.backgroundImage.includes('assets/img/start-screen/add-audio.png');
 }
 
 

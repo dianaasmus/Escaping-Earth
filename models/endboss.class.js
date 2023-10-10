@@ -12,12 +12,12 @@ class Endboss extends MovableObject {
     }
 
     IMAGES_WALKING = [
-        'img/endboss/walk/walk-1.png',
-        'img/endboss/walk/walk-2.png',
-        'img/endboss/walk/walk-3.png',
-        'img/endboss/walk/walk-4.png',
-        'img/endboss/walk/walk-5.png',
-        'img/endboss/walk/walk-6.png'
+        'assets/img/endboss/walk/walk-1.png',
+        'assets/img/endboss/walk/walk-2.png',
+        'assets/img/endboss/walk/walk-3.png',
+        'assets/img/endboss/walk/walk-4.png',
+        'assets/img/endboss/walk/walk-5.png',
+        'assets/img/endboss/walk/walk-6.png'
     ];
 
     /**

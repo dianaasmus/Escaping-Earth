@@ -7,7 +7,7 @@ class ShootingObject extends MovableObject {
      * @param {boolean} otherdirection - Specifies whether the projectile flies in the opposite direction (left instead of right).
      */
     constructor(x, y, otherdirection) {
-        super().loadImage('img/ammunition/attack/ammunition-attack.png');
+        super().loadImage('assets/img/ammunition/attack/ammunition-attack.png');
         this.x = x;
         this.y = y + 30;
         this.width = 30;

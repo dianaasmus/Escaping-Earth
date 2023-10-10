@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="CSS/style.css">
     <link rel="stylesheet" href="CSS/responsive.css">
     <link rel="stylesheet" href="CSS/fonts.css">
-    <link rel="icon" href="img/alien/alien-head.png">
+    <link rel="icon" href="assets/img/alien/alien-head.png">
     <script src="models/world.class.js"></script>
     <script src="models/drawable-object.class.js"></script>
     <script src="models/movable-object.class.js"></script>
@@ -41,7 +41,7 @@
     </div>
 
     <div id="startScreen">
-        <img src="img/start-screen/start-img.png" id="start-img">
+        <img src="assets/img/start-screen/start-img.png" id="start-img">
         <button onclick="startBtn()" id="startBtn">START</button>
     </div>
 
@@ -67,7 +67,7 @@
         </div>
 
         <button onclick="fullscreen()" id="fullscreenBtn">
-            <img src="img/start-screen/fullscreen-icon.png" id="fullscreenIcon" class="d-none">
+            <img src="assets/img/start-screen/fullscreen-icon.png" id="fullscreenIcon" class="d-none">
         </button>
 
         <canvas id="canvas" width="720" height="480"></canvas>
@@ -78,8 +78,21 @@
 
     <div id="portraitMobile">
         <h2>Please rotate your device!</h2>
-        <img src="img/start-screen/rotate-phone-img.png" class="rotate-phone-icon">
+        <img src="assets/img/start-screen/rotate-phone-img.png" class="rotate-phone-icon">
     </div>
+
+    <footer id="footer">
+    
+        <div class="copyright-name-year">
+            <img src="assets/img/copyright-icon.png" alt="Copyright Logo">
+            <span> Diana Asmus 2023</span>
+        </div>
+    
+        <div>
+            <a href="imprint.html" fragment="imprint">Imprint</a> -
+            <a href="imprint.html">Data Protection</a>
+        </div>
+    </footer>
 
 </body>
 

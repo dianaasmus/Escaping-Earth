@@ -1,7 +1,7 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
-let music = new Audio('audio/background-music-trimm.mp3');
+let music = new Audio('assets/audio/background-music-trimm.mp3');
 music.volume = 0.25;
 music.loop = true;
 let startBtnPressed = false;
@@ -207,10 +207,10 @@ function addInnerInfoContainer(startBtn, infoContainer, gameBtns) {
 function toggleAudio() {
     let audioIcon = document.getElementById('audioIcon');
     if (audioIsPlaying(audioIcon)) {
-        audioIcon.style.backgroundImage = "url('img/start-screen/remove-audio.png')";
+        audioIcon.style.backgroundImage = "url('assets/img/start-screen/remove-audio.png')";
         music.pause();
     } else {
-        audioIcon.style.backgroundImage = "url('img/start-screen/add-audio.png')";
+        audioIcon.style.backgroundImage = "url('assets/img/start-screen/add-audio.png')";
         music.play();
     }
 }

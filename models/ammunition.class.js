@@ -25,7 +25,7 @@ class Ammunition extends CollectableObject {
      * Initializes the ammunition object with default values and behavior.
      */
     constructor() {
-        super().loadImage('img/ammunition/13.png');
+        super().loadImage('assets/img/ammunition/13.png');
         this.x = 200 + Math.random() * 2060;
         this.setStoppableInterval(this.floatingObject, 1000 / 15);
     }

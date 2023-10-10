@@ -3,12 +3,12 @@ class AmmunitionStatusBar extends DrawableObject {
 
     
     IMAGES_AMMUNITION = [
-        'img/ammunition/progress-bar/ammunition-0.png',
-        'img/ammunition/progress-bar/ammunition-20.png',
-        'img/ammunition/progress-bar/ammunition-40.png',
-        'img/ammunition/progress-bar/ammunition-60.png',
-        'img/ammunition/progress-bar/ammunition-80.png',
-        'img/ammunition/progress-bar/ammunition-100.png'
+        'assets/img/ammunition/progress-bar/ammunition-0.png',
+        'assets/img/ammunition/progress-bar/ammunition-20.png',
+        'assets/img/ammunition/progress-bar/ammunition-40.png',
+        'assets/img/ammunition/progress-bar/ammunition-60.png',
+        'assets/img/ammunition/progress-bar/ammunition-80.png',
+        'assets/img/ammunition/progress-bar/ammunition-100.png'
     ];
 
 
