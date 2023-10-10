@@ -15,7 +15,7 @@ class Keyboard {
         this.isKeyUp();
     }
 
-
+    
     /**
      * Event listener for key presses.
      * Sets the corresponding flags based on the pressed keys.

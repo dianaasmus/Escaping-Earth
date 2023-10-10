@@ -95,7 +95,7 @@
     }
 
     100% {
-        transform: translateY(300%);
+        transform: translateY(100%);
     }
 }
 
@@ -128,8 +128,6 @@
     #gameOver {
         display: block;
     }
-
-    
 }
 
 @media (max-height: 480px) {

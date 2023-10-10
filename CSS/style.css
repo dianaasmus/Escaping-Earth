@@ -163,8 +163,6 @@ html::-webkit-scrollbar {
 
 #startBtn,
 #gameOverBtn {
-    position: absolute;
-    margin-top: 780px;
     background-color: black;
     color: white;
     font-size: 1.5rem;
@@ -175,6 +173,11 @@ html::-webkit-scrollbar {
     transition: background-color 125ms ease-in-out, border 125ms ease-in-out, color 125ms ease-in-out;
     cursor: pointer;
     z-index: 11;
+}
+
+#startBtn {
+    position: absolute;
+    margin-top: 280px;
 }
 
 #startBtn {
@@ -357,6 +360,7 @@ html::-webkit-scrollbar {
 
 #gameOver {
     position: absolute;
+    top: 50%;
     background-color: rgba(0, 0, 0, 0.8);
     border-radius: 20px;
     display: flex;
