@@ -50,6 +50,8 @@ class World {
     checkGameOver() {
         if (this.noAmmunitionButEndboss()) {
             this.gameIsOver = true;
+            // this.character.running_sound.pause();
+            this.character.pauseAudios();
             gameOver('youLost');
         }
     }
@@ -298,9 +300,10 @@ class World {
     youWonTimeout() {
         setTimeout(() => {
             this.gameIsOver = true;
-            if (this.character.running_sound) {
+            // if (this.character.running_sound) {
                 this.character.pauseAudios();
-            }
+            // }
+            // this.character.running_sound.pause()
             gameOver('youWon');
         }, 500);
     }

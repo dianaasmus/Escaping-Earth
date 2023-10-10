@@ -145,7 +145,7 @@ html::-webkit-scrollbar {
     100% {
         font-size: 4rem;
         letter-spacing: 0vw;
-        transform: translateY(-170%);
+        transform: translateY(-125%);
     }
 }
 

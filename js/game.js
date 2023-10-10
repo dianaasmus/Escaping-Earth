@@ -95,7 +95,7 @@ function startBtn() {
     hideElements();
     checkmobileDevice();
     initGame();
-    keyboard.bindBtnsPressEvents();
+    // keyboard.bindBtnsPressEvents();
 }
 
 
@@ -123,6 +123,7 @@ function hideElements() {
 function startGame() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
+    keyboard.bindBtnsPressEvents();
     removeLoadingCircle();
 }
 
@@ -291,7 +292,7 @@ function removeGameOver() {
  * Starts the game again on desktop devices, handling different scenarios based on the device's height.
  */
 function startAgainDesktop() {
-    if (window.matchMedia("(max-height: 800px)").matches) {
+    if (isMobileDevice) {
         headline.classList.add('fadeout');
         hideElement(headline);
     } else {
@@ -394,8 +395,8 @@ function gameOver(result) {
         document.getElementById('infoIcon').disabled = true;
         document.getElementById('audioIcon').disabled = true;
         addGameOverContainer();
-        displayElements();
         displayResult(result);
+        displayElements();
     }
 }
 

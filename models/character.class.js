@@ -136,10 +136,10 @@ class Character extends MovableObject {
      * Pause audio playback if any sound is playing.
      */
     pauseAudios() {
-        if (this.isSoundPlaying) {
+        // if (this.isSoundPlaying) {
             this.running_sound.pause();
             this.isSoundPlaying = false;
-        }
+        // }
     }
 
 
@@ -259,6 +259,7 @@ class Character extends MovableObject {
             this.currentImage = 0;
             this.world.gameIsOver = true;
             setTimeout(() => {
+                this.pauseAudios();
                 gameOver('youLost');
             }, 1000);
         }
