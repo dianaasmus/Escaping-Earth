@@ -112,6 +112,17 @@ function createGameInfo() {
                 <p id="gameDescription">It is June 3245 when, suddenly, an extraterrestrial being crashes its UFO over Earth. Trapped in a world full of zombies and robots, 'June-3245' strives to fight for survival and escape from the planet. Help him defeat his enemies and reach his UFO.</p>
         </div>
             <img onclick="nextSite()" src="assets/img/start-screen/arrow.png" id="arrow">
+            <div class="imprint-container">
+                <div class="copyright-name-year">
+                    <img src="assets/img/copyright-icon.png" alt="Copyright Logo">
+                    <span> Diana Asmus 2023</span>
+                </div>
+            
+                <div>
+                    <a href="imprint.html" fragment="imprint">Imprint</a> -
+                    <a href="imprint.html">Data Protection</a>
+                </div>
+            </div>
     </div>
 `;
 }

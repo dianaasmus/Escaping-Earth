@@ -9,6 +9,10 @@
     gap: 20px;
 }
 
+.imprint-container {
+    display: none;
+}
+
 @keyframes FadeIn {
     0% {
         opacity: 0;
@@ -45,25 +49,25 @@
 }
 
 #leftBtn {
-    background-image: url(../img/start-screen/arrow-left.png);
+    background-image: url(../assets/img/start-screen/arrow-left.png);
     background-position-y: 9px;
     background-position-x: 7px;
 }
 
 #rightBtn {
-    background-image: url(../img/start-screen/arrow-right.png);
+    background-image: url(../assets/img/start-screen/arrow-right.png);
     background-position-y: 9px;
     background-position-x: 10px;
 }
 
 #jumpBtn {
-    background-image: url(../img/start-screen/arrow.png);
+    background-image: url(../assets/img/start-screen/arrow.png);
     background-position-x: 9px;
     background-position-y: 8px;
 }
 
 #shootBtn {
-    background-image: url(../img/ammunition/attack/ammunition-attack.png);
+    background-image: url(../assets/img/ammunition/attack/ammunition-attack.png);
     background-position: center;
     background-repeat: no-repeat;
     background-size: 25px;
@@ -96,6 +100,13 @@
 
     100% {
         transform: translateY(100%);
+    }
+}
+
+@media (min-width: 1200px) {
+
+    #headline {
+        font-size: 5vw;
     }
 }
 
@@ -141,7 +152,7 @@
     }
 
     #headline {
-        bottom: 75% !important;
+        bottom: 80% !important;
         font-size: calc(5vw + 12px);
     }
 
@@ -246,9 +257,41 @@
     }
 
     #rightBtn {
-        background-image: url(../img/start-screen/arrow-right.png);
+        background-image: url(../assets/img/start-screen/arrow-right.png);
         background-position-y: 6px;
         background-position-x: 8px;
+    }
+}
+
+@media (max-height: 680px) {
+
+    footer {
+        display: none;
+    }
+
+    .imprint-container {
+        display: flex;
+        align-items: baseline;
+        font-size: 0.8rem;
+        gap: 10px;
+        position: absolute;
+        bottom: 10px;
+        z-index: 3;
+    }
+
+    .imprint-container span, .imprint-container a {
+        color: grey;
+        font-family: sans-serif;
+        text-decoration: none;
+    }
+    
+    .imprint-container a:hover {
+        color: #96c219;
+    }
+    
+    .imprint-container img {
+        height: 10px;
+        filter: invert(70%) sepia(2%) saturate(10%) hue-rotate(314deg) brightness(81%) contrast(87%);
     }
 }
 
@@ -264,7 +307,7 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background-image: url('../img/background/start-bg.png');
+        background-image: url('../assets/img/background/start-bg.png');
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
