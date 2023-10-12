@@ -136,13 +136,16 @@ function toggleInfo() {
     const innerInfoContainer = document.getElementById("innerInfoContainer");
     const gameBtns = document.getElementById('gameBtns');
     const infoContainer = document.getElementById('infoContainer');
+    const infoIcon = document.getElementById('infoIcon');
 
     if (innerInfoContainer) {
         fullscreenBtnToggle(true);
         removeInnerInfoContainer(innerInfoContainer, startBtn, gameBtns);
+        infoIcon.style.backgroundImage = "url(../assets/img/start-screen/info-icon.png)";
     } else {
         fullscreenBtnToggle(false);
         addInnerInfoContainer(startBtn, infoContainer, gameBtns);
+        infoIcon.style.backgroundImage = "url(../assets/img/start-screen/close-icon.png)";
     }
 }
 
