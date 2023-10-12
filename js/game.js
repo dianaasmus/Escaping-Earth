@@ -95,7 +95,6 @@ function startBtn() {
     hideElements();
     checkmobileDevice();
     initGame();
-    // keyboard.bindBtnsPressEvents();
 }
 
 

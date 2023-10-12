@@ -1,5 +1,5 @@
 class ShootingObject extends MovableObject {
-    
+
     /**
      * Creates an instance of ShootingObject.
      * @param {number} x - The horizontal position of the projectile.
@@ -15,19 +15,21 @@ class ShootingObject extends MovableObject {
         this.shoot(otherdirection);
     }
 
+
     /**
      * Initiates the shot of the projectile.
      * @param {boolean} otherdirection - Specifies whether the projectile flies in the opposite direction (left instead of right).
      */
     shoot(otherdirection) {
-        this.speedX = 50;
+        this.speedX = 60;
         if (otherdirection) {
             this.otherDirection = true;
-            this.setStoppableInterval(this.moveShotLeft, 50);
+            this.setStoppableInterval(this.moveShotLeft, this.speedX);
         } else {
-            this.setStoppableInterval(this.moveShotRight, 50);
+            this.setStoppableInterval(this.moveShotRight, this.speedX);
         }
     }
+
 
     /**
      * Moves the projectile to the right.
@@ -35,6 +37,7 @@ class ShootingObject extends MovableObject {
     moveShotRight() {
         this.x += 20;
     }
+
 
     /**
      * Moves the projectile to the left.

@@ -15,7 +15,7 @@ class Keyboard {
         this.isKeyUp();
     }
 
-    
+
     /**
      * Event listener for key presses.
      * Sets the corresponding flags based on the pressed keys.
@@ -93,8 +93,10 @@ class Keyboard {
      */
     shootBtn() {
         document.getElementById('shootBtn').addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            this.KEY_TAB = true;
+            if (this.KEY_TAB) {
+                e.preventDefault();
+                this.KEY_TAB = true;
+            }
         });
         document.getElementById('shootBtn').addEventListener('touchend', (e) => {
             e.preventDefault();

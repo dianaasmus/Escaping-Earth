@@ -6,7 +6,7 @@ class DrawableObject {
     intervalIDs = [];
     otherDirection = false;
 
-    
+
     offset = {
         top: 10,
         right: 20,
@@ -136,5 +136,17 @@ class DrawableObject {
      */
     stopGame() {
         this.intervalIDs.forEach(clearInterval);
+    }
+
+
+    /**
+    * Plays the given animation images once if the current image count is less than or equal to the specified image length.
+    * @param {Array<string>} images - An array of image paths representing the animation frames.
+    * @param {number} imageLength - The length of the animation (number of frames).
+    */
+    playOnce(images, imageLength) {
+        if (this.currentImage <= imageLength) {
+            this.playAnimation(images);
+        }
     }
 }

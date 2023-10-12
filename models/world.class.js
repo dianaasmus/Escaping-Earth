@@ -50,7 +50,6 @@ class World {
     checkGameOver() {
         if (this.noAmmunitionButEndboss()) {
             this.gameIsOver = true;
-            // this.character.running_sound.pause();
             this.character.pauseAudios();
             gameOver('youLost');
         }
@@ -123,9 +122,6 @@ class World {
     setWorld() {
         this.character.world = this;
         this.keyboard.world = this;
-        // this.backgroundObjects.forEach(background => {
-        //     background.world = this;
-        // });
     }
 
 
@@ -243,16 +239,24 @@ class World {
      * The main game loop that runs various collision checks and game states.
      */
     run() {
-        this.character.isCollidingEnemies();
-        this.character.isCollidingEndboss();
-        this.character.isCollidingLives();
-        this.character.isCollidingAmmunition();
-        this.character.isCollidingLaser();
+        this.checkCollisions();
         this.checkShootObjects();
         this.checkCharacter();
         if (this.gameIsOver == false) {
             this.checkGameOver();
         }
+    }
+
+
+    /**
+     * Check all character-object-collision.
+     */
+    checkCollisions() {
+        this.character.isCollidingEnemies();
+        this.character.isCollidingEndboss();
+        this.character.isCollidingLives();
+        this.character.isCollidingLaser();
+        this.character.isCollidingAmmunition();
     }
 
 
@@ -264,6 +268,7 @@ class World {
         if (this.availableAmmunition()) {
             if (this.keyboard.KEY_TAB) {
                 this.character.setShot();
+                this.keyboard.KEY_TAB = false;
             }
         } else if (this.noBatteryNoEndboss()) {
             this.youWonTimeout();
@@ -300,10 +305,7 @@ class World {
     youWonTimeout() {
         setTimeout(() => {
             this.gameIsOver = true;
-            // if (this.character.running_sound) {
-                this.character.pauseAudios();
-            // }
-            // this.character.running_sound.pause()
+            this.character.pauseAudios();
             gameOver('youWon');
         }, 500);
     }

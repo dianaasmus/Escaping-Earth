@@ -1,5 +1,5 @@
 class MovableObject extends DrawableObject {
-    speed = 0.15;
+    speed = 2;
     speedY = 0;
     acceleration = 5;
 

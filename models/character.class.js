@@ -1,6 +1,6 @@
 class Character extends MovableObject {
     world;
-    speed = 7;
+    speed = 5;
     height = 80;
     width = 40;
     imageLength;
@@ -73,6 +73,7 @@ class Character extends MovableObject {
     collecting_lives_sound = new Audio('assets/audio/collect.mp3');
     crushing_zombie_sound = new Audio('assets/audio/crushing-zombie.mp3');
 
+
     /**
      * Constructor function for initializing the object with various settings.
      */
@@ -132,14 +133,13 @@ class Character extends MovableObject {
         }
     }
 
+
     /**
      * Pause audio playback if any sound is playing.
      */
     pauseAudios() {
-        // if (this.isSoundPlaying) {
-            this.running_sound.pause();
-            this.isSoundPlaying = false;
-        // }
+        this.running_sound.pause();
+        this.isSoundPlaying = false;
     }
 
 
@@ -217,7 +217,7 @@ class Character extends MovableObject {
                 this.isHurtingSettings();
             } else if (this.isAboveGround() && !this.world.gameIsOver) {
                 this.isJumpingSettings();
-            } else if (this.world.keyboard.KEY_RIGHT && !this.world.gameIsOver || this.world.keyboard.KEY_LEFT && !this.world.gameIsOver) {
+            } else if (this.world.keyboard.KEY_RIGHT || this.world.keyboard.KEY_LEFT) {
                 this.isWalkingSettings();
             } else {
                 this.isStandingSettings();
@@ -228,14 +228,6 @@ class Character extends MovableObject {
         }
     }
 
-
-    /**
-     * Checks if the object is moving left or right and not in a dead state.
-     * @returns {boolean}
-     */
-    keyLeftOrRightAndNotDead() {
-        return this.world.keyboard.KEY_RIGHT && !this.world.gameIsOver || this.world.keyboard.KEY_LEFT && !this.world.gameIsOver;
-    }
 
     /**
      * Sets the settings for the 'dying' state of the object, triggered upon death.
@@ -261,7 +253,7 @@ class Character extends MovableObject {
             setTimeout(() => {
                 this.pauseAudios();
                 gameOver('youLost');
-            }, 1000);
+            }, 500);
         }
     }
 
@@ -310,18 +302,6 @@ class Character extends MovableObject {
         this.width = 40;
         this.state = 'WALKING';
         this.playAnimation(this.IMAGES_WALKING);
-    }
-
-
-    /**
-     * Plays the given animation images once if the current image count is less than or equal to the specified image length.
-     * @param {Array<string>} images - An array of image paths representing the animation frames.
-     * @param {number} imageLength - The length of the animation (number of frames).
-     */
-    playOnce(images, imageLength) {
-        if (this.currentImage <= imageLength) {
-            this.playAnimation(images);
-        }
     }
 
 
