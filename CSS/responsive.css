@@ -108,6 +108,37 @@
     #headline {
         font-size: 5vw;
     }
+
+    #referArrow {
+        height: 37px;
+        width: 150px;
+        left: 70px;
+    }
+
+    #referText {
+        left: 250px;
+        font-size: 1.5rem;
+    }
+
+    .refer-arrow-Audio {
+        right: 70px;
+    }
+}
+
+@media (max-width: 1000px) {
+
+    #referText {
+        top: 30px !important;
+        left: 15vw;
+    }
+
+    #referArrow {
+        width: 10%;
+    }
+
+    .refer-arrow-Audio {
+        right: 9%;
+    }
 }
 
 @media only screen and (max-width: 720px) {
@@ -190,10 +221,6 @@
 
     .align {
         height: 50px;
-    }
-
-    #gameOverBtn {
-        margin-top: 290px !important;
     }
 
     #gameOver {
@@ -279,16 +306,17 @@
         z-index: 3;
     }
 
-    .imprint-container span, .imprint-container a {
+    .imprint-container span,
+    .imprint-container a {
         color: grey;
         font-family: sans-serif;
         text-decoration: none;
     }
-    
+
     .imprint-container a:hover {
         color: #96c219;
     }
-    
+
     .imprint-container img {
         height: 10px;
         filter: invert(70%) sepia(2%) saturate(10%) hue-rotate(314deg) brightness(81%) contrast(87%);
@@ -315,7 +343,7 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        z-index: 12;
+        z-index: 999;
     }
 
     #portraitMobile {

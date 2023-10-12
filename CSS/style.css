@@ -76,36 +76,36 @@ html::-webkit-scrollbar {
     right: 0;
     bottom: 0;
     left: 0;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.9);
     z-index: 100;
     cursor: pointer;
 }
 
 #referText {
     position: relative;
-    top: 75px;
-    left: 18%;
+    top: 50px;
+    left: 12vw;
     width: 40vw;
     letter-spacing: 4px;
 }
 
 .referTextAudio {
-    left: 45% !important;
+    left: 50% !important;
 }
 
 #referArrow {
     position: absolute;
     height: 37px;
-    width: 11%;
-    top: 105px;
-    left: 7%;
-    transform: rotate(17deg);
+    width: 7%;
+    top: 90px;
+    left: 5%;
+    transform: rotate(6deg);
 }
 
 .refer-arrow-Audio {
-    transform: scaleX(-1) rotate(17deg) !important;
+    transform: scaleX(-1) rotate(6deg) !important;
     left: unset !important;
-    right: 9%;
+    right: 6%;
 }
 
 #startScreen {
