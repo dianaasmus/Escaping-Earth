@@ -333,8 +333,8 @@ function fullscreen() {
  */
 function removeFullscreenSettings() {
     exitFullscreen();
-    showElement(document.getElementById('infoIcon'));
-    showElement(document.getElementById('audioIcon'));
+    showElement(document.getElementById('infoIconBtn'));
+    showElement(document.getElementById('audioIconBtn'));
 }
 
 
@@ -344,8 +344,8 @@ function removeFullscreenSettings() {
  */
 function addFullscreenSettings(fullscreenElement) {
     enterFullscreen(fullscreenElement);
-    hideElement(document.getElementById('infoIcon'));
-    hideElement(document.getElementById('audioIcon'));
+    hideElement(document.getElementById('infoIconBtn'));
+    hideElement(document.getElementById('audioIconBtn'));
 }
 
 
@@ -395,8 +395,8 @@ function displayElements() {
  */
 function gameOver(result) {
     if (!document.getElementById('gameOver')) {
-        document.getElementById('infoIcon').disabled = true;
-        document.getElementById('audioIcon').disabled = true;
+        document.getElementById('infoIconBtn').disabled = true;
+        document.getElementById('audioIconBtn').disabled = true;
         addGameOverContainer();
         displayResult(result);
         displayElements();

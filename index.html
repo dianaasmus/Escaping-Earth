@@ -51,8 +51,12 @@
 
         <div id="overlay">
             <div class="gameAdjustmentsDesktop" id="gameAdjustments">
-                <button onclick="toggleInfo()" id="infoIcon"></button>
-                <button onclick="toggleAudio()" id="audioIcon"></button>
+                <button id="infoIconBtn">
+                    <span tabindex="-1" id="infoIcon" onclick="toggleInfo()"></span>
+                </button>
+                <button id="audioIconBtn">
+                    <span tabindex="-1" id="audioIcon" onclick="toggleAudio()" ></span>
+                </button>
             </div>
             <div id="gameBtns" class="d-none">
                 <div class="panel-wrapper">
@@ -82,12 +86,12 @@
     </div>
 
     <footer id="footer">
-    
+
         <div class="copyright-name-year">
             <img src="assets/img/copyright-icon.png" alt="Copyright Logo">
             <span> Diana Asmus 2023</span>
         </div>
-    
+
         <div>
             <a href="imprint.html" fragment="imprint">Imprint</a> -
             <a href="imprint.html">Data Protection</a>

@@ -178,8 +178,8 @@ function hideElement(element) {
  * Enables the Buttons after game restart.
  */
 function enableBtns() {
-    document.getElementById('infoIcon').disabled = false;
-    document.getElementById('audioIcon').disabled = false;
+    document.getElementById('infoIconBtn').disabled = false;
+    document.getElementById('audioIconBtn').disabled = false;
 }
 
 

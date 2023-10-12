@@ -218,12 +218,17 @@ html::-webkit-scrollbar {
     gap: 20px;
 }
 
+.gameAdjustmentsDesktop button { all: unset; }
+
+.gameAdjustmentsDesktop span:focus-visible { outline: none; }
+
 #infoIcon {
     background-image: url(../assets/img/start-screen/info-icon.png);
     background-size: 37px;
     background-repeat: no-repeat;
     border: none;
     background-color: unset;
+    display: flex;
     height: 40px;
     width: 40px;
     cursor: pointer;
@@ -236,6 +241,7 @@ html::-webkit-scrollbar {
     height: 40px;
     width: 40px;
     background-color: unset;
+    display: flex;
     border: none;
     z-index: 11;
     cursor: pointer;
