@@ -29,6 +29,7 @@ class World {
         this.draw();
         this.setWorld();
         this.setStoppableInterval(this.run, 50);
+        this.setStoppableInterval(this.checkShootObjects, 110);
     }
 
 
@@ -239,7 +240,7 @@ class World {
      * The main game loop that runs various collision checks and game states.
      */
     run() {
-        this.checkShootObjects();
+        // this.checkShootObjects();
         this.checkCollisions();
         this.checkCharacter();
         if (this.gameIsOver == false) {
@@ -268,7 +269,7 @@ class World {
         if (this.availableAmmunition()) {
             if (this.keyboard.KEY_TAB) {
                 this.character.setShot();
-                this.keyboard.KEY_TAB = false;
+                // this.keyboard.KEY_TAB = false;
             }
         } else if (this.noBatteryNoEndboss()) {
             this.youWonTimeout();

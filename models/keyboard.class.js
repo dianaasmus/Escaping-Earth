@@ -93,10 +93,8 @@ class Keyboard {
      */
     shootBtn() {
         document.getElementById('shootBtn').addEventListener('touchstart', (e) => {
-            if (this.KEY_TAB) {
-                e.preventDefault();
-                this.KEY_TAB = true;
-            }
+            e.preventDefault();
+            this.KEY_TAB = true;
         });
         document.getElementById('shootBtn').addEventListener('touchend', (e) => {
             e.preventDefault();
