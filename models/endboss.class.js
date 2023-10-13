@@ -20,6 +20,7 @@ class Endboss extends MovableObject {
         'assets/img/endboss/walk/walk-6.png'
     ];
 
+    
     /**
      * Constructor of the Endboss class.
      * Initializes the end boss with the specified ID, position, speed, and images.
@@ -34,12 +35,14 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_WALKING);
     }
 
+
     /**
      * Starts the animation of the end boss.
      */
     animate() {
         this.setStoppableInterval(this.moveEndboss, 200);
     }
+
 
     /**
      * Moves the end boss to the left and plays the walking animation.

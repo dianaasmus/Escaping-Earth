@@ -239,8 +239,8 @@ class World {
      * The main game loop that runs various collision checks and game states.
      */
     run() {
-        this.checkCollisions();
         this.checkShootObjects();
+        this.checkCollisions();
         this.checkCharacter();
         if (this.gameIsOver == false) {
             this.checkGameOver();

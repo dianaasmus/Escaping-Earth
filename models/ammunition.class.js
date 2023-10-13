@@ -26,7 +26,7 @@ class Ammunition extends CollectableObject {
      */
     constructor() {
         super().loadImage('assets/img/ammunition/13.png');
-        this.x = 200 + Math.random() * 2060;
+        this.x = 300 + Math.random() * 2060;
         this.setStoppableInterval(this.floatingObject, 1000 / 15);
     }
 

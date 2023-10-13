@@ -191,8 +191,8 @@ class MovableObject extends DrawableObject {
                     this.killZombie(enemy);
                 } else if (!enemy.isDead) {
                     this.hit();
+                    this.world.livesStatusBar.setPercentage(this.lives);
                 }
-                this.world.livesStatusBar.setPercentage(this.lives);
             }
         });
     }
