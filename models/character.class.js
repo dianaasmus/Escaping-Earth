@@ -310,7 +310,7 @@ class Character extends MovableObject {
      * @param {Endboss} endboss - The endboss object to check collision with.
      */
     handleCharacterEndbossCollision(endboss) {
-        if (this.isColliding(endboss)) {
+        if (this.isColliding(endboss) && !document.getElementById('gameOver')) {
             this.lives = 0;
             this.world.livesStatusBar.setPercentage(this.lives);
             this.isDyingSettings();

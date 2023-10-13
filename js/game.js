@@ -394,6 +394,7 @@ function displayElements() {
  */
 function gameOver(result) {
     if (!document.getElementById('gameOver')) {
+        debugger;
         document.getElementById('infoIconBtn').disabled = true;
         document.getElementById('audioIconBtn').disabled = true;
         addGameOverContainer();

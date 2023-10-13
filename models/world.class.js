@@ -28,8 +28,10 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
-        this.setStoppableInterval(this.run, 50);
-        this.setStoppableInterval(this.checkShootObjects, 110);
+        this.setStoppableInterval(this.run, 100);
+        // this.setStoppableInterval(this.checkShootObjects, 110);
+        this.setStoppableInterval(this.checkShots, 100);
+
     }
 
 
@@ -240,10 +242,9 @@ class World {
      * The main game loop that runs various collision checks and game states.
      */
     run() {
-        // this.checkShootObjects();
         this.checkCollisions();
         this.checkCharacter();
-        if (this.gameIsOver == false) {
+        if (!this.gameIsOver) {
             this.checkGameOver();
         }
     }
@@ -256,8 +257,13 @@ class World {
         this.character.isCollidingEnemies();
         this.character.isCollidingEndboss();
         this.character.isCollidingLives();
-        this.character.isCollidingLaser();
+        // this.character.isCollidingLaser();
         this.character.isCollidingAmmunition();
+    }
+
+    checkShots() {
+        this.checkShootObjects();
+        this.character.isCollidingLaser();
     }
 
 
@@ -269,7 +275,6 @@ class World {
         if (this.availableAmmunition()) {
             if (this.keyboard.KEY_TAB) {
                 this.character.setShot();
-                // this.keyboard.KEY_TAB = false;
             }
         } else if (this.noBatteryNoEndboss()) {
             this.youWonTimeout();
