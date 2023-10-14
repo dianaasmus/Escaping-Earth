@@ -174,6 +174,7 @@ function hideElement(element) {
     element.classList.add('d-none');
 }
 
+
 /**
  * Enables the Buttons after game restart.
  */
@@ -231,14 +232,3 @@ function youLost() {
 function youWon() {
     document.getElementById('headline').innerHTML = 'YOU WON!';
 }
-
-document.addEventListener('click', function (event) {
-    const infoContainer = document.getElementById('infoContainer');
-    const overlay = document.getElementById('overlay');
-
-    if (infoContainer && overlay && !infoContainer.contains(event.target) && !overlay.contains(event.target)) {
-
-        infoContainer.innerHTML = '';
-        
-    }
-});

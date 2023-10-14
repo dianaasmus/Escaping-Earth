@@ -251,11 +251,9 @@ class Character extends MovableObject {
             this.currentImage = 0;
             setTimeout(() => {
                 this.gameIsOver = true;
-
                 this.pauseAudios();
                 gameOver('youLost');
                 this.gameIsOver = false;
-
             }, 500);
         }
     }

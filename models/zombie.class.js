@@ -47,6 +47,7 @@ class Zombie extends MovableObject {
         this.loadImage('assets/img/enemies/dead.png');
     }
 
+
     /**
      * Starts the zombie's animation.
      */

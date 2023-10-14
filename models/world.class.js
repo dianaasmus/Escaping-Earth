@@ -242,8 +242,7 @@ class World {
     run() {
         this.checkCollisions();
         this.checkCharacter();
-            this.checkGameOver();
-
+        this.checkGameOver();
     }
 
 
@@ -257,6 +256,7 @@ class World {
         this.character.isCollidingAmmunition();
     }
 
+    
     /**
      * Check shot and laser collision.
      */

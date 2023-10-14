@@ -57,8 +57,6 @@ function startTextEffect() {
 
 /**
  * Handles the next action based on the state of the referAudio variable.
- * If referAudio is false, it calls the addReferTextAudio() function.
- * Otherwise, it hides the referContainer element.
  */
 function next() {
     if (referAudio == false) {
