@@ -249,10 +249,13 @@ class Character extends MovableObject {
         if (this.state !== 'DYING') {
             this.state = 'DYING';
             this.currentImage = 0;
-            this.world.gameIsOver = true;
             setTimeout(() => {
+                this.gameIsOver = true;
+
                 this.pauseAudios();
                 gameOver('youLost');
+                this.gameIsOver = false;
+
             }, 500);
         }
     }
@@ -310,7 +313,7 @@ class Character extends MovableObject {
      * @param {Endboss} endboss - The endboss object to check collision with.
      */
     handleCharacterEndbossCollision(endboss) {
-        if (this.isColliding(endboss) && !document.getElementById('gameOver')) {
+        if (this.isColliding(endboss) && !this.world.gameIsOver) {
             this.lives = 0;
             this.world.livesStatusBar.setPercentage(this.lives);
             this.isDyingSettings();

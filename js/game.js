@@ -276,6 +276,7 @@ function startAgain() {
 
     enableBtns();
     initGame();
+    world.gameIsOver = false;
 }
 
 
@@ -393,8 +394,8 @@ function displayElements() {
  * @param {string} result - The result of the game ('youLost' or 'youWon').
  */
 function gameOver(result) {
-    if (!document.getElementById('gameOver')) {
-        debugger;
+    if (!world.gameIsOver) {
+        world.gameIsOver = true;
         document.getElementById('infoIconBtn').disabled = true;
         document.getElementById('audioIconBtn').disabled = true;
         addGameOverContainer();

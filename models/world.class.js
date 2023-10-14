@@ -29,9 +29,8 @@ class World {
         this.draw();
         this.setWorld();
         this.setStoppableInterval(this.run, 100);
-        // this.setStoppableInterval(this.checkShootObjects, 110);
-        this.setStoppableInterval(this.checkShots, 100);
-
+        this.setStoppableInterval(this.checkShootObjects, 100);
+        this.setStoppableInterval(this.checkLaserEnemyCollision, 50);
     }
 
 
@@ -51,8 +50,7 @@ class World {
      * Checks if the game is over and triggers the game over state if necessary.
      */
     checkGameOver() {
-        if (this.noAmmunitionButEndboss()) {
-            this.gameIsOver = true;
+        if (this.noAmmunitionButEndboss() && !this.gameIsOver) {
             this.character.pauseAudios();
             gameOver('youLost');
         }
@@ -244,9 +242,8 @@ class World {
     run() {
         this.checkCollisions();
         this.checkCharacter();
-        if (!this.gameIsOver) {
             this.checkGameOver();
-        }
+
     }
 
 
@@ -257,12 +254,13 @@ class World {
         this.character.isCollidingEnemies();
         this.character.isCollidingEndboss();
         this.character.isCollidingLives();
-        // this.character.isCollidingLaser();
         this.character.isCollidingAmmunition();
     }
 
-    checkShots() {
-        this.checkShootObjects();
+    /**
+     * Check shot and laser collision.
+     */
+    checkLaserEnemyCollision() {
         this.character.isCollidingLaser();
     }
 
@@ -310,7 +308,6 @@ class World {
      */
     youWonTimeout() {
         setTimeout(() => {
-            this.gameIsOver = true;
             this.character.pauseAudios();
             gameOver('youWon');
         }, 500);
