@@ -109,7 +109,10 @@ function createGameInfo() {
                     </div>
                 </div>
             </div>
-                <p id="gameDescription">It is June 3245 when, suddenly, an extraterrestrial being crashes its UFO over Earth. Trapped in a world full of zombies and robots, 'June-3245' strives to fight for survival and escape from the planet. Help him defeat his enemies and reach his UFO.</p>
+                <p id="gameDescription">It is June 3245 when, suddenly, an extraterrestrial 
+                being crashes its UFO over Earth. Trapped in a world full of zombies and robots, 
+                help June-3245 defeat his enemies. <br> Be cautious: the robots can instantly pose 
+                a deadly threat and must be fought only with the laser!</p>
         </div>
             <img onclick="nextSite()" src="assets/img/start-screen/arrow.png" id="arrow">
             <div class="imprint-container">
