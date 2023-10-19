@@ -251,7 +251,6 @@ class World {
      */
     checkCollisions() {
         this.character.isCollidingEnemies();
-        this.character.isCollidingEndboss();
         this.character.isCollidingLives();
         this.character.isCollidingAmmunition();
     }
@@ -262,6 +261,7 @@ class World {
      */
     checkLaserEnemyCollision() {
         this.character.isCollidingLaser();
+        this.character.isCollidingEndboss();
     }
 
 
@@ -274,9 +274,10 @@ class World {
             if (this.keyboard.KEY_TAB) {
                 this.character.setShot();
             }
-        } else if (this.noBatteryNoEndboss()) {
+        } 
+        if (this.noBatteryNoEndboss()) {
             this.youWonTimeout();
-            this.character.batteryAll = 10;
+            this.character.batteryAll = 6;
         }
     }
 

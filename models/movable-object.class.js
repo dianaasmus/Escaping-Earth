@@ -9,10 +9,10 @@ class MovableObject extends DrawableObject {
     lastHit = 0;
     speedX = 1;
 
-    batteryOne = 3;
-    batteryTwo = 4;
-    batteryThree = 3;
-    batteryAll = 10;
+    batteryOne = 2;
+    batteryTwo = 2;
+    batteryThree = 2;
+    batteryAll = 6;
 
 
     /**
